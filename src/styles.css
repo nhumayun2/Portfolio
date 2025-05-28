@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+
+@import "tailwindcss";
+
+/* You can add your own global styles here */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Inter", sans-serif; /* Example font, make sure to link it in index.html */
+  background-color: #1a202c; /* Example dark background */
+  color: #e2e8f0; /* Example light text */
+  scroll-behavior: smooth;
+}
