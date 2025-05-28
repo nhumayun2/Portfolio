@@ -1,103 +1,138 @@
-<section id="portfolio" class="bg-gray-800 text-lighttext py-16 md:py-24">
-  <div class="container mx-auto px-6 max-w-6xl">
-    <h2
-      class="text-4xl md:text-5xl font-display font-bold text-center text-primary mb-12 animate-fade-in-up"
-    >
-      My Projects
-    </h2>
+<section
+  id="portfolio"
+  class="relative bg-[var(--color-brand-surface)] text-[var(--color-brand-text-on-dark)] py-20 md:py-28 overflow-hidden"
+>
+  <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+    <div
+      class="aurora-shape animate-aurora-1 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-[var(--color-brand-primary)] top-[-20%] left-[-20%]"
+      style="animation-delay: -2s"
+    ></div>
+    <div
+      class="aurora-shape animate-aurora-2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-[var(--color-brand-secondary)] bottom-[-25%] right-[-15%]"
+      style="animation-delay: -5s"
+    ></div>
+    <div
+      class="aurora-shape animate-aurora-3 w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-[var(--color-brand-highlight)] top-[10%] right-[5%]"
+      style="animation-delay: 0s"
+    ></div>
+  </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
-      <div
-        class="bg-darkbg rounded-lg shadow-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-transform duration-300"
+  <div class="container mx-auto px-6 relative z-10">
+    <div
+      class="text-center mb-16 md:mb-20 opacity-0 apply-fade-in-up"
+      style="animation-delay: 0.1s"
+    >
+      <h2
+        class="text-4xl md:text-5xl font-[var(--font-display)] font-bold mb-4"
       >
-        <img
-          src="https://via.placeholder.com/600x350/F97316/FFFFFF?text=Agricultural+Hub"
-          alt="Agricultural Information Hub"
-          class="w-full h-56 object-cover"
-        />
-        <div class="p-8">
-          <h3 class="text-3xl font-bold text-secondary mb-3">
-            Agricultural Information Hub
-          </h3>
-          <p class="text-gray-300 mb-4 text-lg">
-            Designed and developed an informative web application aimed at
-            empowering farmers and agriculture enthusiasts with accessible,
-            categorized agricultural knowledge[cite: 6]. Built with Angular and
-            Tailwind CSS, this responsive platform provides curated content
-            across various domains[cite: 7].
-          </p>
-          <p class="text-gray-400 mb-2 font-medium">
-            Technologies: TypeScript, HTML, Tailwind CSS, Angular CLI [cite: 14]
-          </p>
-          <ul
-            class="list-disc list-inside text-gray-400 mb-6 text-base space-y-1"
+        My <span class="text-[var(--color-brand-primary)]">Projects</span>
+      </h2>
+      <div class="w-20 h-1 bg-[var(--color-brand-primary)] mx-auto"></div>
+    </div>
+
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10 md:gap-12"
+    >
+      <div
+        class="project-card bg-[var(--color-brand-dark)]/80 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden group opacity-0 apply-fade-in-up"
+        style="animation-delay: 0.3s"
+      >
+        <div class="relative overflow-hidden h-64">
+          <img
+            src="/agriculturehub.png"
+            alt="Agricultural Information Hub"
+            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+          />
+          <div
+            class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
           >
-            <li>Homepage with Navigation [cite: 8]</li>
-            <li>Farming Guides: Detailed, categorized articles [cite: 9]</li>
-            <li>Crop Information: Comprehensive details [cite: 10]</li>
-            <li>Pest Management: Insightful control strategies [cite: 11]</li>
-            <li>Contact Form [cite: 12]</li>
-            <li>Responsive Design [cite: 13]</li>
-          </ul>
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-            <a
-              href="https://github.com/nhumayun2/Agricultural-Information-Hub.git"
-              target="_blank"
-              class="bg-primary hover:bg-accent text-white font-bold py-2 px-5 rounded-full text-md transition duration-300 flex items-center shadow-md"
-            >
-              <i class="fab fa-github mr-2"></i> GitHub
-            </a>
             <a
               href="https://agriinfohub.netlify.app/"
               target="_blank"
-              class="bg-secondary hover:bg-green-700 text-white font-bold py-2 px-5 rounded-full text-md transition duration-300 flex items-center shadow-md"
+              rel="noopener noreferrer"
+              class="text-white border-2 border-white py-2 px-6 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg font-semibold"
             >
-              <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+              View Live <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+        <div class="p-6 md:p-8">
+          <h3
+            class="text-2xl md:text-3xl font-[var(--font-display)] font-semibold text-[var(--color-brand-primary)] mb-3"
+          >
+            Agricultural Information Hub
+          </h3>
+          <p
+            class="font-[var(--font-body)] text-slate-300 mb-4 text-base leading-relaxed"
+          >
+            An informative web app empowering farmers with accessible
+            agricultural knowledge. Built with Angular & Tailwind CSS.
+          </p>
+          <p class="text-sm text-slate-400 mb-1 font-medium">
+            <strong class="text-[var(--color-brand-secondary)]">Tech:</strong>
+            TypeScript, HTML, Tailwind CSS, Angular CLI
+          </p>
+          <ul
+            class="list-disc list-inside text-slate-400 mb-6 text-sm space-y-1 pl-1"
+          >
+            <li>Homepage with Navigation, Farming Guides</li>
+            <li>Crop Information, Pest Management, Contact Form</li>
+          </ul>
+          <div class="flex flex-wrap gap-3 justify-start">
+            <a
+              href="https://github.com/nhumayun2/Agricultural-Information-Hub.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center bg-[var(--color-brand-surface)] hover:bg-opacity-70 text-[var(--color-brand-text-on-dark)] font-medium py-2 px-4 rounded-lg text-sm transition-colors duration-300 shadow-md"
+            >
+              <i class="fab fa-github mr-2"></i> GitHub
             </a>
           </div>
         </div>
       </div>
 
       <div
-        class="bg-darkbg rounded-lg shadow-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-transform duration-300"
+        class="project-card bg-[var(--color-brand-dark)]/80 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden group opacity-0 apply-fade-in-up"
+        style="animation-delay: 0.4s"
       >
-        <img
-          src="https://via.placeholder.com/600x350/3B82F6/FFFFFF?text=Book+Shop+Management"
-          alt="Book Shop Management System"
-          class="w-full h-56 object-cover"
-        />
-        <div class="p-8">
-          <h3 class="text-3xl font-bold text-secondary mb-3">
+        <div class="relative overflow-hidden h-64">
+          <img
+            src="/BookManagement.png"
+            alt="Book Shop Management System"
+            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+          />
+          <div
+            class="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all duration-300"
+          ></div>
+        </div>
+        <div class="p-6 md:p-8">
+          <h3
+            class="text-2xl md:text-3xl font-[var(--font-display)] font-semibold text-[var(--color-brand-secondary)] mb-3"
+          >
             Book Shop Management System
           </h3>
-          <p class="text-gray-300 mb-4 text-lg">
-            Developed a comprehensive web application for managing a book shop,
-            utilizing PHP for server-side logic and MySQL for database
-            management[cite: 14]. Supports various roles, including
-            administrators and accountants[cite: 15].
+          <p
+            class="font-[var(--font-body)] text-slate-300 mb-4 text-base leading-relaxed"
+          >
+            Comprehensive web app for managing a book shop using PHP and MySQL,
+            supporting various user roles.
           </p>
-          <p class="text-gray-400 mb-2 font-medium">
-            Technologies: PHP, HTML, CSS, JavaScript, MySQL [cite: 21]
+          <p class="text-sm text-slate-400 mb-1 font-medium">
+            <strong class="text-[var(--color-brand-highlight)]">Tech:</strong>
+            PHP, HTML, CSS, JavaScript, MySQL
           </p>
           <ul
-            class="list-disc list-inside text-gray-400 mb-6 text-base space-y-1"
+            class="list-disc list-inside text-slate-400 mb-6 text-sm space-y-1 pl-1"
           >
-            <li>
-              User Management: Registration, login, profile, password recovery
-              [cite: 16]
-            </li>
-            <li>
-              Book Management: Adding, editing, removing book entries [cite: 17]
-            </li>
-            <li>Inventory and Profit Tracking [cite: 18]</li>
-            <li>Admin Controls for user and product management [cite: 19]</li>
-            <li>MySQL for robust database operations [cite: 20]</li>
+            <li>User Management, Book Management</li>
+            <li>Inventory & Profit Tracking, Admin Controls</li>
           </ul>
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="flex flex-wrap gap-3 justify-start">
             <a
               href="https://github.com/Humayun-Ahmed-Niloy/Book-Management-System-Php"
               target="_blank"
-              class="bg-primary hover:bg-accent text-white font-bold py-2 px-5 rounded-full text-md transition duration-300 flex items-center shadow-md"
+              rel="noopener noreferrer"
+              class="inline-flex items-center bg-[var(--color-brand-surface)] hover:bg-opacity-70 text-[var(--color-brand-text-on-dark)] font-medium py-2 px-4 rounded-lg text-sm transition-colors duration-300 shadow-md"
             >
               <i class="fab fa-github mr-2"></i> GitHub
             </a>
@@ -106,50 +141,56 @@
       </div>
 
       <div
-        class="bg-darkbg rounded-lg shadow-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-transform duration-300"
+        class="project-card bg-[var(--color-brand-dark)]/80 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden group opacity-0 apply-fade-in-up"
+        style="animation-delay: 0.5s"
       >
-        <img
-          src="https://via.placeholder.com/600x350/10B981/FFFFFF?text=Task+Tracker"
-          alt="Task Tracker Angular"
-          class="w-full h-56 object-cover"
-        />
-        <div class="p-8">
-          <h3 class="text-3xl font-bold text-secondary mb-3">
+        <div class="relative overflow-hidden h-64">
+          <img
+            src="/tasktracker.png"
+            alt="Task Tracker Angular"
+            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+          />
+          <div
+            class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+          >
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white border-2 border-white py-2 px-6 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg font-semibold"
+            >
+              View Live <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+        <div class="p-6 md:p-8">
+          <h3
+            class="text-2xl md:text-3xl font-[var(--font-display)] font-semibold text-[var(--color-brand-highlight)] mb-3"
+          >
             Task Tracker (Angular)
           </h3>
-          <p class="text-gray-300 mb-4 text-lg">
-            Developed a feature-rich task tracker web application using
-            Angular[cite: 22]. Enables users to efficiently manage tasks by
-            categorizing them into different statuses[cite: 22]. Demonstrates
-            Angular's power for dynamic, responsive, and interactive single-page
-            applications[cite: 23].
+          <p
+            class="font-[var(--font-body)] text-slate-300 mb-4 text-base leading-relaxed"
+          >
+            Feature-rich task tracker using Angular for dynamic and responsive
+            task management with status tracking.
           </p>
-          <p class="text-gray-400 mb-2 font-medium">
-            Technologies: Angular, TypeScript, HTML, CSS, Angular CLI, Visual
-            Studio Code [cite: 28]
+          <p class="text-sm text-slate-400 mb-1 font-medium">
+            <strong class="text-[var(--color-brand-primary)]">Tech:</strong>
+            Angular, TypeScript, HTML, CSS
           </p>
           <ul
-            class="list-disc list-inside text-gray-400 mb-6 text-base space-y-1"
+            class="list-disc list-inside text-slate-400 mb-6 text-sm space-y-1 pl-1"
           >
-            <li>Task Management: Add, update, delete tasks [cite: 24]</li>
-            <li>
-              Status Tracking: "To Do," "In Progress," "Done" with seamless
-              transitions [cite: 25]
-            </li>
-            <li>
-              Interactive User Interface: Dynamic and responsive design [cite:
-              26]
-            </li>
-            <li>
-              Real-time Updates: Instantly reflect changes using Angular's
-              two-way data binding [cite: 27]
-            </li>
+            <li>Task CRUD, Status Tracking</li>
+            <li>Interactive UI, Real-time Updates</li>
           </ul>
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="flex flex-wrap gap-3 justify-start">
             <a
               href="https://github.com/nhumayun2/Task-Tracker-Angular-"
               target="_blank"
-              class="bg-primary hover:bg-accent text-white font-bold py-2 px-5 rounded-full text-md transition duration-300 flex items-center shadow-md"
+              rel="noopener noreferrer"
+              class="inline-flex items-center bg-[var(--color-brand-surface)] hover:bg-opacity-70 text-[var(--color-brand-text-on-dark)] font-medium py-2 px-4 rounded-lg text-sm transition-colors duration-300 shadow-md"
             >
               <i class="fab fa-github mr-2"></i> GitHub
             </a>
@@ -158,52 +199,56 @@
       </div>
 
       <div
-        class="bg-darkbg rounded-lg shadow-xl overflow-hidden border border-gray-700 transform hover:scale-105 transition-transform duration-300"
+        class="project-card bg-[var(--color-brand-dark)]/80 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden group opacity-0 apply-fade-in-up"
+        style="animation-delay: 0.6s"
       >
-        <img
-          src="https://via.placeholder.com/600x350/F97316/FFFFFF?text=Dice+Game"
-          alt="Dice Game Project"
-          class="w-full h-56 object-cover"
-        />
-        <div class="p-8">
-          <h3 class="text-3xl font-bold text-secondary mb-3">
+        <div class="relative overflow-hidden h-64">
+          <img
+            src="/dicegame.png"
+            alt="Dice Game"
+            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-out"
+          />
+          <div
+            class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+          >
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-white border-2 border-white py-2 px-6 rounded-md hover:bg-white hover:text-black transition-colors duration-300 text-lg font-semibold"
+            >
+              View Live <i class="fas fa-external-link-alt ml-2 text-sm"></i>
+            </a>
+          </div>
+        </div>
+        <div class="p-6 md:p-8">
+          <h3
+            class="text-2xl md:text-3xl font-[var(--font-display)] font-semibold text-[var(--color-brand-primary)] mb-3"
+          >
             Dice Game Project
           </h3>
-          <p class="text-gray-300 mb-4 text-lg">
-            Developed an interactive web-based dice game using HTML, CSS, and
-            JavaScript[cite: 29]. Allows two players to take turns rolling a
-            dice, accumulating points, and competing to reach a winning
-            score[cite: 29].
+          <p
+            class="font-[var(--font-body)] text-slate-300 mb-4 text-base leading-relaxed"
+          >
+            Interactive web-based dice game using HTML, CSS, and JavaScript for
+            two players.
           </p>
-          <p class="text-gray-400 mb-2 font-medium">
-            Technologies: HTML, CSS, JavaScript [cite: 35]
+          <p class="text-sm text-slate-400 mb-1 font-medium">
+            <strong class="text-[var(--color-brand-secondary)]">Tech:</strong>
+            HTML, CSS, JavaScript
           </p>
           <ul
-            class="list-disc list-inside text-gray-400 mb-6 text-base space-y-1"
+            class="list-disc list-inside text-slate-400 mb-6 text-sm space-y-1 pl-1"
           >
-            <li>
-              Player Management: Functionality for two players with separate
-              score tracking [cite: 30]
-            </li>
-            <li>
-              Interactive UI: Displaying current/total scores, active player
-              indication, dynamic dice images [cite: 31]
-            </li>
-            <li>
-              Game Logic: Rolling dice, holding scores, switching turns [cite:
-              32]
-            </li>
-            <li>Responsive Design [cite: 33]</li>
-            <li>
-              Initialization and Reset: New game, resetting scores, game states
-              [cite: 34]
-            </li>
+            <li>Two-player score tracking, Interactive UI</li>
+            <li>Game Logic, Responsive Design</li>
           </ul>
-          <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="flex flex-wrap gap-3 justify-start">
             <a
               href="https://github.com/Humayun-Ahmed-Niloy/Dice-Game"
               target="_blank"
-              class="bg-primary hover:bg-accent text-white font-bold py-2 px-5 rounded-full text-md transition duration-300 flex items-center shadow-md"
+              rel="noopener noreferrer"
+              class="inline-flex items-center bg-[var(--color-brand-surface)] hover:bg-opacity-70 text-[var(--color-brand-text-on-dark)] font-medium py-2 px-4 rounded-lg text-sm transition-colors duration-300 shadow-md"
             >
               <i class="fab fa-github mr-2"></i> GitHub
             </a>

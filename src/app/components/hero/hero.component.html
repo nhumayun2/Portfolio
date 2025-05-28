@@ -1,48 +1,128 @@
 <section
   id="hero"
-  class="relative bg-darkbg text-lighttext h-screen flex items-center justify-center pt-24 md:pt-0 overflow-hidden"
+  class="relative bg-[var(--color-brand-dark)] text-[var(--color-brand-text-on-dark)] min-h-screen flex items-center justify-center overflow-hidden pt-35 py-20 md:py-0"
 >
-  <div class="container mx-auto px-6 text-center z-10">
-    <div
-      class="relative w-40 h-40 mx-auto mb-8 rounded-full overflow-hidden border-4 border-primary shadow-lg ring-4 ring-primary ring-opacity-50 transition-transform duration-500 hover:scale-105"
-    >
-      <img
-        src="/me.jpg"
-        alt="Your Profile Picture"
-        class="w-full h-full object-cover"
-      />
+  <div class="container mx-auto px-6 z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div class="text-center md:text-left">
+        <h1
+          class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-[var(--font-display)] font-extrabold leading-tight mb-4 opacity-0 apply-fade-in-up"
+          style="animation-delay: 0.2s"
+        >
+          Hi, I'm
+          <span class="text-[var(--color-brand-primary)]">Humayun Ahmed</span>
+        </h1>
+        <p
+          class="text-xl md:text-2xl lg:text-3xl font-[var(--font-body)] mb-8 text-slate-300 opacity-0 apply-fade-in-up"
+          style="animation-delay: 0.4s"
+        >
+          Software Engineering Student
+          <span class="text-[var(--color-brand-secondary)] font-semibold"
+            >| Frontend Developer</span
+          >
+        </p>
+        <p
+          class="font-[var(--font-body)] text-lg text-slate-400 mb-10 leading-relaxed max-w-xl mx-auto md:mx-0 opacity-0 apply-fade-in-up"
+          style="animation-delay: 0.6s"
+        >
+          A passionate builder of modern, responsive, and user-centric web
+          applications. Turning ideas into interactive digital experiences.
+        </p>
+        <div
+          class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start opacity-0 apply-fade-in-up"
+          style="animation-delay: 0.8s"
+        >
+          <a
+            href="#contact"
+            class="group inline-block relative overflow-hidden bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] font-[var(--font-display)] font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-[var(--color-brand-primary)]/50"
+          >
+            <span
+              class="absolute inset-0 w-0 bg-[var(--color-brand-highlight)] transition-all duration-[350ms] ease-out group-hover:w-full"
+            ></span>
+            <span class="relative"
+              >Get in Touch <i class="fas fa-arrow-right ml-2"></i
+            ></span>
+          </a>
+          <a
+            href="#portfolio"
+            class="inline-block bg-[var(--color-brand-surface)] text-[var(--color-brand-text-on-dark)] font-[var(--font-display)] font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:border-[var(--color-brand-secondary)] border-2 border-transparent"
+          >
+            View My Work <i class="fas fa-briefcase ml-2"></i>
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="relative flex justify-center md:justify-end items-center mt-12 md:mt-0 opacity-0 apply-fade-in-up"
+        style="animation-delay: 0.5s"
+      >
+        <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 group">
+          <div
+            class="absolute inset-0 bg-[var(--color-brand-secondary)] rounded-full opacity-20 blur-2xl animate-pulse"
+          ></div>
+          <div
+            class="absolute inset-x-4 inset-y-4 bg-[var(--color-brand-primary)] rounded-tl-[50px] rounded-br-[50px] rounded-tr-2xl rounded-bl-2xl opacity-10 blur-xl animate-pulse"
+            style="animation-delay: 1s"
+          ></div>
+
+          <img
+            src="/me.jpg"
+            alt="Humayun Ahmed"
+            class="relative w-full h-full object-cover rounded-full border-4 border-[var(--color-brand-surface)] shadow-2xl transform transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-[var(--color-brand-primary)]/30 group-hover:rotate-1"
+          />
+          <div
+            class="absolute -bottom-8 -left-8 w-24 h-24 opacity-0 group-hover:opacity-50 transition-opacity duration-500 hidden lg:block apply-fade-in"
+            style="animation-delay: 1.2s"
+          >
+            <svg
+              width="100"
+              height="100"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="5"
+                cy="5"
+                r="5"
+                fill="currentColor"
+                class="text-[var(--color-brand-primary)] animate-pulse"
+                style="animation-delay: 0.5s"
+              />
+              <circle
+                cx="25"
+                cy="5"
+                r="3"
+                fill="currentColor"
+                class="text-[var(--color-brand-secondary)] animate-pulse"
+                style="animation-delay: 1s"
+              />
+              <circle
+                cx="5"
+                cy="25"
+                r="3"
+                fill="currentColor"
+                class="text-[var(--color-brand-secondary)] animate-pulse"
+                style="animation-delay: 1.5s"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
-    <h1
-      class="text-4xl md:text-6xl lg:text-7xl font-display font-extrabold leading-tight mb-4 animate-fade-in-up"
-    >
-      Hi, I'm <span class="text-primary">Humayun Ahmed</span>
-    </h1>
-    <p
-      class="text-xl md:text-2xl lg:text-3xl mb-8 font-light animate-fade-in-up delay-200"
-    >
-      Software Engineering Student
-      <span class="font-semibold text-secondary">| Frontend Developer</span>
-      <br class="hidden md:block" />
-      A passionate Software Engineering student and Frontend Developer building
-      modern and responsive web applications.
-    </p>
-    <a
-      href="#contact"
-      class="inline-block bg-white hover:bg-accent text-black font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 animate-bounce-in delay-400 shadow-lg"
-    >
-      Get in Touch <i class="fas fa-arrow-right ml-2"></i>
-    </a>
   </div>
 
-  <div class="absolute inset-0 overflow-hidden opacity-5">
+  <div class="absolute inset-0 overflow-hidden opacity-20 md:opacity-30 z-0">
     <div
-      class="w-96 h-96 bg-primary rounded-full absolute -top-40 -left-40 blur-3xl animate-blob"
+      class="w-96 h-96 bg-[var(--color-brand-primary)] rounded-full absolute -top-40 -left-40 blur-3xl animate-custom-blob"
     ></div>
     <div
-      class="w-80 h-80 bg-secondary rounded-full absolute -bottom-40 -right-40 blur-3xl animate-blob animation-delay-2000"
+      class="w-80 h-80 bg-[var(--color-brand-secondary)] rounded-full absolute -bottom-40 -right-40 blur-3xl animate-custom-blob"
+      style="animation-delay: -2s"
     ></div>
     <div
-      class="w-72 h-72 bg-accent rounded-full absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 blur-3xl animate-blob animation-delay-4000"
+      class="w-72 h-72 bg-[var(--color-brand-highlight)] rounded-full absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 blur-3xl animate-custom-blob"
+      style="animation-delay: -4s"
     ></div>
   </div>
 </section>

@@ -1,15 +1,229 @@
-/* You can add global styles to this file, and also import other style files */
 /* src/styles.css */
 
-@import "tailwindcss";
+@import "tailwindcss"; /* This should be the very first line. It imports Tailwind's base, components, and utilities. */
 
-/* You can add your own global styles here */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: "Inter", sans-serif; /* Example font, make sure to link it in index.html */
-  background-color: #1a202c; /* Example dark background */
-  color: #e2e8f0; /* Example light text */
-  scroll-behavior: smooth;
+/*
+  Define your global CSS custom properties (theme colors, fonts) directly on :root.
+  These will be globally available and can be used by Tailwind's arbitrary value syntax.
+*/
+:root {
+  --color-brand-dark: #0f172a;
+  --color-brand-surface: #1e293b;
+  --color-brand-primary: #84cc16; /* Lime Green */
+  --color-brand-secondary: #7e22ce; /* Vivid Purple */
+  --color-brand-highlight: #ec4899; /* Bright Pink */
+  --color-brand-text-on-dark: #e2e8f0;
+  --color-brand-text-on-light: #0f172a;
+  --color-brand-light-bg: #f8fafc;
+
+  --font-display: "Poppins", "Arial", sans-serif; /* Added fallbacks */
+  --font-body: "Inter", "Arial", sans-serif; /* Added fallbacks */
 }
+
+/*
+  Add your custom base styles.
+  Tailwind's `@import "tailwindcss";` should already include base styles.
+  If you need to override or add specific base styles, do it here,
+  potentially within @layer base if you want to ensure correct ordering.
+*/
+@layer base {
+  html {
+    /* Add this */
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-brand-dark);
+    color: var(--color-brand-text-on-dark);
+    /* Ensure scroll-behavior is smooth if you use hash links */
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+  }
+
+  /* Add other global base styles if needed */
+}
+
+/*
+  Define your custom animation keyframes and any custom utility-like classes.
+  You can place these within @layer utilities if you want them to be treated
+  like Tailwind utilities (e.g., regarding ordering and overrides).
+*/
+@layer utilities {
+  @keyframes customFadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .apply-fade-in-up {
+    animation-name: customFadeInUp;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes customFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .apply-fade-in {
+    animation-name: customFadeIn;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes customBlob {
+    0%,
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+  }
+
+  .animate-custom-blob {
+    /* Using a custom name for the class applying the blob */
+    animation: customBlob 7s infinite ease-in-out;
+  }
+
+  /* If you need custom pulse animations beyond Tailwind's defaults */
+  /*
+  @keyframes customPulseSlow { ... }
+  .animate-custom-pulse-slow { animation: customPulseSlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  */
+
+  /* --- AURORA EFFECT STYLES START HERE --- */
+  .aurora-shape {
+    @apply absolute rounded-full opacity-20 md:opacity-30 blur-3xl; /* Tailwind classes for base styling */
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate; /* Makes the animation go back and forth smoothly */
+  }
+
+  @keyframes auroraBreathe1 {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+      opacity: 0.15; /* Start a bit more subtle */
+    }
+    50% {
+      transform: translate(40px, 60px) scale(1.2);
+      opacity: 0.25; /* Slightly more visible */
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes auroraBreathe2 {
+    0% {
+      transform: translate(0px, 0px) scale(1.1);
+      opacity: 0.2;
+    }
+    50% {
+      transform: translate(-50px, -30px) scale(1);
+      opacity: 0.1;
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1.1);
+      opacity: 0.2;
+    }
+  }
+
+  @keyframes auroraBreathe3 {
+    0% {
+      transform: translate(0px, 0px) scale(0.9);
+      opacity: 0.25;
+    }
+    50% {
+      transform: translate(30px, -70px) scale(1.15);
+      opacity: 0.15;
+    }
+    100% {
+      transform: translate(0px, 0px) scale(0.9);
+      opacity: 0.25;
+    }
+  }
+
+  .animate-aurora-1 {
+    animation-name: auroraBreathe1;
+    animation-duration: 18s; /* Slower, more subtle */
+  }
+  .animate-aurora-2 {
+    animation-name: auroraBreathe2;
+    animation-duration: 22s;
+  }
+  .animate-aurora-3 {
+    animation-name: auroraBreathe3;
+    animation-duration: 20s;
+  }
+  /* --- AURORA EFFECT STYLES END HERE --- */
+  @keyframes subtleGridPan {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 40px 40px;
+    } /* Adjust pan distance for speed/effect */
+  }
+
+  .bg-animated-subtle-grid-pattern {
+    /* Creates a grid using CSS gradients */
+    background-image: linear-gradient(
+        to right,
+        var(--color-brand-surface) 1px,
+        transparent 1.5px
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-brand-surface) 1px,
+        transparent 1.5px
+      );
+    background-size: 30px 30px; /* Adjust size of the grid squares */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0.05; /* Make it very subtle */
+    animation: subtleGridPan 20s linear infinite alternate; /* Slow, continuous pan */
+  }
+} /* This closes the @layer utilities block */
+
+/*
+  Any remaining custom component classes (if you choose to define any outside of
+  Tailwind utilities) can go here, possibly within @layer components.
+*/
+/*
+@layer components {
+  .custom-button {
+    @apply py-2 px-4 rounded-lg; // Example of composing utilities
+    background-color: var(--color-brand-primary);
+    color: var(--color-brand-dark);
+  }
+}
+*/
