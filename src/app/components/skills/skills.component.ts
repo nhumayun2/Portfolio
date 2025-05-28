@@ -31,12 +31,13 @@ interface HTMLSwiperContainerElement extends HTMLElement {
 }
 
 @Component({
-    selector: 'app-skills',
-    imports: [CommonModule],
-    templateUrl: './skills.component.html',
-    styleUrls: ['./skills.component.css'],
-    encapsulation: ViewEncapsulation.None,
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  selector: 'app-skills',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './skills.component.html',
+  styleUrls: ['./skills.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SkillsComponent implements AfterViewInit {
   @ViewChild('skillsSwiper')
