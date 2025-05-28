@@ -6,19 +6,14 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
   ViewChild,
-} from '@angular/core'; // Added CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild
-import { CommonModule } from '@angular/common';
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core'; // Import PLATFORM_ID, Inject
+import { CommonModule, isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 
-// Import and register Swiper custom elements
-import { register } from 'swiper/element/bundle'; // For all Swiper elements
-// Alternatively, import specific elements if you know them:
-// import { SwiperContainer, SwiperSlide } from 'swiper/element';
-// register() needs to be called once to register Swiper components
-register();
-
-// Swiper types can still be useful for config if available and correctly typed
-// For Swiper 11+, SwiperOptions might come from 'swiper/types'
+// Swiper types (ensure you have the correct path if Swiper version differs)
 import { SwiperOptions } from 'swiper/types';
+// Note: `register()` should now be in main.ts
 
 interface Skill {
   icon: string;
@@ -27,21 +22,29 @@ interface Skill {
   accentColorVar: string;
 }
 
+// Define the type for Swiper container element if not globally available
+// This helps with type checking for nativeElement properties like initialize
+interface HTMLSwiperContainerElement extends HTMLElement {
+  swiper: any; // Swiper instance
+  initialize: () => void; // Method we are calling
+  // Add other Swiper Element properties/methods if you use them directly
+}
+
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [CommonModule], // SwiperModule is NOT imported here when using Swiper Elements directly
+  imports: [CommonModule],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.css'],
   encapsulation: ViewEncapsulation.None,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add CUSTOM_ELEMENTS_SCHEMA to allow custom HTML tags
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SkillsComponent implements AfterViewInit {
-  // Access the swiper-container element
   @ViewChild('skillsSwiper')
-  skillsSwiperRef!: ElementRef<HTMLElement>; // Use HTMLElement as Swiper custom element type
+  skillsSwiperRef!: ElementRef<HTMLSwiperContainerElement>;
 
   skills: Skill[] = [
+    /* ... your skills array ... */
     {
       icon: 'fas fa-code',
       title: 'Programming Languages',
@@ -114,9 +117,8 @@ export class SkillsComponent implements AfterViewInit {
     },
   ];
 
-  // Swiper configuration object
-  // For Swiper Elements, options are often set as attributes or properties
   swiperParams: SwiperOptions = {
+    /* ... your swiperConfig (I renamed to swiperParams for clarity) ... */
     effect: 'coverflow',
     grabCursor: true,
     centeredSlides: true,
@@ -127,10 +129,10 @@ export class SkillsComponent implements AfterViewInit {
       disableOnInteraction: false,
     },
     coverflowEffect: {
-      rotate: 25, // Rotation of side slides
+      rotate: 25,
       stretch: 0,
-      depth: 100, // Depth offset of side slides
-      modifier: 1, // Effect multiplier
+      depth: 100,
+      modifier: 1,
       slideShadows: false,
     },
     pagination: {
@@ -143,21 +145,36 @@ export class SkillsComponent implements AfterViewInit {
     },
     breakpoints: {
       320: { slidesPerView: 1.5, spaceBetween: 15 },
-      640: { slidesPerView: 2.2, spaceBetween: 20 }, // Adjusted for potentially better coverflow visuals
-      1024: { slidesPerView: 2.8, spaceBetween: 30 }, // Adjusted
+      640: { slidesPerView: 2.2, spaceBetween: 20 },
+      1024: { slidesPerView: 2.8, spaceBetween: 30 },
     },
-    // Modules need to be available if used by Swiper Elements implicitly,
-    // `register()` from 'swiper/element/bundle' usually includes common modules.
   };
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {} // Inject PLATFORM_ID
 
   ngAfterViewInit(): void {
-    // Assign parameters to the Swiper custom element
-    if (this.skillsSwiperRef?.nativeElement) {
-      Object.assign(this.skillsSwiperRef.nativeElement, this.swiperParams);
-      // Initialize the swiper (important for Swiper Element)
-      (this.skillsSwiperRef.nativeElement as any).initialize();
+    if (isPlatformBrowser(this.platformId)) {
+      // CHECK if running in browser
+      if (this.skillsSwiperRef?.nativeElement) {
+        const swiperEl = this.skillsSwiperRef.nativeElement;
+        Object.assign(swiperEl, this.swiperParams);
+
+        // Check if initialize is a function before calling, just in case
+        if (typeof swiperEl.initialize === 'function') {
+          swiperEl.initialize();
+        } else {
+          // This might happen if the element isn't fully a Swiper custom element yet.
+          // Sometimes a micro-task delay can help, but ideally, `register()` in main.ts and `isPlatformBrowser` handles it.
+          console.error(
+            'Swiper element "initialize" method not found immediately. Swiper may initialize automatically once properties are set, or there might be a timing issue with custom element registration.'
+          );
+          // setTimeout(() => { // As a last resort for timing, but usually not needed with proper setup
+          //   if (typeof swiperEl.initialize === 'function') {
+          //     swiperEl.initialize();
+          //   }
+          // }, 0);
+        }
+      }
     }
   }
 }
