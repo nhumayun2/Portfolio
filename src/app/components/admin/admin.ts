@@ -185,14 +185,15 @@ export class AdminComponent implements OnInit {
           .filter((s: string) => s !== '')
       : [];
 
+    // FIX: Using || null prevents empty strings ("") from causing a 400 Bad Request on the backend
     const projectData: Project = {
       id: this.currentProject.id || 0,
       title: this.currentProject.title,
       description: this.currentProject.description,
-      liveUrl: this.currentProject.liveUrl,
-      gitHubUrl: this.currentProject.gitHubUrl,
+      liveUrl: this.currentProject.liveUrl || null,
+      gitHubUrl: this.currentProject.gitHubUrl || null,
       techStack: techArray,
-      imageUrl: this.currentProject.imageUrl,
+      imageUrl: this.currentProject.imageUrl || null,
     };
 
     if (this.isEditingProject) {
@@ -206,7 +207,9 @@ export class AdminComponent implements OnInit {
           },
           error: (err) => {
             console.error('Failed to update project', err);
-            alert('Failed to update project.');
+            alert(
+              'Failed to update project. Please check backend compatibility.',
+            );
             this.isProjectSaving = false;
           },
         });
