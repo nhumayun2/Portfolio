@@ -1,107 +1,153 @@
 <header
-  class="bg-[var(--color-brand-dark)]/80 backdrop-blur-md text-[var(--color-brand-text-on-dark)] p-4 shadow-xl fixed w-full z-50 transition-all duration-300 ease-in-out"
+  class="fixed w-full top-0 z-50 transition-all duration-500 ease-in-out border-b border-white/10"
+  [class.header-scrolled]="isScrolled"
+  [class.header-top]="!isScrolled"
 >
-  <nav class="container mx-auto flex justify-between items-center h-16">
-    <a
-      href="#"
-      class="text-3xl font-bold font-[var(--font-display)] text-[var(--color-brand-primary)] hover:text-[var(--color-brand-secondary)] transition-colors duration-300 tracking-tight transform hover:scale-105"
-    >
-      Humayun A.
+  <div
+    class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"
+  ></div>
+
+  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="#" class="relative group flex items-center gap-3">
+      <div
+        class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_15px_rgba(132,204,22,0.15)] group-hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] group-hover:scale-105 transition-all duration-500 ease-out"
+      >
+        <span
+          class="text-xl font-[var(--font-display)] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[var(--color-brand-primary)] to-[var(--color-brand-highlight)]"
+          >H</span
+        >
+      </div>
+      <span
+        class="text-xl md:text-2xl font-[var(--font-display)] font-bold text-white tracking-tight transition-colors duration-300"
+      >
+        Humayun A.
+      </span>
     </a>
 
     <div
-      class="hidden md:flex space-x-2 lg:space-x-3 font-medium font-[var(--font-body)]"
+      class="hidden md:flex items-center space-x-1 bg-white/5 border border-white/10 px-2 py-1.5 rounded-full shadow-inner backdrop-blur-md"
     >
       <a
         href="#about"
-        class="px-4 py-2 rounded-md hover:text-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-surface)] transition-all duration-300 group relative"
-        >About<span
-          class="absolute bottom-0 left-0 block w-full h-0.5 bg-[var(--color-brand-highlight)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
-        ></span
-      ></a>
+        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
+        >About</a
+      >
       <a
         href="#skills"
-        class="px-4 py-2 rounded-md hover:text-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-surface)] transition-all duration-300 group relative"
-        >Skills<span
-          class="absolute bottom-0 left-0 block w-full h-0.5 bg-[var(--color-brand-highlight)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
-        ></span
-      ></a>
+        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
+        >Skills</a
+      >
       <a
         href="#portfolio"
-        class="px-4 py-2 rounded-md hover:text-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-surface)] transition-all duration-300 group relative"
-        >Portfolio<span
-          class="absolute bottom-0 left-0 block w-full h-0.5 bg-[var(--color-brand-highlight)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
-        ></span
-      ></a>
+        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
+        >Projects</a
+      >
+      <a
+        href="#experience"
+        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
+        >Journey</a
+      >
+    </div>
+
+    <div class="hidden md:block">
       <a
         href="#contact"
-        class="px-4 py-2 rounded-md hover:text-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-surface)] transition-all duration-300 group relative"
-        >Contact<span
-          class="absolute bottom-0 left-0 block w-full h-0.5 bg-[var(--color-brand-highlight)] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
-        ></span
-      ></a>
+        class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white transition-all duration-300 rounded-full group bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+      >
+        <span
+          class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"
+        ></span>
+        <span
+          class="relative flex items-center gap-2 text-sm font-semibold tracking-wide text-[var(--color-brand-primary)] group-hover:text-white transition-colors duration-300"
+        >
+          Let's Talk
+          <i
+            class="fas fa-paper-plane text-[var(--color-brand-primary)] group-hover:translate-x-1 transition-transform duration-300"
+          ></i>
+        </span>
+      </a>
     </div>
 
     <button
-      class="md:hidden text-[var(--color-brand-text-on-dark)] focus:outline-none z-[60]"
+      class="md:hidden relative w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white focus:outline-none z-[60] hover:bg-white/10 transition-colors"
       (click)="toggleMobileMenu()"
       aria-label="Toggle mobile menu"
     >
-      <span *ngIf="!isMenuOpen" class="text-3xl leading-none">&equiv;</span>
-      <span
+      <i class="fas fa-bars text-lg" *ngIf="!isMenuOpen"></i>
+      <i
+        class="fas fa-times text-lg text-[var(--color-brand-highlight)]"
         *ngIf="isMenuOpen"
-        class="text-3xl leading-none text-[var(--color-brand-primary)]"
-        >&times;</span
-      >
+      ></i>
     </button>
   </nav>
 
   <div
     *ngIf="isMenuOpen"
     [@menuToggle]
-    class="md:hidden absolute top-full left-0 w-full bg-[var(--color-brand-dark)]/98 text-[var(--color-brand-text-on-dark)] shadow-2xl z-[55] origin-top border-t border-[var(--color-brand-dark)]/50"
+    class="md:hidden absolute top-full left-0 w-full bg-[var(--color-brand-dark)]/90 backdrop-blur-3xl border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.7)] z-[55] overflow-hidden"
   >
-    <div class="py-3 px-2 space-y-1">
+    <div class="p-6 space-y-3">
       <a
         href="#about"
         (click)="closeMenu()"
-        class="block py-3 px-4 text-base font-medium text-[var(--color-brand-text-on-dark)] rounded-md hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200 flex items-center group"
+        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
       >
-        <span
-          class="w-1.5 h-1.5 bg-transparent rounded-full mr-3 group-hover:bg-[var(--color-brand-primary)] transition-all duration-200"
-        ></span>
-        About
+        <div
+          class="w-10 h-10 rounded-xl bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-primary)]/20 transition-all duration-300"
+        >
+          <i class="fas fa-user text-[var(--color-brand-primary)]"></i>
+        </div>
+        <span class="font-medium tracking-wide">About Me</span>
       </a>
+
       <a
         href="#skills"
         (click)="closeMenu()"
-        class="block py-3 px-4 text-base font-medium text-[var(--color-brand-text-on-dark)] rounded-md hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200 flex items-center group"
+        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
       >
-        <span
-          class="w-1.5 h-1.5 bg-transparent rounded-full mr-3 group-hover:bg-[var(--color-brand-primary)] transition-all duration-200"
-        ></span>
-        Skills
+        <div
+          class="w-10 h-10 rounded-xl bg-[var(--color-brand-secondary)]/10 border border-[var(--color-brand-secondary)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-secondary)]/20 transition-all duration-300"
+        >
+          <i class="fas fa-bolt text-[var(--color-brand-secondary)]"></i>
+        </div>
+        <span class="font-medium tracking-wide">My Skills</span>
       </a>
+
+      <a
+        href="#experience"
+        (click)="closeMenu()"
+        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
+      >
+        <div
+          class="w-10 h-10 rounded-xl bg-[var(--color-brand-highlight)]/10 border border-[var(--color-brand-highlight)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-highlight)]/20 transition-all duration-300"
+        >
+          <i class="fas fa-map-signs text-[var(--color-brand-highlight)]"></i>
+        </div>
+        <span class="font-medium tracking-wide">My Journey</span>
+      </a>
+
       <a
         href="#portfolio"
         (click)="closeMenu()"
-        class="block py-3 px-4 text-base font-medium text-[var(--color-brand-text-on-dark)] rounded-md hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200 flex items-center group"
+        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
       >
-        <span
-          class="w-1.5 h-1.5 bg-transparent rounded-full mr-3 group-hover:bg-[var(--color-brand-primary)] transition-all duration-200"
-        ></span>
-        Portfolio
+        <div
+          class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300"
+        >
+          <i class="fas fa-briefcase text-blue-400"></i>
+        </div>
+        <span class="font-medium tracking-wide">Projects</span>
       </a>
-      <a
-        href="#contact"
-        (click)="closeMenu()"
-        class="block py-3 px-4 text-base font-medium text-[var(--color-brand-text-on-dark)] rounded-md hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200 flex items-center group"
-      >
-        <span
-          class="w-1.5 h-1.5 bg-transparent rounded-full mr-3 group-hover:bg-[var(--color-brand-primary)] transition-all duration-200"
-        ></span>
-        Contact
-      </a>
+
+      <div class="pt-4 mt-2 border-t border-white/10">
+        <a
+          href="#contact"
+          (click)="closeMenu()"
+          class="flex items-center justify-center px-4 py-3.5 rounded-2xl text-[var(--color-brand-dark)] bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-highlight)] hover:text-white transition-all duration-300 font-bold tracking-wide shadow-[0_0_20px_rgba(132,204,22,0.3)]"
+        >
+          Let's Talk <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
     </div>
   </div>
 </header>

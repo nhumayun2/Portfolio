@@ -1,229 +1,211 @@
-/* src/styles.css */
+@import "tailwindcss";
 
-@import "tailwindcss"; /* This should be the very first line. It imports Tailwind's base, components, and utilities. */
-
-/*
-  Define your global CSS custom properties (theme colors, fonts) directly on :root.
-  These will be globally available and can be used by Tailwind's arbitrary value syntax.
-*/
 :root {
-  --color-brand-dark: #0f172a;
-  --color-brand-surface: #1e293b;
-  --color-brand-primary: #84cc16; /* Lime Green */
-  --color-brand-secondary: #7e22ce; /* Vivid Purple */
-  --color-brand-highlight: #ec4899; /* Bright Pink */
-  --color-brand-text-on-dark: #e2e8f0;
-  --color-brand-text-on-light: #0f172a;
-  --color-brand-light-bg: #f8fafc;
-
-  --font-display: "Poppins", "Arial", sans-serif; /* Added fallbacks */
-  --font-body: "Inter", "Arial", sans-serif; /* Added fallbacks */
+  --color-brand-dark: #09090b;
+  --color-brand-surface: #18181b;
+  --color-brand-primary: #84cc16;
+  --color-brand-secondary: #a855f7;
+  --color-brand-highlight: #ec4899;
+  --font-display: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
 }
 
-/*
-  Add your custom base styles.
-  Tailwind's `@import "tailwindcss";` should already include base styles.
-  If you need to override or add specific base styles, do it here,
-  potentially within @layer base if you want to ensure correct ordering.
-*/
-@layer base {
-  html {
-    /* Add this */
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: var(--font-body);
-    background-color: var(--color-brand-dark);
-    color: var(--color-brand-text-on-dark);
-    /* Ensure scroll-behavior is smooth if you use hash links */
-    scroll-behavior: smooth;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
-  }
-
-  /* Add other global base styles if needed */
+html {
+  scroll-behavior: smooth;
 }
 
-/*
-  Define your custom animation keyframes and any custom utility-like classes.
-  You can place these within @layer utilities if you want them to be treated
-  like Tailwind utilities (e.g., regarding ordering and overrides).
-*/
-@layer utilities {
-  @keyframes customFadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-brand-dark) !important;
+  color: #f8fafc;
+  overflow-x: hidden;
+  margin: 0;
+}
 
-  .apply-fade-in-up {
-    animation-name: customFadeInUp;
-    animation-duration: 0.8s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-  }
+/* ========================================================
+   HEADER SCROLL STATES
+   ======================================================== */
+.header-top {
+  background: rgba(9, 9, 11, 0.2);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  box-shadow: none;
+}
 
-  @keyframes customFadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
+.header-scrolled {
+  background: rgba(9, 9, 11, 0.75);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-  .apply-fade-in {
-    animation-name: customFadeIn;
-    animation-duration: 0.8s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-  }
+/* ========================================================
+   GLASSMORPHISM ENGINE
+   ======================================================== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
 
-  @keyframes customBlob {
-    0%,
-    100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-  }
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-  .animate-custom-blob {
-    /* Using a custom name for the class applying the blob */
-    animation: customBlob 7s infinite ease-in-out;
-  }
+/* ========================================================
+   LIQUID 3D BLOB SYSTEM (Fainter & Slower)
+   ======================================================== */
+.blob-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
 
-  /* If you need custom pulse animations beyond Tailwind's defaults */
-  /*
-  @keyframes customPulseSlow { ... }
-  .animate-custom-pulse-slow { animation: customPulseSlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-  */
+/* The Colored Lights */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  /* SLOWED DOWN: Was 18s, now 35s */
+  animation: morphBlob 35s ease-in-out infinite;
+  /* FAINTER: Reduced base opacity */
+  opacity: 0.15;
+}
 
-  /* --- AURORA EFFECT STYLES START HERE --- */
-  .aurora-shape {
-    @apply absolute rounded-full opacity-20 md:opacity-30 blur-3xl; /* Tailwind classes for base styling */
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in-out;
-    animation-direction: alternate; /* Makes the animation go back and forth smoothly */
-  }
+.blob-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(132, 204, 22, 0.4),
+    rgba(132, 204, 22, 0.1) 50%,
+    transparent 70%
+  );
+  top: -100px;
+  left: -100px;
+  animation-duration: 40s; /* Much slower */
+}
 
-  @keyframes auroraBreathe1 {
-    0% {
-      transform: translate(0px, 0px) scale(1);
-      opacity: 0.15; /* Start a bit more subtle */
-    }
-    50% {
-      transform: translate(40px, 60px) scale(1.2);
-      opacity: 0.25; /* Slightly more visible */
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1);
-      opacity: 0.15;
-    }
-  }
+.blob-2 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle at 70% 30%,
+    rgba(168, 85, 247, 0.35),
+    rgba(168, 85, 247, 0.1) 50%,
+    transparent 70%
+  );
+  bottom: -150px;
+  right: -100px;
+  animation-duration: 45s; /* Much slower */
+  animation-delay: -5s;
+}
 
-  @keyframes auroraBreathe2 {
-    0% {
-      transform: translate(0px, 0px) scale(1.1);
-      opacity: 0.2;
-    }
-    50% {
-      transform: translate(-50px, -30px) scale(1);
-      opacity: 0.1;
-    }
-    100% {
-      transform: translate(0px, 0px) scale(1.1);
-      opacity: 0.2;
-    }
-  }
+.blob-3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(236, 72, 153, 0.3),
+    rgba(236, 72, 153, 0.1) 50%,
+    transparent 70%
+  );
+  top: 30%;
+  right: 15%;
+  animation-duration: 38s; /* Much slower */
+  animation-delay: -2s;
+}
 
-  @keyframes auroraBreathe3 {
-    0% {
-      transform: translate(0px, 0px) scale(0.9);
-      opacity: 0.25;
-    }
-    50% {
-      transform: translate(30px, -70px) scale(1.15);
-      opacity: 0.15;
-    }
-    100% {
-      transform: translate(0px, 0px) scale(0.9);
-      opacity: 0.25;
-    }
-  }
+/* THE "FAKE 3D" RINGS */
+.blob-ring {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+  /* SLOWED DOWN: Was 22s, now 40s */
+  animation: morphRing 40s ease-in-out infinite;
 
-  .animate-aurora-1 {
-    animation-name: auroraBreathe1;
-    animation-duration: 18s; /* Slower, more subtle */
-  }
-  .animate-aurora-2 {
-    animation-name: auroraBreathe2;
-    animation-duration: 22s;
-  }
-  .animate-aurora-3 {
-    animation-name: auroraBreathe3;
-    animation-duration: 20s;
-  }
-  /* --- AURORA EFFECT STYLES END HERE --- */
-  @keyframes subtleGridPan {
-    0% {
-      background-position: 0% 0%;
-    }
-    100% {
-      background-position: 40px 40px;
-    } /* Adjust pan distance for speed/effect */
-  }
+  /* FAINTER: Reduced whites and shadow intensities to push it deeper */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  box-shadow:
+    inset 20px 20px 30px rgba(255, 255, 255, 0.05),
+    inset -20px -20px 40px rgba(0, 0, 0, 0.7),
+    0 20px 40px rgba(0, 0, 0, 0.4);
 
-  .bg-animated-subtle-grid-pattern {
-    /* Creates a grid using CSS gradients */
-    background-image: linear-gradient(
-        to right,
-        var(--color-brand-surface) 1px,
-        transparent 1.5px
-      ),
-      linear-gradient(
-        to bottom,
-        var(--color-brand-surface) 1px,
-        transparent 1.5px
-      );
-    background-size: 30px 30px; /* Adjust size of the grid squares */
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    opacity: 0.05; /* Make it very subtle */
-    animation: subtleGridPan 20s linear infinite alternate; /* Slow, continuous pan */
-  }
-} /* This closes the @layer utilities block */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0.6; /* Made overall ring more transparent */
+}
 
-/*
-  Any remaining custom component classes (if you choose to define any outside of
-  Tailwind utilities) can go here, possibly within @layer components.
-*/
-/*
-@layer components {
-  .custom-button {
-    @apply py-2 px-4 rounded-lg; // Example of composing utilities
-    background-color: var(--color-brand-primary);
-    color: var(--color-brand-dark);
+.blob-ring-1 {
+  width: 450px;
+  height: 450px;
+  top: 10%;
+  right: 5%;
+  animation-delay: -3s;
+}
+.blob-ring-2 {
+  width: 350px;
+  height: 350px;
+  bottom: 15%;
+  left: 5%;
+  animation-duration: 45s;
+}
+
+/* Morphing Keyframes */
+@keyframes morphBlob {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 }
-*/
+
+@keyframes morphRing {
+  0% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+    transform: rotate(180deg) scale(1.02);
+  }
+  100% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Component Entry Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.apply-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}

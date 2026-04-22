@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
             opacity: 1,
             height: '*',
             overflow: 'hidden',
-          })
+          }),
         ),
       ]),
       transition(':leave', [
@@ -35,7 +35,7 @@ import { CommonModule } from '@angular/common';
             opacity: 0,
             height: '0px',
             overflow: 'hidden',
-          })
+          }),
         ),
       ]),
     ]),
@@ -44,12 +44,18 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   isMenuOpen = false;
 
+  // NEW: Signal to track if the page has been scrolled
+  isScrolled = false;
+
+  // Listen for window scroll events
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    // If we've scrolled more than 20px, set isScrolled to true
+    this.isScrolled = window.scrollY > 20;
+  }
+
   toggleMobileMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
-    console.log(
-      'Mobile menu button clicked. isMenuOpen is now:',
-      this.isMenuOpen
-    ); // For debugging
   }
 
   closeMenu(): void {

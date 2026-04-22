@@ -1,0 +1,1036 @@
+<section
+  class="min-h-screen bg-[var(--color-brand-dark)] pt-32 pb-12 px-6 relative overflow-hidden"
+>
+  <div class="absolute inset-0 z-0 pointer-events-none opacity-5">
+    <div
+      class="w-[800px] h-[800px] bg-[var(--color-brand-primary)] rounded-full absolute top-[-20%] left-[-10%] blur-[100px]"
+    ></div>
+  </div>
+
+  <div class="container mx-auto max-w-6xl relative z-10">
+    <div
+      class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 bg-[var(--color-brand-surface)] p-6 md:p-8 rounded-xl shadow-2xl border-l-4 border-[var(--color-brand-highlight)]"
+    >
+      <div class="mb-4 md:mb-0">
+        <h1
+          class="text-3xl md:text-4xl font-[var(--font-display)] font-bold text-white mb-1"
+        >
+          Admin
+          <span class="text-[var(--color-brand-highlight)]">Dashboard</span>
+        </h1>
+        <p class="text-slate-400 font-[var(--font-body)]">
+          Secure portal to manage your portfolio content.
+        </p>
+      </div>
+
+      <div class="flex gap-4">
+        <a
+          href="/"
+          target="_blank"
+          class="bg-[var(--color-brand-dark)] text-slate-300 hover:text-white border border-slate-700 px-4 py-2 rounded-lg font-semibold transition-colors duration-300 flex items-center"
+        >
+          <i class="fas fa-external-link-alt mr-2"></i> View Site
+        </a>
+        <button
+          (click)="logout()"
+          class="bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white px-4 py-2 rounded-lg font-bold transition-all duration-300 flex items-center"
+        >
+          <i class="fas fa-sign-out-alt mr-2"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="flex overflow-x-auto bg-[var(--color-brand-surface)] rounded-t-xl border-b border-slate-700 mb-6 no-scrollbar"
+    >
+      <button
+        (click)="switchTab('profile')"
+        [class]="activeTab() === 'profile' ? 'text-[var(--color-brand-primary)] border-b-2 border-[var(--color-brand-primary)]' : 'text-slate-400 hover:text-slate-200'"
+        class="px-6 py-4 font-[var(--font-display)] font-bold whitespace-nowrap transition-colors duration-300"
+      >
+        <i class="fas fa-user-circle mr-2"></i> Profile
+      </button>
+      <button
+        (click)="switchTab('projects')"
+        [class]="activeTab() === 'projects' ? 'text-[var(--color-brand-secondary)] border-b-2 border-[var(--color-brand-secondary)]' : 'text-slate-400 hover:text-slate-200'"
+        class="px-6 py-4 font-[var(--font-display)] font-bold whitespace-nowrap transition-colors duration-300"
+      >
+        <i class="fas fa-project-diagram mr-2"></i> Projects
+      </button>
+      <button
+        (click)="switchTab('experience')"
+        [class]="activeTab() === 'experience' ? 'text-[var(--color-brand-highlight)] border-b-2 border-[var(--color-brand-highlight)]' : 'text-slate-400 hover:text-slate-200'"
+        class="px-6 py-4 font-[var(--font-display)] font-bold whitespace-nowrap transition-colors duration-300"
+      >
+        <i class="fas fa-briefcase mr-2"></i> Experience
+      </button>
+      <button
+        (click)="switchTab('education')"
+        [class]="activeTab() === 'education' ? 'text-[var(--color-brand-primary)] border-b-2 border-[var(--color-brand-primary)]' : 'text-slate-400 hover:text-slate-200'"
+        class="px-6 py-4 font-[var(--font-display)] font-bold whitespace-nowrap transition-colors duration-300"
+      >
+        <i class="fas fa-graduation-cap mr-2"></i> Education
+      </button>
+      <button
+        (click)="switchTab('skills')"
+        [class]="activeTab() === 'skills' ? 'text-[var(--color-brand-secondary)] border-b-2 border-[var(--color-brand-secondary)]' : 'text-slate-400 hover:text-slate-200'"
+        class="px-6 py-4 font-[var(--font-display)] font-bold whitespace-nowrap transition-colors duration-300"
+      >
+        <i class="fas fa-tools mr-2"></i> Skills
+      </button>
+    </div>
+
+    <div
+      class="bg-[var(--color-brand-surface)] rounded-b-xl shadow-xl overflow-hidden opacity-0 apply-fade-in-up"
+      style="animation-delay: 0.1s"
+    >
+      @if (activeTab() === 'profile') {
+      <div
+        class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/30"
+      >
+        <h2 class="text-xl font-bold text-white flex items-center">
+          <i
+            class="fas fa-user-edit text-[var(--color-brand-primary)] mr-3"
+          ></i>
+          Edit Hero & About
+        </h2>
+      </div>
+
+      @if (profile(); as p) {
+      <div class="p-6 md:p-8 space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.fullName"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >Job Title</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.title"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              [(ngModel)]="p.email"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >Phone Number</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.phone"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Professional Summary</label
+          >
+          <textarea
+            [(ngModel)]="p.summary"
+            rows="4"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all resize-none"
+          ></textarea>
+        </div>
+
+        <h3
+          class="text-lg font-bold text-white border-b border-slate-700 pb-2 mt-8"
+        >
+          Social Links
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              ><i class="fab fa-github mr-1"></i> GitHub URL</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.gitHubUrl"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              ><i class="fab fa-linkedin mr-1"></i> LinkedIn URL</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.linkedInUrl"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              ><i class="fas fa-code mr-1"></i> LeetCode URL</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.leetCodeUrl"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              ><i class="fas fa-globe mr-1"></i> Portfolio Website URL</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="p.websiteUrl"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] outline-none transition-all"
+            />
+          </div>
+        </div>
+
+        <h3
+          class="text-lg font-bold text-white border-b border-slate-700 pb-2 mt-8"
+        >
+          Resume / CV Document
+        </h3>
+        <div
+          class="relative bg-[var(--color-brand-dark)] border-2 border-dashed border-slate-600 rounded-xl p-8 text-center hover:border-[var(--color-brand-primary)] transition-colors duration-300 overflow-hidden"
+        >
+          @if (isSaving && selectedCvFile) {
+          <div
+            class="absolute inset-0 bg-[var(--color-brand-dark)]/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 transition-all duration-300"
+          >
+            <div
+              class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[var(--color-brand-primary)] mb-3"
+            ></div>
+            <p
+              class="text-[var(--color-brand-primary)] font-bold tracking-wider"
+            >
+              Uploading to Cloudinary...
+            </p>
+          </div>
+          }
+          <i
+            class="fas fa-file-pdf text-4xl text-[var(--color-brand-secondary)] mb-4"
+          ></i>
+          @if (selectedCvFile) {
+          <p class="text-white font-bold mb-2">Ready to upload on save:</p>
+          <div
+            class="inline-flex items-center bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/30 py-2 px-4 rounded-lg mb-4"
+          >
+            <i
+              class="fas fa-file-alt text-[var(--color-brand-primary)] mr-2"
+            ></i>
+            <span class="text-[var(--color-brand-primary)] font-medium"
+              >{{ selectedCvFile.name }}</span
+            >
+          </div>
+          } @else {
+          <p class="text-slate-300 mb-4">
+            Select your latest PDF Resume to upload when you save.
+          </p>
+          } @if (p.cvUrl && !selectedCvFile) {
+          <div class="mb-5">
+            <span class="text-sm text-slate-400">
+              <i
+                class="fas fa-check-circle text-[var(--color-brand-primary)] mr-1"
+              ></i>
+              Currently active:
+              <a
+                [href]="p.cvUrl"
+                target="_blank"
+                class="text-[var(--color-brand-secondary)] hover:text-white underline ml-1 transition-colors"
+                >View Current CV</a
+              >
+            </span>
+          </div>
+          }
+          <input
+            type="file"
+            #cvInput
+            class="hidden"
+            accept=".pdf"
+            (change)="onCvSelected($event)"
+          />
+          <button
+            (click)="cvInput.click()"
+            [disabled]="isSaving"
+            class="block mx-auto bg-[var(--color-brand-surface)] text-white border border-slate-500 hover:border-[var(--color-brand-primary)] px-6 py-2 rounded-lg font-bold transition-all duration-300 shadow-lg disabled:opacity-50"
+          >
+            {{ selectedCvFile ? 'Change File' : 'Choose PDF File' }}
+          </button>
+        </div>
+
+        <div class="flex justify-end mt-8 border-t border-slate-700 pt-6">
+          <button
+            (click)="saveProfile()"
+            [disabled]="isSaving"
+            class="bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-highlight)] text-[var(--color-brand-dark)] px-8 py-3 rounded-lg font-[var(--font-display)] font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_15px_rgba(168,220,53,0.3)] disabled:opacity-70 disabled:hover:scale-100 flex items-center"
+          >
+            @if (isSaving) {
+            <i class="fas fa-circle-notch fa-spin mr-2"></i> Saving Updates... }
+            @else { <i class="fas fa-save mr-2"></i> Save Profile Details }
+          </button>
+        </div>
+      </div>
+      } @else {
+      <div class="p-20 text-center">
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--color-brand-primary)] mx-auto mb-4"
+        ></div>
+        <p class="text-slate-400">Fetching profile data...</p>
+      </div>
+      } } @if (activeTab() === 'projects') {
+      <div
+        class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/30"
+      >
+        <h2 class="text-xl font-bold text-white flex items-center">
+          Manage Projects
+        </h2>
+        <button
+          (click)="openProjectModal()"
+          class="bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-highlight)] text-[var(--color-brand-dark)] px-4 py-2 rounded-lg font-bold transition-all duration-300 shadow-lg flex items-center"
+        >
+          <i class="fas fa-plus mr-2"></i> Add Project
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-[var(--color-brand-dark)] text-slate-400 text-sm uppercase tracking-wider"
+            >
+              <th class="p-5 font-semibold">Title</th>
+              <th class="p-5 font-semibold hidden md:table-cell">Tech Stack</th>
+              <th class="p-5 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-300">
+            @for (item of projects(); track item.id) {
+            <tr
+              class="border-b border-slate-700/50 hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200"
+            >
+              <td class="p-5 font-bold text-white">
+                {{ item.title }} @if (item.imageUrl) {
+                <i
+                  class="fas fa-image text-slate-500 ml-2 text-xs"
+                  title="Has Image"
+                ></i>
+                }
+              </td>
+              <td class="p-5 text-sm hidden md:table-cell">
+                {{ item.techStack.join(', ') }}
+              </td>
+              <td class="p-5 text-right whitespace-nowrap">
+                <button
+                  (click)="openProjectModal(item)"
+                  class="text-[var(--color-brand-secondary)] bg-[var(--color-brand-secondary)]/10 hover:bg-[var(--color-brand-secondary)] hover:text-white px-3 py-1.5 rounded mr-2 transition-colors duration-200"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="deleteProject(item.id)"
+                  class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded transition-colors duration-200"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="3" class="p-10 text-center text-slate-500">
+                No projects found. Add one above!
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      } @if (activeTab() === 'experience') {
+      <div
+        class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/30"
+      >
+        <h2 class="text-xl font-bold text-white flex items-center">
+          Manage Experience
+        </h2>
+        <button
+          (click)="openExperienceModal()"
+          class="bg-[var(--color-brand-secondary)] hover:bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] px-4 py-2 rounded-lg font-bold transition-all duration-300 shadow-lg flex items-center"
+        >
+          <i class="fas fa-plus mr-2"></i> Add Job
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-[var(--color-brand-dark)] text-slate-400 text-sm uppercase tracking-wider"
+            >
+              <th class="p-5 font-semibold">Job Title & Company</th>
+              <th class="p-5 font-semibold hidden sm:table-cell">Dates</th>
+              <th class="p-5 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-300">
+            @for (job of experiences(); track job.id) {
+            <tr
+              class="border-b border-slate-700/50 hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200"
+            >
+              <td class="p-5">
+                <div class="font-bold text-white text-lg">
+                  {{ job.jobTitle }}
+                </div>
+                <div class="text-sm text-slate-400">{{ job.companyName }}</div>
+              </td>
+              <td class="p-5 text-sm hidden sm:table-cell">
+                {{ job.startDate }} - {{ job.isCurrentRole ? 'Present' :
+                job.endDate }}
+              </td>
+              <td class="p-5 text-right whitespace-nowrap">
+                <button
+                  (click)="openExperienceModal(job)"
+                  class="text-[var(--color-brand-secondary)] bg-[var(--color-brand-secondary)]/10 hover:bg-[var(--color-brand-secondary)] hover:text-white px-3 py-1.5 rounded mr-2 transition-colors duration-200"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="deleteExperience(job.id)"
+                  class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded transition-colors duration-200"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="3" class="p-10 text-center text-slate-500">
+                No experience records found.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      } @if (activeTab() === 'education') {
+      <div
+        class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/30"
+      >
+        <h2 class="text-xl font-bold text-white flex items-center">
+          Manage Education
+        </h2>
+        <button
+          (click)="openEducationModal()"
+          class="bg-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] px-4 py-2 rounded-lg font-bold transition-all duration-300 shadow-lg flex items-center"
+        >
+          <i class="fas fa-plus mr-2"></i> Add Degree
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-[var(--color-brand-dark)] text-slate-400 text-sm uppercase tracking-wider"
+            >
+              <th class="p-5 font-semibold">Degree & Institution</th>
+              <th class="p-5 font-semibold hidden sm:table-cell">Dates</th>
+              <th class="p-5 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-300">
+            @for (school of educations(); track school.id) {
+            <tr
+              class="border-b border-slate-700/50 hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200"
+            >
+              <td class="p-5">
+                <div class="font-bold text-white text-lg">
+                  {{ school.degree }}
+                </div>
+                <div class="text-sm text-slate-400">
+                  {{ school.institution }}
+                </div>
+              </td>
+              <td class="p-5 text-sm hidden sm:table-cell">
+                {{ school.startYear }} - {{ school.endYear }}
+              </td>
+              <td class="p-5 text-right whitespace-nowrap">
+                <button
+                  (click)="openEducationModal(school)"
+                  class="text-[var(--color-brand-secondary)] bg-[var(--color-brand-secondary)]/10 hover:bg-[var(--color-brand-secondary)] hover:text-white px-3 py-1.5 rounded mr-2 transition-colors duration-200"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="deleteEducation(school.id)"
+                  class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded transition-colors duration-200"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="3" class="p-10 text-center text-slate-500">
+                No education records found.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      } @if (activeTab() === 'skills') {
+      <div
+        class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/30"
+      >
+        <h2 class="text-xl font-bold text-white flex items-center">
+          Manage Skills
+        </h2>
+        <button
+          (click)="openSkillModal()"
+          class="bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-secondary)] text-[var(--color-brand-dark)] px-4 py-2 rounded-lg font-bold transition-all duration-300 shadow-lg flex items-center"
+        >
+          <i class="fas fa-plus mr-2"></i> Add Skill Group
+        </button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr
+              class="bg-[var(--color-brand-dark)] text-slate-400 text-sm uppercase tracking-wider"
+            >
+              <th class="p-5 font-semibold">Category</th>
+              <th class="p-5 font-semibold hidden md:table-cell">Items</th>
+              <th class="p-5 font-semibold text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-slate-300">
+            @for (skill of skills(); track skill.id) {
+            <tr
+              class="border-b border-slate-700/50 hover:bg-[var(--color-brand-dark)]/50 transition-colors duration-200"
+            >
+              <td class="p-5 font-bold text-white text-lg">
+                <i
+                  class="{{ skill.icon }} mr-2"
+                  [style.color]="skill.accentColorVar"
+                ></i
+                >{{ skill.title }}
+              </td>
+              <td class="p-5 text-sm hidden md:table-cell">
+                {{ skill.items.join(', ') }}
+              </td>
+              <td class="p-5 text-right whitespace-nowrap">
+                <button
+                  (click)="openSkillModal(skill)"
+                  class="text-[var(--color-brand-secondary)] bg-[var(--color-brand-secondary)]/10 hover:bg-[var(--color-brand-secondary)] hover:text-white px-3 py-1.5 rounded mr-2 transition-colors duration-200"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="deleteSkill(skill.id)"
+                  class="text-red-400 bg-red-400/10 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded transition-colors duration-200"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="3" class="p-10 text-center text-slate-500">
+                No skill categories found.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+
+@if (showProjectModal) {
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+>
+  <div
+    class="bg-[var(--color-brand-surface)] border border-slate-700 rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden my-8 apply-fade-in-up relative"
+  >
+    <div
+      class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/50"
+    >
+      <h2 class="text-2xl font-bold text-white">
+        {{ isEditingProject ? 'Edit Project' : 'Add New Project' }}
+      </h2>
+      <button
+        (click)="closeProjectModal()"
+        class="text-slate-400 hover:text-white transition-colors"
+      >
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+    <div class="p-6 md:p-8 space-y-6 max-h-[70vh] overflow-y-auto no-scrollbar">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Project Title</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentProject.title"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Description</label
+          >
+          <textarea
+            [(ngModel)]="currentProject.description"
+            rows="4"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all resize-none"
+          ></textarea>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Live URL (Optional)</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentProject.liveUrl"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >GitHub URL (Optional)</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentProject.gitHubUrl"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Tech Stack (Comma Separated)</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentProject.techStackString"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Project Image</label
+          >
+          <div
+            class="bg-[var(--color-brand-dark)] border-2 border-dashed border-slate-600 rounded-xl p-6 text-center relative overflow-hidden"
+          >
+            @if (isProjectSaving && selectedProjectImage) {
+            <div
+              class="absolute inset-0 bg-[var(--color-brand-dark)]/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 transition-all"
+            >
+              <div
+                class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[var(--color-brand-primary)] mb-2"
+              ></div>
+              <p class="text-[var(--color-brand-primary)] font-bold text-sm">
+                Uploading Image...
+              </p>
+            </div>
+            }
+            <i
+              class="fas fa-image text-3xl text-[var(--color-brand-secondary)] mb-3"
+            ></i>
+            @if (selectedProjectImage) {
+            <p class="text-white font-bold mb-2">Ready to upload:</p>
+            <div
+              class="inline-flex items-center bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/30 py-2 px-4 rounded-lg mb-4"
+            >
+              <span
+                class="text-[var(--color-brand-primary)] font-medium text-sm"
+                >{{ selectedProjectImage.name }}</span
+              >
+            </div>
+            } @else if (currentProject.imageUrl) {
+            <p class="text-sm text-[var(--color-brand-primary)] mb-3">
+              Current image active.
+            </p>
+            <img
+              [src]="currentProject.imageUrl"
+              class="h-32 mx-auto rounded-lg mb-4 object-cover shadow-lg border border-slate-600"
+            />
+            }
+            <input
+              type="file"
+              #projectImageInput
+              class="hidden"
+              accept="image/*"
+              (change)="onProjectImageSelected($event)"
+            />
+            <button
+              (click)="projectImageInput.click()"
+              [disabled]="isProjectSaving"
+              class="block mx-auto bg-[var(--color-brand-surface)] text-white border border-slate-500 hover:border-[var(--color-brand-primary)] px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-lg disabled:opacity-50"
+            >
+              Choose Image
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="p-6 border-t border-slate-700 bg-[var(--color-brand-dark)]/50 flex justify-end gap-4 rounded-b-2xl"
+    >
+      <button
+        (click)="closeProjectModal()"
+        [disabled]="isProjectSaving"
+        class="px-6 py-2 rounded-lg font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition-colors disabled:opacity-50"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveProject()"
+        [disabled]="isProjectSaving"
+        class="bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-highlight)] text-[var(--color-brand-dark)] px-6 py-2 rounded-lg font-bold transition-all shadow-lg flex items-center disabled:opacity-70"
+      >
+        @if (isProjectSaving) {
+        <i class="fas fa-circle-notch fa-spin mr-2"></i> Saving... } @else {
+        <i class="fas fa-save mr-2"></i> Save Project }
+      </button>
+    </div>
+  </div>
+</div>
+} @if (showExperienceModal) {
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+>
+  <div
+    class="bg-[var(--color-brand-surface)] border border-slate-700 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-8 apply-fade-in-up relative"
+  >
+    <div
+      class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/50"
+    >
+      <h2 class="text-2xl font-bold text-white">
+        {{ isEditingExperience ? 'Edit Experience' : 'Add Experience' }}
+      </h2>
+      <button
+        (click)="closeExperienceModal()"
+        class="text-slate-400 hover:text-white transition-colors"
+      >
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+    <div class="p-6 md:p-8 space-y-6 max-h-[70vh] overflow-y-auto no-scrollbar">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Job Title</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.jobTitle"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Company Name</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.companyName"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Location</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.location"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Employment Type</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.employmentType"
+            placeholder="e.g. Full-time, Remote"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Start Date</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.startDate"
+            placeholder="e.g. Jan 2023"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >End Date</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentExperience.endDate"
+            placeholder="e.g. Present"
+            [disabled]="currentExperience.isCurrentRole"
+            [class.opacity-50]="currentExperience.isCurrentRole"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all"
+          />
+          <div class="mt-2 flex items-center">
+            <input
+              type="checkbox"
+              id="currentRole"
+              [(ngModel)]="currentExperience.isCurrentRole"
+              class="mr-2 h-4 w-4 accent-[var(--color-brand-secondary)]"
+            />
+            <label for="currentRole" class="text-sm text-slate-300"
+              >I currently work here</label
+            >
+          </div>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Responsibilities (One per line)</label
+          >
+          <textarea
+            [(ngModel)]="currentExperience.responsibilitiesString"
+            rows="5"
+            placeholder="Built a responsive UI...&#10;Optimized database queries..."
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-secondary)] focus:ring-1 outline-none transition-all resize-none"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div
+      class="p-6 border-t border-slate-700 bg-[var(--color-brand-dark)]/50 flex justify-end gap-4 rounded-b-2xl"
+    >
+      <button
+        (click)="closeExperienceModal()"
+        [disabled]="isExperienceSaving"
+        class="px-6 py-2 rounded-lg font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition-colors disabled:opacity-50"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveExperience()"
+        [disabled]="isExperienceSaving"
+        class="bg-[var(--color-brand-secondary)] hover:bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] px-6 py-2 rounded-lg font-bold transition-all shadow-lg flex items-center disabled:opacity-70"
+      >
+        @if (isExperienceSaving) {
+        <i class="fas fa-circle-notch fa-spin mr-2"></i> Saving... } @else {
+        <i class="fas fa-save mr-2"></i> Save Experience }
+      </button>
+    </div>
+  </div>
+</div>
+} @if (showEducationModal) {
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+>
+  <div
+    class="bg-[var(--color-brand-surface)] border border-slate-700 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-8 apply-fade-in-up relative"
+  >
+    <div
+      class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/50"
+    >
+      <h2 class="text-2xl font-bold text-white">
+        {{ isEditingEducation ? 'Edit Education' : 'Add Education' }}
+      </h2>
+      <button
+        (click)="closeEducationModal()"
+        class="text-slate-400 hover:text-white transition-colors"
+      >
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+    <div class="p-6 md:p-8 space-y-6 max-h-[70vh] overflow-y-auto no-scrollbar">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Degree / Certificate</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentEducation.degree"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-highlight)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Institution</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentEducation.institution"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-highlight)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Location</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentEducation.location"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-highlight)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Start Year</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentEducation.startYear"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-highlight)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >End Year</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentEducation.endYear"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-highlight)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="p-6 border-t border-slate-700 bg-[var(--color-brand-dark)]/50 flex justify-end gap-4 rounded-b-2xl"
+    >
+      <button
+        (click)="closeEducationModal()"
+        [disabled]="isEducationSaving"
+        class="px-6 py-2 rounded-lg font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition-colors disabled:opacity-50"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveEducation()"
+        [disabled]="isEducationSaving"
+        class="bg-[var(--color-brand-highlight)] hover:bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] px-6 py-2 rounded-lg font-bold transition-all shadow-lg flex items-center disabled:opacity-70"
+      >
+        @if (isEducationSaving) {
+        <i class="fas fa-circle-notch fa-spin mr-2"></i> Saving... } @else {
+        <i class="fas fa-save mr-2"></i> Save Education }
+      </button>
+    </div>
+  </div>
+</div>
+} @if (showSkillModal) {
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
+>
+  <div
+    class="bg-[var(--color-brand-surface)] border border-slate-700 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-8 apply-fade-in-up relative"
+  >
+    <div
+      class="p-6 border-b border-slate-700 flex justify-between items-center bg-[var(--color-brand-dark)]/50"
+    >
+      <h2 class="text-2xl font-bold text-white">
+        {{ isEditingSkill ? 'Edit Skill Group' : 'Add Skill Group' }}
+      </h2>
+      <button
+        (click)="closeSkillModal()"
+        class="text-slate-400 hover:text-white transition-colors"
+      >
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+    <div class="p-6 md:p-8 space-y-6 max-h-[70vh] overflow-y-auto no-scrollbar">
+      <div class="grid grid-cols-1 gap-6">
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Category Title</label
+          >
+          <input
+            type="text"
+            [(ngModel)]="currentSkill.title"
+            placeholder="e.g. Frontend Development"
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >FontAwesome Icon Class</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="currentSkill.icon"
+              placeholder="e.g. fas fa-code"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-400 mb-2"
+              >Accent Color (CSS Variable or Hex)</label
+            >
+            <input
+              type="text"
+              [(ngModel)]="currentSkill.accentColorVar"
+              placeholder="e.g. var(--color-brand-primary)"
+              class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all"
+            />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-slate-400 mb-2"
+            >Skills (Comma Separated)</label
+          >
+          <textarea
+            [(ngModel)]="currentSkill.itemsString"
+            rows="4"
+            placeholder="Angular, TypeScript, Tailwind..."
+            class="w-full bg-[var(--color-brand-dark)] border border-slate-700 rounded-lg p-3 text-white focus:border-[var(--color-brand-primary)] focus:ring-1 outline-none transition-all resize-none"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div
+      class="p-6 border-t border-slate-700 bg-[var(--color-brand-dark)]/50 flex justify-end gap-4 rounded-b-2xl"
+    >
+      <button
+        (click)="closeSkillModal()"
+        [disabled]="isSkillSaving"
+        class="px-6 py-2 rounded-lg font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition-colors disabled:opacity-50"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="saveSkill()"
+        [disabled]="isSkillSaving"
+        class="bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-secondary)] text-[var(--color-brand-dark)] px-6 py-2 rounded-lg font-bold transition-all shadow-lg flex items-center disabled:opacity-70"
+      >
+        @if (isSkillSaving) {
+        <i class="fas fa-circle-notch fa-spin mr-2"></i> Saving... } @else {
+        <i class="fas fa-save mr-2"></i> Save Skills }
+      </button>
+    </div>
+  </div>
+</div>
+}
