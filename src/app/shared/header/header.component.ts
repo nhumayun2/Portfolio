@@ -1,57 +1,53 @@
-import { Component, HostListener, signal } from '@angular/core';
-import { trigger, transition, style, animate } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  inject,
+  signal,
+  PLATFORM_ID,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { PortfolioService, Profile } from '../../services/portfolio';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
   imports: [CommonModule],
-  animations: [
-    trigger('menuToggle', [
-      transition(':enter', [
-        style({
-          transform: 'scaleY(0)',
-          opacity: 0,
-          height: '0px',
-          overflow: 'hidden',
-        }),
-        animate(
-          '300ms ease-out',
-          style({
-            transform: 'scaleY(1)',
-            opacity: 1,
-            height: '*',
-            overflow: 'hidden',
-          }),
-        ),
-      ]),
-      transition(':leave', [
-        animate(
-          '300ms ease-in',
-          style({
-            transform: 'scaleY(0)',
-            opacity: 0,
-            height: '0px',
-            overflow: 'hidden',
-          }),
-        ),
-      ]),
-    ]),
-  ],
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css',
 })
-export class HeaderComponent {
-  isMenuOpen = false;
+export class HeaderComponent implements OnInit {
+  private portfolioService = inject(PortfolioService);
+  private platformId = inject(PLATFORM_ID);
 
-  // NEW: Signal to track if the page has been scrolled
+  // State Signals
   isScrolled = false;
+  isMenuOpen = false;
+  profile = signal<Profile | null>(null);
 
-  // Listen for window scroll events
+  ngOnInit(): void {
+    // Only fetch data if we are in the browser to avoid SSR timeouts
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadProfileData();
+    }
+  }
+
+  /**
+   * Listens for the window scroll event.
+   * If the user scrolls past 50px, we trigger the "Pill Mode" animation.
+   */
   @HostListener('window:scroll', [])
-  onWindowScroll() {
-    // If we've scrolled more than 20px, set isScrolled to true
-    this.isScrolled = window.scrollY > 20;
+  onWindowScroll(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isScrolled = window.scrollY > 50;
+    }
+  }
+
+  private loadProfileData(): void {
+    this.portfolioService.getProfile().subscribe({
+      next: (data) => this.profile.set(data),
+      error: (err) => console.error('Header profile fetch failed:', err),
+    });
   }
 
   toggleMobileMenu(): void {

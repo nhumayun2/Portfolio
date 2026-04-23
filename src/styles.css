@@ -1,197 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --color-brand-dark: #09090b;
-  --color-brand-surface: #18181b;
-  --color-brand-primary: #84cc16;
-  --color-brand-secondary: #a855f7;
-  --color-brand-highlight: #ec4899;
+  /* UPDATED: Exact colors from the Space Portfolio template */
+  --color-brand-dark: #030014;
+  --color-brand-surface: #030014;
+  --color-brand-primary: #ba9cff;
+  --color-brand-secondary: #7042f8;
+  --color-brand-highlight: #e59cff;
   --font-display: "Poppins", sans-serif;
   --font-body: "Inter", sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--color-brand-dark);
 }
 
 body {
   font-family: var(--font-body);
+  /* The !important ensures no other library overrides the deep space color */
   background-color: var(--color-brand-dark) !important;
   color: #f8fafc;
   overflow-x: hidden;
   margin: 0;
 }
 
-/* ========================================================
-   HEADER SCROLL STATES
-   ======================================================== */
-.header-top {
-  background: rgba(9, 9, 11, 0.2);
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-  box-shadow: none;
-}
-
-.header-scrolled {
-  background: rgba(9, 9, 11, 0.75);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+/* Ensure the star canvas is truly transparent and fixed */
+app-star-background canvas {
+  background: transparent !important;
 }
 
 /* ========================================================
-   GLASSMORPHISM ENGINE
+   SPACE PORTFOLIO UTILITIES
    ======================================================== */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ========================================================
-   LIQUID 3D BLOB SYSTEM (Fainter & Slower)
-   ======================================================== */
-.blob-scene {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* The Colored Lights */
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  will-change: transform;
-  /* SLOWED DOWN: Was 18s, now 35s */
-  animation: morphBlob 35s ease-in-out infinite;
-  /* FAINTER: Reduced base opacity */
-  opacity: 0.15;
-}
-
-.blob-1 {
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(132, 204, 22, 0.4),
-    rgba(132, 204, 22, 0.1) 50%,
-    transparent 70%
-  );
-  top: -100px;
-  left: -100px;
-  animation-duration: 40s; /* Much slower */
-}
-
-.blob-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle at 70% 30%,
-    rgba(168, 85, 247, 0.35),
-    rgba(168, 85, 247, 0.1) 50%,
-    transparent 70%
-  );
-  bottom: -150px;
-  right: -100px;
-  animation-duration: 45s; /* Much slower */
-  animation-delay: -5s;
-}
-
-.blob-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(236, 72, 153, 0.3),
-    rgba(236, 72, 153, 0.1) 50%,
-    transparent 70%
-  );
-  top: 30%;
-  right: 15%;
-  animation-duration: 38s; /* Much slower */
-  animation-delay: -2s;
-}
-
-/* THE "FAKE 3D" RINGS */
-.blob-ring {
-  position: absolute;
-  border-radius: 50%;
-  will-change: transform;
-  /* SLOWED DOWN: Was 22s, now 40s */
-  animation: morphRing 40s ease-in-out infinite;
-
-  /* FAINTER: Reduced whites and shadow intensities to push it deeper */
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.Welcome-text {
   background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.02) 100%
+    90.01deg,
+    #e59cff 0.01%,
+    #ba9cff 50.01%,
+    #9cb2ff 100%
   );
-  box-shadow:
-    inset 20px 20px 30px rgba(255, 255, 255, 0.05),
-    inset -20px -20px 40px rgba(0, 0, 0, 0.7),
-    0 20px 40px rgba(0, 0, 0, 0.4);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  opacity: 0.6; /* Made overall ring more transparent */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.blob-ring-1 {
-  width: 450px;
-  height: 450px;
-  top: 10%;
-  right: 5%;
-  animation-delay: -3s;
-}
-.blob-ring-2 {
-  width: 350px;
-  height: 350px;
-  bottom: 15%;
-  left: 5%;
-  animation-duration: 45s;
+.Welcome-box {
+  backdrop-filter: blur(6px);
+  border-radius: 32px;
+  box-shadow: inset 0 -7px 11px #a48fff1f;
 }
 
-/* Morphing Keyframes */
-@keyframes morphBlob {
+/* Custom Animation for the "Floating" Icons in the Hero */
+@keyframes float {
   0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translateY(0px);
   }
   50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: translateY(-20px);
   }
   100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: translateY(0px);
   }
 }
 
-@keyframes morphRing {
-  0% {
-    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
-    transform: rotate(180deg) scale(1.02);
-  }
-  100% {
-    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-    transform: rotate(360deg) scale(1);
-  }
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 
 /* Component Entry Animations */
