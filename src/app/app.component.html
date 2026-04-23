@@ -1,6 +1,15 @@
 <app-star-background></app-star-background>
-<app-header></app-header>
-<main>
-  <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer>
+
+<div
+  class="fixed inset-0 z-[6] bg-[#030014]/60 backdrop-blur-[2px] pointer-events-none"
+></div>
+
+<div class="relative z-[10]">
+  <app-header></app-header>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <app-footer></app-footer>
+</div>

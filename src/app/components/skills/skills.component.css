@@ -1,0 +1,25 @@
+.italic-text {
+  font-family: "cursive", "Georgia", serif;
+}
+
+/* Adds a very subtle 'floating' animation to all icons */
+.group {
+  animation: float 6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 0.5s);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Ensure the text is ALWAYS readable regardless of star movement */
+h3,
+p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
