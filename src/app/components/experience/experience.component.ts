@@ -5,12 +5,11 @@ import {
   Experience,
   Education,
 } from '../../services/portfolio';
-import { ExperienceCardComponent } from '../../shared/experience-card/experience-card.component';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule, ExperienceCardComponent],
+  imports: [CommonModule],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })

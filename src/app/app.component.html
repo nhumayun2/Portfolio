@@ -1,5 +1,9 @@
 <app-star-background></app-star-background>
 
+@if (isLoading()) {
+  <app-loading message="Syncing with the Event Horizon..."></app-loading>
+}
+
 <div
   class="fixed inset-0 z-[6] bg-[#030014]/60 backdrop-blur-[2px] pointer-events-none"
 ></div>
