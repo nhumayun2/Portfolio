@@ -1,78 +1,65 @@
-<section
-  id="contact"
-  class="relative min-h-[70vh] w-full flex flex-col items-center justify-center py-20 overflow-hidden bg-transparent"
->
+<section id="contact" class="py-24 relative bg-transparent overflow-hidden">
   <div
-    class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none z-0"
-  >
-    <div
-      class="absolute bottom-[-10%] left-1/2 -translate-x-1/2 h-[600px] w-[800px] rounded-full bg-purple-600/10 blur-[150px]"
-    ></div>
-  </div>
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#a388f5]/5 blur-[150px] rounded-full pointer-events-none z-0"
+  ></div>
 
-  <div
-    class="container mx-auto px-6 relative z-10 flex flex-col items-center text-center"
-  >
-    <h2
-      class="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-[1.1]"
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="text-center mb-8">
+      <h2 class="text-4xl md:text-5xl font-bold text-white tracking-tighter">
+        Let's
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-[#a388f5] to-[#f588a3]"
+          >Connect</span
+        >
+      </h2>
+      <div
+        class="h-1 w-16 mx-auto mt-4 bg-gradient-to-r from-[#a388f5] to-[#f588a3] rounded-full"
+      ></div>
+    </div>
+
+    <p
+      class="text-gray-400 text-sm md:text-base max-w-md mx-auto text-center mb-12 leading-relaxed"
     >
-      Ready to take
-      <span
-        class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500"
-      >
-        your digital presence
-      </span>
-      to the next level?
-    </h2>
-
-    <p class="text-gray-400 mt-8 text-lg md:text-xl max-w-2xl mx-auto">
-      Reach out to me today and let's discuss how I can help you achieve your
-      goals. Whether it's a full-stack web app or a complex backend system.
+      Have a project in mind, a question, or just want to say hi? I'd love to
+      hear from you! Feel free to reach out.
     </p>
 
-    <div class="mt-12">
-      <a
-        [href]="'mailto:' + profile()?.email"
-        class="relative inline-flex h-14 overflow-hidden rounded-xl p-[1px] focus:outline-none group transition-transform active:scale-95"
-      >
-        <span
-          class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"
-        ></span>
-        <span
-          class="inline-flex h-full w-full cursor-pointer items-center justify-center gap-3 rounded-xl bg-slate-950 px-10 text-lg font-medium text-white backdrop-blur-3xl transition-all group-hover:bg-slate-900"
-        >
-          Let's get in touch
-          <i class="fas fa-paper-plane text-purple-400"></i>
-        </span>
-      </a>
-    </div>
-
-    <div class="mt-20 flex items-center gap-6">
-      @for (social of socials; track social.name) {
-        <a
-          [href]="social.url"
-          target="_blank"
-          [title]="social.name"
-          class="flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.1] bg-[#0300145e] backdrop-blur-md text-white transition-all duration-300 hover:border-purple-500 hover:text-purple-400 hover:-translate-y-2"
-        >
-          <i [class]="social.icon + ' text-xl'"></i>
-        </a>
-      }
-    </div>
-  </div>
-
-  <footer class="w-full mt-32 border-t border-white/[0.05] py-10 relative z-10">
     <div
-      class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-slate-500 text-sm"
+      class="max-w-3xl mx-auto rounded-[2rem] border border-white/[0.05] bg-[#0d1126]/90 backdrop-blur-xl p-10 md:p-14 text-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative overflow-hidden"
     >
-      <p>Copyright © 2026 {{ profile()?.fullName }}</p>
+      <div
+        class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#a388f5] to-[#f588a3]"
+      ></div>
 
-      <div class="flex items-center gap-2">
-        <span>Built with</span>
-        <span class="text-white font-semibold">Angular 21</span>
-        <span>&</span>
-        <span class="text-white font-semibold">.NET 10</span>
+      <h4
+        class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase mb-4"
+      >
+        Primary Contact
+      </h4>
+      <a
+        [href]="'mailto:' + (profile()?.email || 'nhumayun291@gmail.com')"
+        class="text-2xl md:text-4xl font-bold text-white hover:text-[#a388f5] transition-colors break-all inline-block"
+      >
+        {{ profile()?.email || "nhumayun291@gmail.com" }}
+      </a>
+
+      <h4
+        class="text-[10px] font-bold text-gray-500 tracking-[0.2em] uppercase mt-16 mb-6"
+      >
+        Find Me On
+      </h4>
+      <div class="flex flex-wrap justify-center gap-4">
+        @for (social of socials; track social.name) {
+          <a
+            [href]="social.url"
+            target="_blank"
+            [title]="social.name"
+            class="flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-white/[0.03] border border-white/[0.05] text-gray-400 hover:bg-white/[0.08] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm"
+          >
+            <i [class]="social.icon + ' text-xl'"></i>
+          </a>
+        }
       </div>
     </div>
-  </footer>
+  </div>
 </section>

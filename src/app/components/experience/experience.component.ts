@@ -1,6 +1,10 @@
 import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { PortfolioService, Experience } from '../../services/portfolio';
+import {
+  PortfolioService,
+  Experience,
+  Education,
+} from '../../services/portfolio';
 import { ExperienceCardComponent } from '../../shared/experience-card/experience-card.component';
 
 @Component({
@@ -14,20 +18,20 @@ export class ExperienceComponent implements OnInit {
   private portfolioService = inject(PortfolioService);
   private platformId = inject(PLATFORM_ID);
 
-  // Signal to store work history from your database
+  // Signals to store both datasets
   experiences = signal<Experience[]>([]);
+  educations = signal<Education[]>([]);
 
   ngOnInit(): void {
-    // Standard SSR safety check for your Render backend
     if (isPlatformBrowser(this.platformId)) {
-      this.loadExperiences();
+      this.loadJourneyData();
     }
   }
 
-  private loadExperiences(): void {
+  private loadJourneyData(): void {
+    // 1. Fetch Work Experience
     this.portfolioService.getExperiences().subscribe({
       next: (data) => {
-        // Sort experiences by date (newest first)
         const sorted = data.sort(
           (a, b) =>
             new Date(b.startDate || '').getTime() -
@@ -37,20 +41,30 @@ export class ExperienceComponent implements OnInit {
       },
       error: (err) => console.error('Error fetching experiences:', err),
     });
+
+    // 2. Fetch Education History
+    this.portfolioService.getEducations().subscribe({
+      next: (data) => {
+        // Sort educations by end year (newest first)
+        const sorted = data.sort((a, b) => {
+          const yearA = a.endYear ? parseInt(a.endYear) : 9999; // 9999 puts "current" at top
+          const yearB = b.endYear ? parseInt(b.endYear) : 9999;
+          return yearB - yearA;
+        });
+        this.educations.set(sorted);
+      },
+      error: (err) => console.error('Error fetching educations:', err),
+    });
   }
 
-  /**
-   * Helper to format dates from the backend into a readable string
-   * e.g., "Jan 2024 - Present"
-   */
-  formatDateRange(exp: Experience): string {
+  // Format Dates for Experience
+  formatExpDate(exp: Experience): string {
     const start = exp.startDate
       ? new Date(exp.startDate).toLocaleDateString('en-US', {
           month: 'short',
           year: 'numeric',
         })
-      : 'Start';
-
+      : '';
     const end = exp.isCurrentRole
       ? 'Present'
       : exp.endDate
@@ -58,8 +72,8 @@ export class ExperienceComponent implements OnInit {
             month: 'short',
             year: 'numeric',
           })
-        : 'End';
+        : '';
 
-    return `${start} — ${end}`;
+    return start && end ? `${start} - ${end}` : start || end;
   }
 }

@@ -1,0 +1,126 @@
+<div
+  class="relative h-full w-full overflow-hidden rounded-3xl border border-white/[0.05] bg-[#030014]/60 backdrop-blur-xl transition-all duration-300 hover:border-purple-500/30 hover:shadow-[0_8px_30px_rgb(168,85,247,0.15)] group flex flex-col justify-between"
+>
+  <div
+    class="absolute inset-0 z-0 overflow-hidden rounded-3xl pointer-events-none"
+  >
+    @if (id === 6) {
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-[#4A1D77] via-[#2A1054] to-[#030014] opacity-90"
+      ></div>
+    }
+
+    @if (spareImg) {
+      <img
+        [src]="spareImg"
+        alt="Pattern"
+        class="absolute inset-0 w-full h-full object-cover object-center opacity-30"
+      />
+    }
+
+    @if (img && id !== 2 && id !== 6) {
+      <img
+        [src]="img"
+        alt="Visual"
+        class="transition-transform duration-700 group-hover:scale-105"
+        [ngClass]="
+          imgClassName ||
+          'absolute inset-0 w-full h-full object-cover object-center opacity-30'
+        "
+      />
+    }
+
+    @if (id === 2) {
+      <div
+        class="absolute -right-20 -bottom-20 w-[150%] h-[150%] sm:w-full sm:h-full sm:right-0 sm:bottom-0 pointer-events-auto"
+      >
+        <app-globe></app-globe>
+      </div>
+    }
+  </div>
+
+  <div
+    class="relative z-10 flex flex-col h-full p-6 md:p-8 transition-transform duration-500 group-hover:translate-x-2"
+    [ngClass]="titleClassName"
+  >
+    <div [ngClass]="{ 'max-w-sm xl:max-w-md': id !== 6 && id !== 3 }">
+      @if ((id === 3 || id === 5) && description) {
+        <p
+          class="font-sans font-normal text-slate-400 text-sm mb-2 drop-shadow-md"
+        >
+          {{ description }}
+        </p>
+      }
+
+      <h4
+        class="font-sans font-bold text-xl md:text-2xl lg:text-3xl text-white mb-3 tracking-tight drop-shadow-lg"
+        [ngClass]="{ 'text-center': id === 6 }"
+      >
+        {{ title }}
+      </h4>
+
+      @if (id !== 3 && id !== 5 && description) {
+        <p
+          class="font-sans font-normal text-slate-300 text-sm md:text-base leading-relaxed drop-shadow-md"
+          [ngClass]="{ 'text-center': id === 6 }"
+        >
+          {{ description }}
+        </p>
+      }
+
+      @if (showCvButton) {
+        <div class="mt-8 pointer-events-auto">
+          <button
+            (click)="downloadCV($event)"
+            class="inline-flex items-center justify-center gap-3 rounded-xl bg-[#84cc16] px-6 py-3 text-sm font-bold text-black transition-all hover:bg-[#a3e635] hover:-translate-y-1 active:scale-95 shadow-[0_0_15px_rgba(132,204,22,0.2)]"
+          >
+            <i class="fas fa-download"></i>
+            Download CV
+          </button>
+        </div>
+      }
+
+      @if (id === 6 && email) {
+        <div class="mt-6 pointer-events-auto flex justify-center w-full">
+          <button
+            (click)="copyEmail($event)"
+            class="inline-flex h-12 items-center justify-center gap-3 rounded-xl border border-white/[0.1] bg-[#0d1126]/80 backdrop-blur-md px-8 text-sm font-bold text-white transition-all hover:bg-white/[0.1] hover:-translate-y-1 active:scale-95 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+          >
+            @if (copied()) {
+              <i class="fas fa-check text-green-400"></i>
+              Email is Copied!
+            } @else {
+              <i class="far fa-copy text-slate-400"></i>
+              Copy my email
+            }
+          </button>
+        </div>
+      }
+    </div>
+
+    @if (id === 3) {
+      <div
+        class="absolute right-[-20px] md:right-[-30px] top-1/2 -translate-y-1/2 flex gap-3 md:gap-4 pointer-events-auto scale-90 md:scale-100 opacity-80"
+      >
+        <div class="flex flex-col gap-3 translate-y-[-20px]">
+          @for (item of leftLists; track item) {
+            <span
+              class="py-3 px-5 text-sm font-semibold rounded-lg text-center bg-[#10132E] text-slate-300 shadow-xl"
+            >
+              {{ item }}
+            </span>
+          }
+        </div>
+        <div class="flex flex-col gap-3 translate-y-[20px]">
+          @for (item of rightLists; track item) {
+            <span
+              class="py-3 px-5 text-sm font-semibold rounded-lg text-center bg-[#10132E] text-slate-300 shadow-xl"
+            >
+              {{ item }}
+            </span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

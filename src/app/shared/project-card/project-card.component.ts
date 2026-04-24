@@ -7,23 +7,20 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <div
-      class="group relative flex flex-col h-full w-full max-w-[500px] overflow-hidden rounded-2xl border border-[#2A0E61] bg-[#0300145e] backdrop-blur-md transition-all duration-300 hover:border-[#7042f88b] hover:shadow-[0_0_30px_rgba(112,66,248,0.15)]"
+      class="flex flex-col h-full w-full max-w-[450px] overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d1126] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(163,136,245,0.15)]"
     >
-      <div class="relative aspect-video w-full overflow-hidden">
+      <div
+        class="relative aspect-video w-full overflow-hidden bg-slate-900 border-b border-white/[0.05]"
+      >
         <img
-          [src]="image || '/p1.svg'"
+          [src]="image || '/hero-bg.svg'"
           [alt]="title"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          class="h-full w-full object-cover"
         />
-        <div
-          class="absolute inset-0 bg-gradient-to-t from-[#030014] to-transparent opacity-60"
-        ></div>
       </div>
 
       <div class="flex flex-1 flex-col p-6">
-        <h3
-          class="text-2xl font-bold text-white tracking-tight group-hover:text-purple-400 transition-colors"
-        >
+        <h3 class="text-2xl font-bold text-white tracking-tight">
           {{ title }}
         </h3>
 
@@ -31,31 +28,40 @@ import { CommonModule } from '@angular/common';
           {{ description }}
         </p>
 
-        <div class="mt-6 flex flex-wrap gap-2">
+        <div class="mt-5 flex flex-wrap gap-2">
           @for (tech of techStack; track tech) {
             <span
-              class="rounded-md border border-white/[0.1] bg-[#10132e] px-2 py-1 text-[10px] font-medium uppercase tracking-widest text-purple-200"
+              class="rounded bg-[#1a1f3c] px-2 py-1 text-[11px] font-semibold text-[#a388f5] border border-white/[0.05]"
             >
               {{ tech }}
             </span>
           }
         </div>
 
-        <div class="mt-auto pt-6">
-          <a
-            [href]="link"
-            target="_blank"
-            class="inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-cyan-400"
-          >
-            Live Preview
-            <i class="fas fa-external-link-alt text-xs"></i>
-          </a>
+        <div class="mt-auto pt-6 flex flex-wrap gap-3">
+          @if (liveUrl) {
+            <a
+              [href]="liveUrl"
+              target="_blank"
+              class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-[#a388f5]/10 px-4 py-2 text-sm font-semibold text-[#a388f5] transition-colors hover:bg-[#a388f5] hover:text-white border border-[#a388f5]/20"
+            >
+              <i class="fas fa-external-link-alt text-xs"></i>
+              Live Demo
+            </a>
+          }
+
+          @if (gitHubUrl) {
+            <a
+              [href]="gitHubUrl"
+              target="_blank"
+              class="flex-1 flex items-center justify-center gap-2 rounded-lg bg-white/[0.05] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/[0.1] border border-white/[0.05]"
+            >
+              <i class="fab fa-github text-xs"></i>
+              Source Code
+            </a>
+          }
         </div>
       </div>
-
-      <div
-        class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-purple-500/10 blur-[50px] transition-opacity group-hover:opacity-100 opacity-0"
-      ></div>
     </div>
   `,
   styles: [
@@ -72,5 +78,6 @@ export class ProjectCardComponent {
   @Input() description: string = '';
   @Input() image: string = '';
   @Input() techStack: string[] = [];
-  @Input() link: string = '';
+  @Input() liveUrl: string = '';
+  @Input() gitHubUrl: string = '';
 }
