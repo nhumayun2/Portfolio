@@ -1,59 +1,56 @@
 <footer
-  class="relative bg-[var(--color-brand-dark)] pt-16 pb-8 overflow-hidden border-t border-white/5"
+  class="relative mt-12 border-t border-white/[0.05] bg-[#030014] pt-16 pb-8 overflow-hidden z-20"
 >
   <div
-    class="absolute bottom-[-20%] left-1/2 transform -translate-x-1/2 w-[800px] h-[300px] bg-[var(--color-brand-primary)] opacity-10 blur-[120px] pointer-events-none"
+    class="absolute bottom-[-150px] left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-t from-[#a388f5]/10 via-[#a388f5]/5 to-transparent blur-[100px] rounded-full pointer-events-none"
   ></div>
 
-  <div class="container mx-auto px-6 relative z-10 max-w-7xl">
+  <div class="container mx-auto px-6 max-w-7xl relative z-10">
     <div
-      class="flex flex-col md:flex-row justify-between items-center gap-8 mb-10"
+      class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12"
     >
-      <a href="#" class="relative group flex items-center gap-3">
-        <div
-          class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_15px_rgba(132,204,22,0.15)] group-hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] transition-all duration-500 group-hover:scale-105"
-        >
-          <span
-            class="text-xl font-[var(--font-display)] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[var(--color-brand-primary)] to-[var(--color-brand-highlight)]"
-            >H</span
-          >
-        </div>
-        <span
-          class="text-xl font-[var(--font-display)] font-bold text-white tracking-tight group-hover:text-[var(--color-brand-primary)] transition-colors duration-300"
-        >
-          Humayun A.
-        </span>
-      </a>
+      <div class="text-center md:text-left">
+        <h2 class="text-2xl font-bold text-white tracking-tighter">
+          {{ profile()?.fullName || "Humayun Ahmed Niloy" }}
+        </h2>
+        <p class="text-slate-400 text-sm mt-2 max-w-sm">
+          Software Engineer architecting scalable full-stack solutions and
+          next-generation applications.
+        </p>
+      </div>
 
-      <a
-        href="#"
-        aria-label="Back to top"
-        class="w-12 h-12 rounded-full glass-card flex items-center justify-center text-slate-300 hover:text-white hover:border-[var(--color-brand-primary)]/50 hover:bg-white/10 hover:scale-110 transition-all duration-300 shadow-lg group"
+      <button
+        (click)="scrollToTop()"
+        class="group flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.05] bg-[#0d1126] text-slate-400 transition-all duration-300 hover:border-[#a388f5]/50 hover:bg-[#a388f5]/10 hover:text-white hover:shadow-[0_0_20px_rgba(163,136,245,0.2)] active:scale-95"
+        title="Back to top"
       >
         <i
-          class="fas fa-arrow-up group-hover:-translate-y-1 transition-transform duration-300 text-[var(--color-brand-primary)] drop-shadow-md"
+          class="fas fa-arrow-up text-lg transition-transform duration-300 group-hover:-translate-y-1"
         ></i>
-      </a>
+      </button>
     </div>
 
     <div
-      class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8"
+      class="h-[1px] w-full bg-gradient-to-r from-transparent via-white/[0.1] to-transparent mb-8"
     ></div>
 
     <div
-      class="text-center flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 font-[var(--font-body)] text-sm"
+      class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm text-slate-500 font-medium"
     >
-      <p class="tracking-wide">
-        © 2026 Humayun Ahmed Niloy. All rights reserved.
+      <p>
+        &copy; {{ currentYear }}
+        {{ profile()?.fullName || "Humayun Ahmed Niloy" }}. All rights reserved.
       </p>
 
-      <p class="flex items-center justify-center gap-1.5 font-medium">
-        Designed & Built with
-        <i
-          class="fas fa-heart text-[var(--color-brand-highlight)] animate-pulse drop-shadow-[0_0_5px_rgba(236,72,153,0.5)]"
-        ></i>
-        in Angular 21
-      </p>
+      <div class="flex items-center gap-6">
+        <a
+          [href]="'mailto:' + (profile()?.email || 'nhumayun291@gmail.com')"
+          class="hover:text-[#a388f5] transition-colors duration-300 flex items-center gap-2"
+        >
+          <i class="fas fa-envelope"></i>
+          {{ profile()?.email || "nhumayun291@gmail.com" }}
+        </a>
+      </div>
     </div>
   </div>
 </footer>

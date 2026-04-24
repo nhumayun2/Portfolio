@@ -14,7 +14,7 @@
     muted
     loop
     playsinline
-    class="rotate-180 absolute top-[-30%] md:top-[-500px] left-0 w-full h-[120%] object-cover z-[1] pointer-events-none mix-blend-lighten opacity-90 [mask-image:linear-gradient(to_bottom,black_50%,transparent_90%)]"
+    class="rotate-180 absolute top-[-45%] md:top-[-500px] left-0 w-full h-[120%] object-cover z-[1] pointer-events-none mix-blend-lighten opacity-90 [mask-image:linear-gradient(to_bottom,black_50%,transparent_90%)]"
   >
     <source src="/blackhole.webm" type="video/webm" />
   </video>
@@ -39,31 +39,34 @@
         class="h-full w-full flex flex-col gap-5 justify-center m-auto text-center lg:text-start lg:w-1/2"
       >
         <div
+          #welcomeBox
           class="Welcome-box py-[8px] px-[12px] border border-[#7042f88b] opacity-[0.9] mx-auto lg:mx-0 flex items-center w-max bg-[#0300145e] backdrop-blur-sm"
         >
           <i class="fas fa-sparkles text-[#b49bff] mr-[10px] text-sm"></i>
           <h1
             class="Welcome-text text-[13px] font-semibold uppercase tracking-wider"
           >
-            Fullstack Developer Portfolio
+            {{ data.title }}
           </h1>
         </div>
 
         <div
+          #heading
           class="flex flex-col gap-6 mt-6 text-5xl md:text-7xl font-bold text-white max-w-[600px] w-auto h-auto mx-auto lg:mx-0 tracking-tighter"
         >
           <span class="leading-[1.1]">
-            Providing
+            Architecting
             <span
               class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500"
             >
-              the best
+              scalable
             </span>
-            project experience.
+            software solutions.
           </span>
         </div>
 
         <p
+          #paragraph
           class="text-lg text-gray-400 my-5 max-w-[600px] mx-auto lg:mx-0 leading-relaxed"
         >
           Hi, I'm {{ data.fullName }}, a {{ data.title }} specialized in
@@ -71,9 +74,9 @@
           skills.
         </p>
 
-        <div class="mx-auto lg:mx-0 w-full sm:w-60 mt-4">
+        <div #button class="mx-auto lg:mx-0 w-full sm:w-60 mt-4">
           <a
-            href="#about"
+            href="#projects"
             class="relative inline-flex h-12 w-full overflow-hidden rounded-lg p-[1px] focus:outline-none group"
           >
             <span
@@ -90,6 +93,7 @@
       </div>
 
       <div
+        #heroImage
         class="w-full h-full flex justify-center items-center lg:w-1/2 mt-16 lg:mt-0 animate-float"
       >
         <img
