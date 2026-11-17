@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "./app/**/*.{html,ts}";
+@source "./**/*.{html,ts}";
 
 :root {
   --color-brand-dark: #060608;
