@@ -13,7 +13,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import * as THREE from 'three';
 import { SoundService } from '../../services/sound.service';
 
-export type ShaderMode = 'chrome' | 'xray' | 'wireframe';
+export type ShaderMode = 'chrome' | 'iridescent' | 'xray' | 'amber' | 'wireframe';
 
 @Component({
   selector: 'app-liquid-chrome-canvas',
@@ -70,8 +70,6 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
   // Scene Meshes & Groups
   private mainSculptureGroup = new THREE.Group();
   private mobiusKnot!: THREE.Mesh;
-  private innerCrystalCore!: THREE.Mesh;
-  private innerGlowCore!: THREE.Mesh;
   private gimbalRing1!: THREE.Mesh;
   private gimbalRing2!: THREE.Mesh;
   private gimbalRing3!: THREE.Mesh;
@@ -92,6 +90,21 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
       sheen: 0.9,
       sheenColor: 0x84cc16,
     }),
+    iridescent: new THREE.MeshPhysicalMaterial({
+      color: 0x181028,
+      emissive: 0x120824,
+      roughness: 0.04,
+      metalness: 0.85,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.02,
+      iridescence: 1.0,
+      iridescenceIOR: 1.6,
+      iridescenceThicknessMinimum: 100,
+      iridescenceThicknessMaximum: 400,
+      sheen: 1.0,
+      sheenColor: 0x38bdf8,
+      reflectivity: 1.0,
+    }),
     xray: new THREE.MeshPhysicalMaterial({
       color: 0x38bdf8,
       emissive: 0x0284c7,
@@ -104,6 +117,18 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
       transparent: true,
       opacity: 0.75,
       wireframe: false,
+    }),
+    amber: new THREE.MeshPhysicalMaterial({
+      color: 0x1c1917,
+      emissive: 0xd97706,
+      emissiveIntensity: 0.65,
+      roughness: 0.12,
+      metalness: 0.94,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
+      sheen: 1.0,
+      sheenColor: 0xf59e0b,
+      reflectivity: 1.0,
     }),
     wireframe: new THREE.MeshStandardMaterial({
       color: 0x84cc16,
@@ -243,29 +268,7 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
     this.mobiusKnot = new THREE.Mesh(knotGeo, this.materials.chrome);
     this.mainSculptureGroup.add(this.mobiusKnot);
 
-    // 3. Central Pulsing Octahedron Crystal Core & Inner Glow
-    const crystalGeo = new THREE.OctahedronGeometry(0.65, 0);
-    const crystalMat = new THREE.MeshStandardMaterial({
-      color: 0x84cc16,
-      emissive: 0x84cc16,
-      emissiveIntensity: 0.85,
-      wireframe: true,
-      roughness: 0.2,
-      metalness: 0.8,
-    });
-    this.innerCrystalCore = new THREE.Mesh(crystalGeo, crystalMat);
-    this.mainSculptureGroup.add(this.innerCrystalCore);
-
-    const glowGeo = new THREE.SphereGeometry(0.38, 16, 16);
-    const glowMat = new THREE.MeshBasicMaterial({
-      color: 0x84cc16,
-      transparent: true,
-      opacity: 0.38,
-    });
-    this.innerGlowCore = new THREE.Mesh(glowGeo, glowMat);
-    this.mainSculptureGroup.add(this.innerGlowCore);
-
-    // 4. Aerospace Gimbal Assemblies (Gen Cherry Hardware Aesthetic)
+    // 3. Aerospace Gimbal Assemblies (Gen Cherry Hardware Aesthetic)
     // Gimbal Ring 1: Slotted Mechanical Ring (Inner)
     const ringGeo1 = new THREE.TorusGeometry(2.65, 0.022, 16, 120);
     const ringMat1 = new THREE.MeshStandardMaterial({
@@ -373,7 +376,7 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
   }
 
   public cycleShaderMode(): void {
-    const modes: ShaderMode[] = ['chrome', 'xray', 'wireframe'];
+    const modes: ShaderMode[] = ['chrome', 'iridescent', 'xray', 'amber', 'wireframe'];
     const curIndex = modes.indexOf(this.activeMode());
     const nextMode = modes[(curIndex + 1) % modes.length];
     this.setShaderMode(nextMode);
@@ -495,18 +498,6 @@ export class LiquidChromeCanvasComponent implements AfterViewInit, OnDestroy {
       this.mobiusKnot.rotation.y = this.dragRotation.y + t * 0.22;
       this.mobiusKnot.rotation.x = this.dragRotation.x + Math.sin(t * 0.4) * 0.2;
       this.mobiusKnot.rotation.z = Math.cos(t * 0.3) * 0.12;
-    }
-
-    // Inner Crystal Rotation & Breathing
-    if (this.innerCrystalCore) {
-      this.innerCrystalCore.rotation.y -= delta * 0.95;
-      this.innerCrystalCore.rotation.z += delta * 0.65;
-      const scale = 1.0 + Math.sin(t * 2.8) * 0.06 + this.pulseEnergy * 0.25;
-      this.innerCrystalCore.scale.set(scale, scale, scale);
-    }
-    if (this.innerGlowCore) {
-      const gScale = 1.0 + Math.sin(t * 2.8) * 0.1 + this.pulseEnergy * 0.4;
-      this.innerGlowCore.scale.set(gScale, gScale, gScale);
     }
 
     // Aerospace Gimbal Rings Rotations

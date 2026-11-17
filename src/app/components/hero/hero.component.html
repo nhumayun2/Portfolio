@@ -159,16 +159,26 @@
             <span class="micro-badge text-[10px] text-slate-400 font-bold tracking-widest">CHASSIS: HN-ENG-26</span>
             <span class="micro-badge text-[10px] text-lime-400 font-bold tracking-widest">SHADER SELECT</span>
           </div>
-          <div class="flex items-center gap-1.5 justify-end mb-2.5">
+          <div class="flex flex-wrap items-center gap-1.5 justify-end mb-2.5">
             <button
               type="button"
               (click)="liquidCanvas.setShaderMode('chrome')"
               [class.bg-lime-400]="liquidCanvas.activeMode() === 'chrome'"
               [class.text-black]="liquidCanvas.activeMode() === 'chrome'"
               [class.text-slate-300]="liquidCanvas.activeMode() !== 'chrome'"
-              class="px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
+              class="px-2 py-1 text-[9px] font-mono font-bold rounded border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
             >
               TITANIUM
+            </button>
+            <button
+              type="button"
+              (click)="liquidCanvas.setShaderMode('iridescent')"
+              [class.bg-purple-400]="liquidCanvas.activeMode() === 'iridescent'"
+              [class.text-black]="liquidCanvas.activeMode() === 'iridescent'"
+              [class.text-slate-300]="liquidCanvas.activeMode() !== 'iridescent'"
+              class="px-2 py-1 text-[9px] font-mono font-bold rounded border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
+            >
+              HOLO
             </button>
             <button
               type="button"
@@ -176,9 +186,19 @@
               [class.bg-cyan-400]="liquidCanvas.activeMode() === 'xray'"
               [class.text-black]="liquidCanvas.activeMode() === 'xray'"
               [class.text-slate-300]="liquidCanvas.activeMode() !== 'xray'"
-              class="px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
+              class="px-2 py-1 text-[9px] font-mono font-bold rounded border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
             >
-              X-RAY GLASS
+              ICE GLASS
+            </button>
+            <button
+              type="button"
+              (click)="liquidCanvas.setShaderMode('amber')"
+              [class.bg-amber-400]="liquidCanvas.activeMode() === 'amber'"
+              [class.text-black]="liquidCanvas.activeMode() === 'amber'"
+              [class.text-slate-300]="liquidCanvas.activeMode() !== 'amber'"
+              class="px-2 py-1 text-[9px] font-mono font-bold rounded border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
+            >
+              AMBER
             </button>
             <button
               type="button"
@@ -186,7 +206,7 @@
               [class.bg-lime-400]="liquidCanvas.activeMode() === 'wireframe'"
               [class.text-black]="liquidCanvas.activeMode() === 'wireframe'"
               [class.text-slate-300]="liquidCanvas.activeMode() !== 'wireframe'"
-              class="px-2.5 py-1 text-[10px] font-mono font-bold rounded-lg border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
+              class="px-2 py-1 text-[9px] font-mono font-bold rounded border border-white/10 bg-white/5 hover:bg-white/15 transition-all cursor-pointer"
             >
               WIREFRAME
             </button>
