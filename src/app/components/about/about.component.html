@@ -1,102 +1,143 @@
 <section
   id="about"
-  class="relative bg-[var(--color-brand-surface)] text-[var(--color-brand-text-on-dark)] py-20 md:py-28 overflow-hidden"
+  class="relative bg-[#060608] text-white py-24 md:py-32 border-t border-white/5 w-full max-w-full overflow-hidden box-border"
 >
-  <div class="blob-scene">
-    <div
-      #blob2
-      class="blob blob-2 transition-transform duration-75 ease-out"
-      style="top: -10%; right: -5%; bottom: auto; left: auto; opacity: 0.3"
-    ></div>
-    <div
-      #blob3
-      class="blob blob-3 transition-transform duration-75 ease-out"
-      style="bottom: -10%; left: -5%; top: auto; right: auto; opacity: 0.25"
-    ></div>
-    <div
-      #blobRing
-      class="blob-ring blob-ring-2 transition-transform duration-75 ease-out"
-      style="top: 20%; left: 15%"
-    ></div>
-  </div>
+  <!-- Dedicated 3D Holographic Prism Canvas -->
+  <app-about-canvas></app-about-canvas>
 
-  <div class="container mx-auto px-6 max-w-5xl relative z-10">
+  <!-- Architectural Background Grid -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-30"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
     @if (profile(); as data) {
-      <div
-        class="text-center mb-16 md:mb-20 opacity-0 apply-fade-in-up"
-        style="animation-delay: 0.1s"
-      >
-        <h2
-          class="text-4xl md:text-5xl font-[var(--font-display)] font-bold mb-4"
-        >
-          About <span class="text-[var(--color-brand-primary)]">Me</span>
-        </h2>
-        <div class="w-24 h-1 bg-[var(--color-brand-primary)] mx-auto"></div>
+      <!-- Section Header -->
+      <div class="flex items-center gap-3 mb-6">
+        <span class="h-[1px] w-8 md:w-16 bg-lime-400"></span>
+        <span class="micro-badge text-lime-400 font-bold tracking-[0.25em]">
+          [ 02 // ARCHITECTURAL DOSSIER & BIOMETRICS ]
+        </span>
       </div>
 
-      <div
-        class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center"
-      >
-        <div
-          class="md:col-span-5 flex justify-center opacity-0 apply-fade-in-up"
-          style="animation-delay: 0.3s"
-        >
-          <div
-            class="relative group w-60 h-60 sm:w-72 sm:h-72 rounded-full p-2 bg-gradient-to-br from-[var(--color-brand-secondary)] via-[var(--color-brand-highlight)] to-[var(--color-brand-primary)]"
-          >
-            <div
-              class="absolute inset-0 rounded-full bg-[var(--color-brand-primary)] opacity-20 blur-xl group-hover:opacity-30 transition-opacity duration-300 animate-pulse-slower"
-            ></div>
-            <img
-              src="/77454208.jfif"
-              [alt]="data.fullName"
-              class="relative w-full h-full object-cover rounded-full border-4 border-[var(--color-brand-surface)] shadow-xl group-hover:scale-105 transition-transform duration-300"
-            />
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Left: Technical Portrait Frame with 3D Holographic Styling -->
+        <div class="lg:col-span-5 flex flex-col items-center lg:items-start">
+          <div class="relative group w-full max-w-md p-3.5 bg-black/60 border border-white/10 rounded-2xl backdrop-blur-xl shadow-2xl overflow-hidden hover:border-lime-400/50 transition-all duration-500">
+            <!-- HUD Corner Marks -->
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-lime-400"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-lime-400"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-lime-400"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-lime-400"></div>
 
-            <div
-              class="absolute -top-4 -right-4 w-16 h-16 bg-[var(--color-brand-highlight)] rounded-lg transform rotate-45 opacity-30 group-hover:opacity-50 transition-opacity duration-300 blur-sm"
-            ></div>
+            <!-- Scanline Laser Effect -->
+            <div class="absolute inset-x-0 h-1 bg-lime-400/40 blur-sm pointer-events-none animate-scanline"></div>
+
+            <div class="relative w-full aspect-[4/5] overflow-hidden rounded-xl bg-slate-950">
+              <img
+                src="/77454208.jfif"
+                [alt]="data.fullName"
+                class="w-full h-full object-cover grayscale contrast-125 brightness-95 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
+              
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between font-mono text-[11px] text-slate-300">
+                <span class="text-lime-400 font-bold flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse"></span>
+                  STATUS: ACTIVE
+                </span>
+                <span class="bg-black/60 px-2 py-0.5 rounded border border-white/10">DHAKA // 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Specs Strip -->
+          <div class="mt-4 w-full max-w-md grid grid-cols-2 gap-2 text-left font-mono text-[10px] text-slate-400">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-md">
+              <span class="block text-slate-500 mb-0.5">CORE DISCIPLINE</span>
+              <span class="text-white font-semibold">FULL-STACK & 3D SIMULATION</span>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-md">
+              <span class="block text-slate-500 mb-0.5">ACADEMIC FOUNDATION</span>
+              <span class="text-lime-400 font-semibold">BSC CSE (SE) • AIUB</span>
+            </div>
+          </div>
+
+          <!-- CV Download Button -->
+          <div class="mt-4 w-full max-w-md">
+            <a
+              href="file:///C:/Users/HP/.gemini/antigravity/brain/090e0395-1545-4bf6-99f7-5bfc7edd2f76/.user_uploaded/media_1794911288504_4e206e54.pdf"
+              target="_blank"
+              (mouseenter)="onHover()"
+              class="w-full py-3.5 px-5 rounded-xl border border-lime-400/40 bg-lime-400/10 hover:bg-lime-400 hover:text-black text-lime-400 font-mono text-xs font-bold tracking-widest uppercase transition-all duration-300 flex items-center justify-center gap-2.5 shadow-[0_0_20px_rgba(132,204,22,0.15)]"
+            >
+              <i class="fas fa-file-arrow-down text-sm"></i>
+              <span>INSPECT VERIFIED CV [PDF]</span>
+              <span>↗</span>
+            </a>
           </div>
         </div>
 
-        <div
-          class="md:col-span-7 opacity-0 apply-fade-in-up"
-          style="animation-delay: 0.5s"
-        >
-          <div
-            class="glass-panel p-8 md:p-10 rounded-[30px] relative overflow-hidden"
-          >
-            <h3
-              class="text-2xl md:text-3xl font-[var(--font-display)] font-semibold text-white mb-6"
-            >
-              A Glimpse into My World
-            </h3>
+        <!-- Right: Editorial Philosophy & Interactive Engineering Matrix -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white mb-6">
+            Engineering Rigor.
+            <span class="block text-slate-400 font-light text-2xl md:text-3xl lowercase italic font-serif">
+              architectural precision.
+            </span>
+          </h2>
 
+          <p class="font-mono text-xs md:text-sm text-slate-300 leading-relaxed mb-6">
+            {{ data.summary }}
+          </p>
+
+          <p class="font-mono text-xs md:text-sm text-slate-400 leading-relaxed mb-10">
+            Graduated from <span class="text-white font-semibold">American International University-Bangladesh (AIUB)</span> with a BSc in Computer Science and Engineering majoring in Software Engineering. Dedicated to crafting resilient distributed architectures, high-performance web systems with Angular and ASP.NET Core, and real-time interactive 3D media using Unreal Engine 5 and WebGL.
+          </p>
+
+          <!-- Interactive Engineering Pillars Grid (Awwwards Style) -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono">
             <div
-              class="font-[var(--font-body)] text-lg text-slate-300 space-y-5 leading-relaxed relative z-10"
+              (mouseenter)="onHover()"
+              class="group p-5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-lime-400/50 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between"
             >
-              <p>
-                {{ data.summary }}
-              </p>
-              <p>
-                Currently seeking opportunities to contribute to innovative
-                projects that make a real difference.
-              </p>
+              <div>
+                <div class="text-[10px] text-lime-400 font-bold mb-2">// 01 • SCALABILITY</div>
+                <div class="text-sm font-bold text-white mb-2 group-hover:text-lime-400 transition-colors">Distributed Backend</div>
+                <p class="text-[11px] text-slate-400 leading-normal">High-concurrency RESTful APIs with ASP.NET Core (.NET 10) & Node.js.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-500">INDEX</span>
+                <span class="text-lime-400 font-bold">98% OPTIMAL</span>
+              </div>
             </div>
 
-            <div class="mt-10 text-center md:text-left relative z-10">
-              <a
-                [href]="data.cvUrl ? data.cvUrl : '/Humayun_Ahmed_Niloy.pdf'"
-                target="_blank"
-                class="group inline-block relative overflow-hidden bg-[var(--color-brand-primary)] text-[var(--color-brand-dark)] font-[var(--font-display)] font-bold py-3 px-8 rounded-lg text-lg transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg hover:shadow-[var(--color-brand-primary)]/50"
-              >
-                <span
-                  class="absolute inset-0 w-0 bg-[var(--color-brand-highlight)] transition-all duration-[350ms] ease-out group-hover:w-full"
-                ></span>
-                <span class="relative"
-                  ><i class="fas fa-download mr-2"></i> Download CV</span
-                >
-              </a>
+            <div
+              (mouseenter)="onHover()"
+              class="group p-5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div class="text-[10px] text-cyan-400 font-bold mb-2">// 02 • INTERACTIVE</div>
+                <div class="text-sm font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">Spatial Web & UI</div>
+                <p class="text-[11px] text-slate-400 leading-normal">Modern reactive SPAs with Angular 20, React, Three.js & Tailwind CSS.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-500">INDEX</span>
+                <span class="text-cyan-400 font-bold">96% RESPONSIVE</span>
+              </div>
+            </div>
+
+            <div
+              (mouseenter)="onHover()"
+              class="group p-5 rounded-xl bg-white/[0.02] border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.05] transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div class="text-[10px] text-cyan-400 font-bold mb-2">// 03 • REAL-TIME</div>
+                <div class="text-sm font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">3D & Game Engine</div>
+                <p class="text-[11px] text-slate-400 leading-normal">Unreal Engine 5 cinematic pipelines, C++, shaders & simulation physics.</p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[10px]">
+                <span class="text-slate-500">INDEX</span>
+                <span class="text-cyan-400 font-bold">94% SIMULATION</span>
+              </div>
             </div>
           </div>
         </div>

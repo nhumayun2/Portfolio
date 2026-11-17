@@ -1,18 +1,20 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PortfolioService, Project } from '../../services/portfolio';
+import { SoundService } from '../../services/sound.service';
+import { ProjectsCanvasComponent } from './projects-canvas.component';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProjectsCanvasComponent],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css',
 })
 export class PortfolioComponent implements OnInit {
   private portfolioService = inject(PortfolioService);
+  public soundService = inject(SoundService);
 
-  // Signal to hold the array of projects from your PostgreSQL database
   projects = signal<Project[]>([]);
 
   ngOnInit(): void {
@@ -28,5 +30,9 @@ export class PortfolioComponent implements OnInit {
         console.error('Error fetching projects:', err);
       },
     });
+  }
+
+  onHover(): void {
+    this.soundService.playHoverBlip();
   }
 }

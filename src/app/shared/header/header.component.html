@@ -3,151 +3,111 @@
   [class.header-scrolled]="isScrolled"
   [class.header-top]="!isScrolled"
 >
-  <div
-    class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"
-  ></div>
-
-  <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="#" class="relative group flex items-center gap-3">
-      <div
-        class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shadow-[0_0_15px_rgba(132,204,22,0.15)] group-hover:shadow-[0_0_25px_rgba(132,204,22,0.4)] group-hover:scale-105 transition-all duration-500 ease-out"
-      >
-        <span
-          class="text-xl font-[var(--font-display)] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[var(--color-brand-primary)] to-[var(--color-brand-highlight)]"
-          >H</span
-        >
-      </div>
-      <span
-        class="text-xl md:text-2xl font-[var(--font-display)] font-bold text-white tracking-tight transition-colors duration-300"
-      >
-        Humayun A.
+  <div class="w-full px-6 md:px-12 py-4 flex items-center justify-between">
+    <!-- Brand / Identity -->
+    <a href="#" class="flex items-center gap-3.5 group">
+      <span class="font-mono text-xs font-black tracking-widest text-white border border-white/20 px-2.5 py-1 rounded-sm bg-white/5 group-hover:border-lime-400 group-hover:text-lime-400 transition-colors">
+        HN // 26
       </span>
+      <div class="flex flex-col">
+        <span class="text-xs font-mono font-bold tracking-widest text-white uppercase group-hover:text-lime-400 transition-colors">
+          HUMAYUN A. NILOY
+        </span>
+        <span class="text-[9px] font-mono text-slate-400 tracking-wider">
+          SOFTWARE ENGINEER // FULL-STACK & 3D
+        </span>
+      </div>
     </a>
 
-    <div
-      class="hidden md:flex items-center space-x-1 bg-white/5 border border-white/10 px-2 py-1.5 rounded-full shadow-inner backdrop-blur-md"
-    >
-      <a
-        href="#about"
-        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
-        >About</a
-      >
-      <a
-        href="#skills"
-        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
-        >Skills</a
-      >
-      <a
-        href="#portfolio"
-        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
-        >Projects</a
-      >
-      <a
-        href="#experience"
-        class="px-5 py-2 rounded-full text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300"
-        >Journey</a
-      >
-    </div>
+    <!-- Center Editorial Indices -->
+    <nav class="hidden lg:flex items-center space-x-8 font-mono text-xs tracking-[0.22em] text-slate-400 uppercase">
+      <a href="#about" class="hover:text-white transition-colors flex items-center gap-1.5 group">
+        <span class="text-[10px] text-lime-400 font-bold">01</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">ABOUT</span>
+      </a>
+      <a href="#experience" class="hover:text-white transition-colors flex items-center gap-1.5 group">
+        <span class="text-[10px] text-lime-400 font-bold">02</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">EXPERIENCE</span>
+      </a>
+      <a href="#skills" class="hover:text-white transition-colors flex items-center gap-1.5 group">
+        <span class="text-[10px] text-lime-400 font-bold">03</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">SKILLS</span>
+      </a>
+      <a href="#portfolio" class="hover:text-white transition-colors flex items-center gap-1.5 group">
+        <span class="text-[10px] text-lime-400 font-bold">04</span>
+        <span class="group-hover:translate-x-0.5 transition-transform">PROJECTS</span>
+      </a>
+    </nav>
 
-    <div class="hidden md:block">
+    <!-- Right: Availability & Action Button -->
+    <div class="flex items-center gap-5">
+      <div class="hidden sm:flex items-center gap-2.5 font-mono text-[10px] text-slate-400 border-l border-white/10 pl-5">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-lime-500"></span>
+        </span>
+        <span class="tracking-widest">OPEN TO OPPORTUNITIES</span>
+      </div>
+
       <a
         href="#contact"
-        class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white transition-all duration-300 rounded-full group bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+        class="relative inline-flex items-center justify-center px-5 py-2 overflow-hidden font-mono text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-full bg-lime-400 text-black hover:bg-white hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] transform hover:scale-105"
       >
-        <span
-          class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"
-        ></span>
-        <span
-          class="relative flex items-center gap-2 text-sm font-semibold tracking-wide text-[var(--color-brand-primary)] group-hover:text-white transition-colors duration-300"
-        >
-          Let's Talk
-          <i
-            class="fas fa-paper-plane text-[var(--color-brand-primary)] group-hover:translate-x-1 transition-transform duration-300"
-          ></i>
-        </span>
+        <span>LET'S TALK</span>
+        <i class="fas fa-arrow-up-right-from-square text-[9px] ml-1.5"></i>
       </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button
+        class="lg:hidden relative w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white focus:outline-none hover:bg-white/10 transition-colors"
+        (click)="toggleMobileMenu()"
+        aria-label="Toggle mobile navigation"
+      >
+        <i class="fas fa-bars text-sm" *ngIf="!isMenuOpen"></i>
+        <i class="fas fa-times text-sm text-lime-400" *ngIf="isMenuOpen"></i>
+      </button>
     </div>
+  </div>
 
-    <button
-      class="md:hidden relative w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white focus:outline-none z-[60] hover:bg-white/10 transition-colors"
-      (click)="toggleMobileMenu()"
-      aria-label="Toggle mobile menu"
-    >
-      <i class="fas fa-bars text-lg" *ngIf="!isMenuOpen"></i>
-      <i
-        class="fas fa-times text-lg text-[var(--color-brand-highlight)]"
-        *ngIf="isMenuOpen"
-      ></i>
-    </button>
-  </nav>
-
+  <!-- Mobile Dropdown Menu -->
   <div
     *ngIf="isMenuOpen"
     [@menuToggle]
-    class="md:hidden absolute top-full left-0 w-full bg-[var(--color-brand-dark)]/90 backdrop-blur-3xl border-b border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.7)] z-[55] overflow-hidden"
+    class="lg:hidden border-t border-white/10 bg-black/90 backdrop-blur-2xl px-6 py-6"
   >
-    <div class="p-6 space-y-3">
+    <div class="flex flex-col space-y-4 font-mono text-xs tracking-[0.2em] uppercase">
       <a
         href="#about"
         (click)="closeMenu()"
-        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
+        class="text-slate-300 hover:text-lime-400 py-2 border-b border-white/5 flex justify-between items-center"
       >
-        <div
-          class="w-10 h-10 rounded-xl bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-primary)]/20 transition-all duration-300"
-        >
-          <i class="fas fa-user text-[var(--color-brand-primary)]"></i>
-        </div>
-        <span class="font-medium tracking-wide">About Me</span>
+        <span>01 // ABOUT</span>
+        <i class="fas fa-arrow-right text-[10px] opacity-40"></i>
       </a>
-
-      <a
-        href="#skills"
-        (click)="closeMenu()"
-        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
-      >
-        <div
-          class="w-10 h-10 rounded-xl bg-[var(--color-brand-secondary)]/10 border border-[var(--color-brand-secondary)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-secondary)]/20 transition-all duration-300"
-        >
-          <i class="fas fa-bolt text-[var(--color-brand-secondary)]"></i>
-        </div>
-        <span class="font-medium tracking-wide">My Skills</span>
-      </a>
-
       <a
         href="#experience"
         (click)="closeMenu()"
-        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
+        class="text-slate-300 hover:text-lime-400 py-2 border-b border-white/5 flex justify-between items-center"
       >
-        <div
-          class="w-10 h-10 rounded-xl bg-[var(--color-brand-highlight)]/10 border border-[var(--color-brand-highlight)]/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-[var(--color-brand-highlight)]/20 transition-all duration-300"
-        >
-          <i class="fas fa-map-signs text-[var(--color-brand-highlight)]"></i>
-        </div>
-        <span class="font-medium tracking-wide">My Journey</span>
+        <span>02 // EXPERIENCE</span>
+        <i class="fas fa-arrow-right text-[10px] opacity-40"></i>
       </a>
-
+      <a
+        href="#skills"
+        (click)="closeMenu()"
+        class="text-slate-300 hover:text-lime-400 py-2 border-b border-white/5 flex justify-between items-center"
+      >
+        <span>03 // SKILLS</span>
+        <i class="fas fa-arrow-right text-[10px] opacity-40"></i>
+      </a>
       <a
         href="#portfolio"
         (click)="closeMenu()"
-        class="flex items-center px-4 py-3 rounded-2xl text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-300 group"
+        class="text-slate-300 hover:text-lime-400 py-2 border-b border-white/5 flex justify-between items-center"
       >
-        <div
-          class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mr-4 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300"
-        >
-          <i class="fas fa-briefcase text-blue-400"></i>
-        </div>
-        <span class="font-medium tracking-wide">Projects</span>
+        <span>04 // PROJECTS</span>
+        <i class="fas fa-arrow-right text-[10px] opacity-40"></i>
       </a>
-
-      <div class="pt-4 mt-2 border-t border-white/10">
-        <a
-          href="#contact"
-          (click)="closeMenu()"
-          class="flex items-center justify-center px-4 py-3.5 rounded-2xl text-[var(--color-brand-dark)] bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-highlight)] hover:text-white transition-all duration-300 font-bold tracking-wide shadow-[0_0_20px_rgba(132,204,22,0.3)]"
-        >
-          Let's Talk <i class="fas fa-arrow-right ml-2"></i>
-        </a>
-      </div>
     </div>
   </div>
 </header>

@@ -1,131 +1,82 @@
 <section
   id="skills"
-  class="relative bg-[var(--color-brand-surface)] text-[var(--color-brand-text-on-dark)] py-20 md:py-32 overflow-hidden"
+  class="relative bg-[#060608] text-white py-24 md:py-32 border-t border-white/5 w-full max-w-full overflow-hidden box-border"
 >
-  <div class="blob-scene">
-    <div class="blob blob-1" style="top: -10%; left: -10%; opacity: 0.25"></div>
-    <div
-      class="blob blob-2"
-      style="bottom: -20%; right: -10%; opacity: 0.2"
-    ></div>
-    <div class="blob blob-3" style="top: 40%; left: 30%; opacity: 0.15"></div>
-    <div class="blob-ring blob-ring-2" style="top: 15%; right: 25%"></div>
-  </div>
+  <!-- Dedicated 3D Tech Constellation & Polyhedral Canvas -->
+  <app-skills-canvas></app-skills-canvas>
 
-  <div class="container mx-auto px-6 relative z-10">
-    <div
-      class="text-center mb-16 md:mb-24 opacity-0 apply-fade-in-up"
-      style="animation-delay: 0.1s"
-    >
-      <h2
-        class="text-4xl md:text-6xl font-[var(--font-display)] font-bold mb-6 text-white"
-      >
-        My
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-highlight)]"
-          >Skills</span
-        >
-      </h2>
-      <div
-        class="w-32 h-1.5 bg-gradient-to-r from-[var(--color-brand-primary)] to-[var(--color-brand-highlight)] mx-auto rounded-full"
-      ></div>
+  <!-- Architectural Background Grid -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-30"></div>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
+    <!-- Section Pre-Title -->
+    <div class="flex items-center gap-3 mb-4 md:mb-6">
+      <span class="h-[1px] w-8 md:w-16 bg-lime-400"></span>
+      <span class="micro-badge text-lime-400 font-bold tracking-[0.25em]">
+        [ 04 // TECHNICAL ARSENAL & TOOLCHAIN ]
+      </span>
     </div>
 
-    <div
-      class="relative opacity-0 apply-fade-in-up"
-      style="animation-delay: 0.3s"
-    >
-      @if (skills().length === 0) {
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
+          Technical Matrix.
+          <span class="block text-slate-400 font-light text-2xl md:text-3xl lowercase italic font-serif">
+            specialized disciplines.
+          </span>
+        </h2>
+      </div>
+      <div class="mt-4 md:mt-0 font-mono text-xs text-slate-400 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>PROFICIENCY INDEX // FULL-STACK & 3D COMPUTING</span>
+      </div>
+    </div>
+
+    <!-- 6-Category High-Density Capability Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (skill of skills(); track skill.id) {
         <div
-          class="flex flex-col justify-center items-center h-80 w-full glass-card rounded-3xl shadow-2xl"
+          (mouseenter)="onHover()"
+          class="group relative p-7 rounded-2xl bg-black/65 border border-white/10 hover:border-lime-400/50 hover:bg-white/[0.04] backdrop-blur-xl transition-all duration-300 flex flex-col justify-between shadow-xl overflow-hidden"
         >
-          <div
-            class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--color-brand-primary)]"
-          ></div>
-          <p
-            class="mt-4 text-slate-300 font-[var(--font-body)] font-medium tracking-wide"
-          >
-            Loading skills from database...
-          </p>
+          <!-- Corner Light Streak -->
+          <div class="absolute top-0 right-0 w-16 h-[2px] bg-gradient-to-l from-lime-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <div>
+            <!-- Top Card Header -->
+            <div class="flex items-center justify-between mb-6">
+              <span class="font-mono text-[10px] text-lime-400 font-bold tracking-widest uppercase">
+                // 0{{ skill.id }} • CORE
+              </span>
+              <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 group-hover:text-lime-400 group-hover:border-lime-400/40 transition-colors">
+                <i class="{{ skill.icon }} text-base"></i>
+              </div>
+            </div>
+
+            <h3 class="text-lg md:text-xl font-bold text-white mb-5 group-hover:text-lime-400 transition-colors">
+              {{ skill.title }}
+            </h3>
+
+            <!-- Tech Chips List -->
+            <div class="flex flex-wrap gap-2">
+              @for (item of skill.items; track $index) {
+                <span class="font-mono text-xs px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/5 text-slate-300 group-hover:border-white/15 hover:border-lime-400/40 hover:text-white transition-colors">
+                  {{ item }}
+                </span>
+              }
+            </div>
+          </div>
+
+          <!-- Bottom Micro Status -->
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between font-mono text-[10px] text-slate-500">
+            <span>DISCIPLINE VERIFIED</span>
+            <span class="text-lime-400 font-bold flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse"></span>
+              ACTIVE
+            </span>
+          </div>
         </div>
       }
-
-      <div [class.hidden]="skills().length === 0" class="relative">
-        <swiper-container #skillsSwiper class="skills-swiper" init="false">
-          @for (skill of skills(); track skill.id) {
-            <swiper-slide>
-              <div
-                class="glass-card p-8 md:p-10 rounded-[30px] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] h-full flex flex-col transition-all duration-500 ease-out group hover:-translate-y-3 hover:bg-white/10 hover:border-white/30 relative overflow-hidden"
-              >
-                <div
-                  class="absolute top-0 left-0 w-full h-1.5 opacity-70 group-hover:opacity-100 transition-opacity"
-                  [style.backgroundColor]="skill.accentColorVar"
-                ></div>
-
-                <div
-                  class="absolute -inset-4 rounded-[40px] blur-2xl opacity-0 group-hover:opacity-15 transition-opacity duration-500 z-0 pointer-events-none"
-                  [style.backgroundColor]="skill.accentColorVar"
-                ></div>
-
-                <div
-                  class="flex items-center mb-8 relative z-10"
-                  [style.color]="skill.accentColorVar"
-                >
-                  <div
-                    class="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner mr-5 group-hover:scale-110 transition-transform duration-300 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                  >
-                    <i
-                      class="{{
-                        skill.icon
-                      }} text-2xl md:text-3xl drop-shadow-md"
-                    ></i>
-                  </div>
-                  <h3
-                    class="text-2xl md:text-3xl font-[var(--font-display)] font-bold text-white tracking-wide transition-colors duration-300"
-                    [style.textShadow]="
-                      '0 0 15px ' + skill.accentColorVar + '50'
-                    "
-                  >
-                    {{ skill.title }}
-                  </h3>
-                </div>
-
-                <ul
-                  class="font-[var(--font-body)] text-slate-300 space-y-4 list-inside flex-grow text-left relative z-10"
-                >
-                  @for (item of skill.items; track $index) {
-                    <li
-                      class="flex items-start text-base md:text-lg group/item hover:text-white transition-colors duration-200"
-                    >
-                      <span
-                        class="w-2 h-2 rounded-full mt-2 mr-4 shrink-0 shadow-[0_0_8px_rgba(255,255,255,0.5)] transition-transform duration-300 group-hover/item:scale-150"
-                        [style.backgroundColor]="skill.accentColorVar"
-                      ></span>
-                      <span class="break-words leading-relaxed font-medium">{{
-                        item
-                      }}</span>
-                    </li>
-                  }
-                </ul>
-              </div>
-            </swiper-slide>
-          }
-        </swiper-container>
-
-        <div
-          class="swiper-button-prev-skills custom-swiper-nav absolute top-1/2 -left-4 sm:-left-6 md:-left-10 transform -translate-y-1/2 z-20 text-white bg-white/5 backdrop-blur-xl border border-white/20 w-14 h-14 flex items-center justify-center rounded-full hover:bg-white/20 transition-all duration-300 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:scale-110"
-        >
-          <i class="fas fa-chevron-left text-xl"></i>
-        </div>
-        <div
-          class="swiper-button-next-skills custom-swiper-nav absolute top-1/2 -right-4 sm:-right-6 md:-right-10 transform -translate-y-1/2 z-20 text-white bg-white/5 backdrop-blur-xl border border-white/20 w-14 h-14 flex items-center justify-center rounded-full hover:bg-white/20 transition-all duration-300 cursor-pointer shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:scale-110"
-        >
-          <i class="fas fa-chevron-right text-xl"></i>
-        </div>
-        <div
-          class="swiper-pagination-skills static mt-10 text-center z-20 relative"
-        ></div>
-      </div>
     </div>
   </div>
 </section>

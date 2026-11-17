@@ -1,228 +1,161 @@
 <section
   id="experience"
-  class="relative bg-[var(--color-brand-dark)] text-[var(--color-brand-text-on-dark)] py-24 md:py-32 overflow-hidden"
+  class="relative bg-[#060608] text-white py-24 md:py-32 border-t border-white/5 w-full max-w-full overflow-hidden box-border"
 >
-  <div class="blob-scene">
-    <div class="blob blob-1" style="top: 15%; left: -10%; opacity: 0.3"></div>
-    <div
-      class="blob blob-3"
-      style="bottom: 10%; right: -5%; top: auto; left: auto; opacity: 0.25"
-    ></div>
-    <div class="blob-ring blob-ring-1" style="top: 40%; left: 10%"></div>
+  <!-- Dedicated 3D Kinetic Career Highway Canvas -->
+  <app-experience-canvas></app-experience-canvas>
 
-    <div
-      class="absolute top-[20%] right-[15%] w-32 h-32 bg-[var(--color-brand-highlight)] rounded-2xl transform rotate-[30deg] opacity-20 blur-xl animate-pulse"
-    ></div>
-    <div
-      class="absolute bottom-[25%] left-[8%] w-40 h-40 bg-[var(--color-brand-secondary)] rounded-[2rem] transform -rotate-12 opacity-15 blur-2xl animate-pulse"
-      style="animation-delay: 2s"
-    ></div>
-  </div>
+  <!-- Architectural Grid Background -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-30"></div>
 
-  <div class="container mx-auto px-6 relative z-10 max-w-7xl">
-    <div
-      class="text-center mb-16 md:mb-24 opacity-0 apply-fade-in-up"
-      style="animation-delay: 0.1s"
-    >
-      <h2
-        class="text-4xl md:text-6xl font-[var(--font-display)] font-bold mb-6"
-      >
-        My
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)]"
-          >Journey</span
-        >
-      </h2>
-      <div
-        class="w-32 h-1.5 bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)] mx-auto rounded-full shadow-[0_0_15px_rgba(236,72,153,0.5)]"
-      ></div>
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
+    <!-- Section Pre-Title -->
+    <div class="flex items-center gap-3 mb-4 md:mb-6">
+      <span class="h-[1px] w-8 md:w-16 bg-lime-400"></span>
+      <span class="micro-badge text-lime-400 font-bold tracking-[0.25em]">
+        [ 03 // PROFESSIONAL TIMELINE & ACADEMIA ]
+      </span>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20">
-      <div class="opacity-0 apply-fade-in-up" style="animation-delay: 0.3s">
-        <div class="flex items-center mb-12">
-          <div
-            class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-brand-primary)] shadow-[0_8px_32px_0_rgba(132,204,22,0.2)] mr-6 group-hover:scale-110 transition-transform backdrop-blur-md"
-          >
-            <i class="fas fa-briefcase text-2xl md:text-3xl drop-shadow-md"></i>
-          </div>
-          <h3
-            class="text-3xl md:text-4xl font-[var(--font-display)] font-bold text-white tracking-wide"
-          >
-            Experience
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
+          Industry Impact.
+          <span class="block text-slate-400 font-light text-2xl md:text-3xl lowercase italic font-serif">
+            engineered milestones.
+          </span>
+        </h2>
+      </div>
+      <div class="mt-4 md:mt-0 font-mono text-xs text-slate-400 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-ping"></span>
+        <span>VERIFIED DOSSIER // 2024 — PRESENT</span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <!-- Left Column: Professional Work Experience Flight Logs -->
+      <div class="lg:col-span-7">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="w-2 h-2 bg-lime-400 rounded-full animate-pulse"></span>
+          <h3 class="font-mono text-xs font-bold tracking-[0.2em] text-lime-400 uppercase">
+            // COMMERCIAL FLIGHT RECORDER
           </h3>
         </div>
 
-        <div
-          class="space-y-10 relative before:absolute before:inset-0 before:ml-7 md:before:ml-[28px] before:-translate-x-px before:h-full before:w-1 before:bg-gradient-to-b before:from-[var(--color-brand-primary)] before:via-white/5 before:to-transparent"
-        >
+        <div class="space-y-6">
           @for (job of experiences(); track job.id) {
-            <div class="relative flex items-start group">
-              <div
-                class="absolute -top-6 -right-6 w-24 h-24 bg-[var(--color-brand-highlight)] rounded-xl transform rotate-45 opacity-0 group-hover:opacity-40 transition-all duration-500 blur-lg z-0 pointer-events-none group-hover:scale-110"
-              ></div>
+            <div
+              (mouseenter)="onHover()"
+              class="group relative p-6 md:p-8 rounded-2xl bg-black/60 border border-white/10 hover:border-lime-400/50 hover:bg-white/[0.03] backdrop-blur-xl transition-all duration-300 shadow-xl overflow-hidden"
+            >
+              <!-- Top Corner Accent -->
+              <div class="absolute top-0 right-0 w-16 h-[2px] bg-gradient-to-l from-lime-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-              <div
-                class="flex items-center justify-center w-14 h-14 rounded-full border-4 border-[var(--color-brand-dark)] bg-[var(--color-brand-primary)] absolute left-0 shadow-[0_0_20px_rgba(132,204,22,0.6)] z-20 group-hover:scale-125 transition-transform duration-500"
-              ></div>
-
-              <div
-                class="w-[calc(100%-5rem)] ml-auto glass-card p-8 rounded-3xl shadow-2xl hover:bg-white/10 hover:border-white/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden border-l-4 border-l-[var(--color-brand-primary)] z-10"
-              >
-                <div
-                  class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-6 gap-4"
-                >
-                  <div>
-                    <h4
-                      class="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-[var(--color-brand-primary)] transition-colors duration-300 leading-tight"
-                    >
-                      {{ job.jobTitle }}
-                    </h4>
-                    <p class="text-lg md:text-xl text-slate-300 font-medium">
-                      {{ job.companyName }}
-                    </p>
-                  </div>
-
-                  <div
-                    class="inline-flex items-center justify-center bg-[var(--color-brand-dark)]/80 text-[var(--color-brand-primary)] px-4 py-1.5 rounded-full text-sm font-bold border border-[var(--color-brand-primary)]/50 shadow-[0_0_15px_rgba(132,204,22,0.2)] backdrop-blur-md whitespace-nowrap h-fit"
-                  >
-                    {{ job.startDate || "Unknown" }} -
-                    {{
-                      job.isCurrentRole ? "Present" : job.endDate || "Unknown"
-                    }}
+              <!-- Top Row: Role, Company & Dates -->
+              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-4">
+                <div>
+                  <h4 class="text-xl md:text-2xl font-bold text-white group-hover:text-lime-400 transition-colors">
+                    {{ job.jobTitle }}
+                  </h4>
+                  <div class="flex items-center gap-2 mt-1 font-mono text-xs text-slate-400">
+                    <span class="text-white font-semibold">{{ job.companyName }}</span>
+                    <span>•</span>
+                    <span>{{ job.location || 'Dhaka, Bangladesh' }}</span>
                   </div>
                 </div>
 
-                @if (job.employmentType || job.location) {
-                  <div class="flex flex-wrap gap-3 mb-6">
-                    @if (job.employmentType) {
-                      <span
-                        class="px-3 py-1 text-sm font-medium rounded-lg bg-white/5 text-slate-300 border border-white/10"
-                      >
-                        <i
-                          class="fas fa-user-clock mr-2 text-[var(--color-brand-primary)]"
-                        ></i
-                        >{{ job.employmentType }}
-                      </span>
-                    }
-                    @if (job.location) {
-                      <span
-                        class="px-3 py-1 text-sm font-medium rounded-lg bg-white/5 text-slate-300 border border-white/10"
-                      >
-                        <i
-                          class="fas fa-map-marker-alt mr-2 text-[var(--color-brand-primary)]"
-                        ></i
-                        >{{ job.location }}
-                      </span>
-                    }
-                  </div>
-                }
-
-                @if (job.responsibilities && job.responsibilities.length > 0) {
-                  <ul
-                    class="space-y-3 text-slate-300 font-[var(--font-body)] text-base leading-relaxed"
-                  >
-                    @for (resp of job.responsibilities; track $index) {
-                      <li class="flex items-start">
-                        <span
-                          class="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-primary)] mt-2.5 mr-3 shrink-0 shadow-[0_0_8px_rgba(132,204,22,0.8)]"
-                        ></span>
-                        <span>{{ resp }}</span>
-                      </li>
-                    }
-                  </ul>
-                }
+                <div class="font-mono text-[11px] px-3 py-1 rounded-full border border-lime-400/30 bg-lime-400/10 text-lime-400 whitespace-nowrap self-start">
+                  {{ job.startDate }} — {{ job.isCurrentRole ? 'PRESENT' : job.endDate }}
+                </div>
               </div>
-            </div>
-          } @empty {
-            <div
-              class="flex justify-center items-center h-40 w-[calc(100%-5rem)] ml-auto glass-card border-l-4 border-l-[var(--color-brand-primary)] rounded-3xl"
-            >
-              <div
-                class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[var(--color-brand-primary)]"
-              ></div>
+
+              <!-- Responsibilities Bullets -->
+              @if (job.responsibilities && job.responsibilities.length > 0) {
+                <ul class="space-y-2.5 font-mono text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/5">
+                  @for (resp of job.responsibilities; track $index) {
+                    <li class="flex items-start gap-2.5">
+                      <span class="text-lime-400 shrink-0 font-bold mt-0.5">›</span>
+                      <span>{{ resp }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+
+              <!-- Bottom Status Pill -->
+              <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between font-mono text-[10px] text-slate-500">
+                <span>SYSTEM STATUS</span>
+                <span class="text-lime-400 font-bold uppercase">
+                  {{ job.isCurrentRole ? 'PRODUCTION ACTIVE' : 'DELIVERED & VERIFIED' }}
+                </span>
+              </div>
             </div>
           }
         </div>
       </div>
 
-      <div class="opacity-0 apply-fade-in-up" style="animation-delay: 0.5s">
-        <div class="flex items-center mb-12 mt-16 lg:mt-0">
-          <div
-            class="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-brand-secondary)] shadow-[0_8px_32px_0_rgba(168,85,247,0.2)] mr-6 group-hover:scale-110 transition-transform backdrop-blur-md"
-          >
-            <i
-              class="fas fa-graduation-cap text-2xl md:text-3xl drop-shadow-md"
-            ></i>
+      <!-- Right Column: Education & Professional References -->
+      <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
+        <!-- Education Stack -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+            <h3 class="font-mono text-xs font-bold tracking-[0.2em] text-cyan-400 uppercase">
+              // ACADEMIC DEGREES
+            </h3>
           </div>
-          <h3
-            class="text-3xl md:text-4xl font-[var(--font-display)] font-bold text-white tracking-wide"
-          >
-            Education
-          </h3>
+
+          <div class="space-y-4">
+            @for (edu of educations(); track edu.id) {
+              <div
+                (mouseenter)="onHover()"
+                class="group p-6 rounded-2xl bg-black/60 border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.03] backdrop-blur-xl transition-all duration-300 shadow-xl"
+              >
+                <div class="flex items-baseline justify-between mb-2">
+                  <h4 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">
+                    {{ edu.degree }}
+                  </h4>
+                  <span class="font-mono text-[11px] text-cyan-400 px-2.5 py-0.5 rounded-full bg-cyan-400/10 border border-cyan-400/20">
+                    {{ edu.startYear }} — {{ edu.endYear }}
+                  </span>
+                </div>
+                <div class="font-mono text-xs text-slate-300 mb-1">
+                  {{ edu.institution }}
+                </div>
+                <div class="font-mono text-[11px] text-slate-400 flex items-center justify-between">
+                  <span>{{ edu.location }}</span>
+                  <span class="text-slate-500">ACCREDITED</span>
+                </div>
+              </div>
+            }
+          </div>
         </div>
 
-        <div
-          class="space-y-10 relative before:absolute before:inset-0 before:ml-7 md:before:ml-[28px] before:-translate-x-px before:h-full before:w-1 before:bg-gradient-to-b before:from-[var(--color-brand-secondary)] before:via-white/5 before:to-transparent"
-        >
-          @for (school of educations(); track school.id) {
-            <div class="relative flex items-start group">
-              <div
-                class="absolute -top-6 -right-6 w-24 h-24 bg-[var(--color-brand-secondary)] rounded-xl transform rotate-45 opacity-0 group-hover:opacity-40 transition-all duration-500 blur-lg z-0 pointer-events-none group-hover:scale-110"
-              ></div>
+        <!-- Verified References Terminal Card -->
+        <div class="p-6 rounded-2xl bg-black/70 border border-white/10 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-20 h-[2px] bg-lime-400"></div>
+          
+          <div class="flex items-center justify-between mb-4">
+            <span class="micro-badge text-[10px] text-lime-400 font-bold tracking-widest">
+              // VERIFIED REFERENCES
+            </span>
+            <span class="font-mono text-[10px] text-slate-400 bg-white/5 px-2.5 py-0.5 rounded border border-white/10">
+              CRYPTOGRAPHIC STAMP
+            </span>
+          </div>
 
-              <div
-                class="flex items-center justify-center w-14 h-14 rounded-full border-4 border-[var(--color-brand-dark)] bg-[var(--color-brand-secondary)] absolute left-0 shadow-[0_0_20px_rgba(168,85,247,0.6)] z-20 group-hover:scale-125 transition-transform duration-500"
-              ></div>
-
-              <div
-                class="w-[calc(100%-5rem)] ml-auto glass-card p-8 rounded-3xl shadow-2xl hover:bg-white/10 hover:border-white/30 transition-all duration-500 hover:-translate-y-2 relative overflow-hidden border-l-4 border-l-[var(--color-brand-secondary)] z-10"
-              >
-                <div
-                  class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-4 gap-4"
-                >
-                  <div>
-                    <h4
-                      class="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-[var(--color-brand-secondary)] transition-colors duration-300 leading-tight"
-                    >
-                      {{ school.degree }}
-                    </h4>
-                    <p class="text-lg md:text-xl text-slate-300 font-medium">
-                      {{ school.institution }}
-                    </p>
-                  </div>
-
-                  <div
-                    class="inline-flex items-center justify-center bg-[var(--color-brand-dark)]/80 text-[var(--color-brand-secondary)] px-4 py-1.5 rounded-full text-sm font-bold border border-[var(--color-brand-secondary)]/50 shadow-[0_0_15px_rgba(168,85,247,0.2)] backdrop-blur-md whitespace-nowrap h-fit"
-                  >
-                    {{ school.startYear || "Unknown" }} -
-                    {{ school.endYear || "Unknown" }}
-                  </div>
-                </div>
-
-                @if (school.location) {
-                  <div class="flex flex-wrap gap-3 mt-6">
-                    <span
-                      class="px-3 py-1 text-sm font-medium rounded-lg bg-white/5 text-slate-300 border border-white/10"
-                    >
-                      <i
-                        class="fas fa-map-marker-alt mr-2 text-[var(--color-brand-secondary)]"
-                      ></i
-                      >{{ school.location }}
-                    </span>
-                  </div>
-                }
-              </div>
+          <div class="space-y-4 font-mono text-xs">
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-white font-bold">Muhammad Khabir Uddin</div>
+              <div class="text-slate-400 text-[11px]">Development Manager, Streams Tech Ltd</div>
+              <div class="text-lime-400 text-[11px] mt-1 select-all">khabir.aiub&#64;gmail.com</div>
             </div>
-          } @empty {
-            <div
-              class="flex justify-center items-center h-40 w-[calc(100%-5rem)] ml-auto glass-card border-l-4 border-l-[var(--color-brand-secondary)] rounded-3xl"
-            >
-              <div
-                class="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-[var(--color-brand-secondary)]"
-              ></div>
+
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
+              <div class="text-white font-bold">S M Abdullah Shafi</div>
+              <div class="text-slate-400 text-[11px]">Assistant Professor, AIUB</div>
+              <div class="text-lime-400 text-[11px] mt-1 select-all">abdullah.shafi&#64;aiub.edu</div>
             </div>
-          }
+          </div>
         </div>
       </div>
     </div>

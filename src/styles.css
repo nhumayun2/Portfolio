@@ -1,42 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --color-brand-dark: #09090b;
-  --color-brand-surface: #18181b;
+  --color-brand-dark: #060608;
+  --color-brand-surface: #0f1118;
   --color-brand-primary: #84cc16;
-  --color-brand-secondary: #a855f7;
+  --color-brand-secondary: #38bdf8;
   --color-brand-highlight: #ec4899;
   --font-display: "Poppins", sans-serif;
   --font-body: "Inter", sans-serif;
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip !important;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--color-brand-dark) !important;
   color: #f8fafc;
-  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip !important;
+  overflow-y: auto;
   margin: 0;
+  padding: 0;
+  position: relative;
 }
 
 /* ========================================================
    HEADER SCROLL STATES
    ======================================================== */
 .header-top {
-  background: rgba(9, 9, 11, 0.2);
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  background: rgba(6, 6, 8, 0.4);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
   box-shadow: none;
 }
 
 .header-scrolled {
-  background: rgba(9, 9, 11, 0.75);
+  background: rgba(6, 6, 8, 0.85);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -44,7 +58,7 @@ body {
    GLASSMORPHISM ENGINE
    ======================================================== */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(25px) saturate(180%);
   -webkit-backdrop-filter: blur(25px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -52,146 +66,26 @@ body {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Eliminate any old blob scene */
+.blob-scene {
+  display: none !important;
 }
 
 /* ========================================================
-   LIQUID 3D BLOB SYSTEM (Fainter & Slower)
+   MICRO-BRUTALIST LABELS & METRICS
    ======================================================== */
-.blob-scene {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* The Colored Lights */
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  will-change: transform;
-  /* SLOWED DOWN: Was 18s, now 35s */
-  animation: morphBlob 35s ease-in-out infinite;
-  /* FAINTER: Reduced base opacity */
-  opacity: 0.15;
-}
-
-.blob-1 {
-  width: 520px;
-  height: 520px;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(132, 204, 22, 0.4),
-    rgba(132, 204, 22, 0.1) 50%,
-    transparent 70%
-  );
-  top: -100px;
-  left: -100px;
-  animation-duration: 40s; /* Much slower */
-}
-
-.blob-2 {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(
-    circle at 70% 30%,
-    rgba(168, 85, 247, 0.35),
-    rgba(168, 85, 247, 0.1) 50%,
-    transparent 70%
-  );
-  bottom: -150px;
-  right: -100px;
-  animation-duration: 45s; /* Much slower */
-  animation-delay: -5s;
-}
-
-.blob-3 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(236, 72, 153, 0.3),
-    rgba(236, 72, 153, 0.1) 50%,
-    transparent 70%
-  );
-  top: 30%;
-  right: 15%;
-  animation-duration: 38s; /* Much slower */
-  animation-delay: -2s;
-}
-
-/* THE "FAKE 3D" RINGS */
-.blob-ring {
-  position: absolute;
-  border-radius: 50%;
-  will-change: transform;
-  /* SLOWED DOWN: Was 22s, now 40s */
-  animation: morphRing 40s ease-in-out infinite;
-
-  /* FAINTER: Reduced whites and shadow intensities to push it deeper */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-  box-shadow:
-    inset 20px 20px 30px rgba(255, 255, 255, 0.05),
-    inset -20px -20px 40px rgba(0, 0, 0, 0.7),
-    0 20px 40px rgba(0, 0, 0, 0.4);
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  opacity: 0.6; /* Made overall ring more transparent */
-}
-
-.blob-ring-1 {
-  width: 450px;
-  height: 450px;
-  top: 10%;
-  right: 5%;
-  animation-delay: -3s;
-}
-.blob-ring-2 {
-  width: 350px;
-  height: 350px;
-  bottom: 15%;
-  left: 5%;
-  animation-duration: 45s;
-}
-
-/* Morphing Keyframes */
-@keyframes morphBlob {
-  0% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-  50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-  }
-  100% {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-}
-
-@keyframes morphRing {
-  0% {
-    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
-    transform: rotate(180deg) scale(1.02);
-  }
-  100% {
-    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-    transform: rotate(360deg) scale(1);
-  }
+.micro-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #94a3b8;
 }
 
 /* Component Entry Animations */

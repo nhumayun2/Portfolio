@@ -1,136 +1,170 @@
 <section
   id="contact"
-  class="relative bg-[var(--color-brand-surface)] text-[var(--color-brand-text-on-dark)] py-24 md:py-32 overflow-hidden"
+  class="relative bg-[#060608] text-white py-24 md:py-32 border-t border-white/5 w-full max-w-full overflow-hidden box-border"
 >
-  <div class="blob-scene">
-    <div
-      class="blob blob-2"
-      style="top: 0%; left: 10%; bottom: auto; right: auto; opacity: 0.2"
-    ></div>
-    <div
-      class="blob blob-3"
-      style="bottom: 5%; right: 5%; top: auto; left: auto; opacity: 0.25"
-    ></div>
-    <div
-      class="blob-ring blob-ring-2"
-      style="top: 30%; left: 20%; width: 250px; height: 250px"
-    ></div>
-  </div>
+  <!-- Dedicated 3D Geospatial Transmission Globe Canvas -->
+  <app-contact-canvas></app-contact-canvas>
 
-  <div class="container mx-auto px-6 relative z-10 max-w-4xl">
-    <div
-      class="text-center mb-16 md:mb-24 opacity-0 apply-fade-in-up"
-      style="animation-delay: 0.1s"
-    >
-      <h2
-        class="text-4xl md:text-6xl font-[var(--font-display)] font-bold mb-6 text-white"
-      >
-        Let's
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)]"
-          >Connect</span
-        >
-      </h2>
-      <div
-        class="w-24 h-1.5 bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)] mx-auto rounded-full shadow-[0_0_15px_rgba(236,72,153,0.5)]"
-      ></div>
-      <p
-        class="mt-8 text-lg text-slate-400 font-[var(--font-body)] max-w-2xl mx-auto leading-relaxed"
-      >
-        Have a project in mind, a question, or just want to say hi? I'd love to
-        hear from you! Feel free to reach out.
-      </p>
-    </div>
+  <!-- Architectural Background Grid -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none opacity-30"></div>
 
+  <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
     @if (profile(); as data) {
-      <div
-        class="relative group opacity-0 apply-fade-in-up"
-        style="animation-delay: 0.3s"
-      >
-        <div
-          class="absolute -inset-2 bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)] rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 z-0 pointer-events-none"
-        ></div>
+      <!-- Section Pre-Title -->
+      <div class="flex items-center gap-3 mb-4 md:mb-6">
+        <span class="h-[1px] w-8 md:w-16 bg-lime-400"></span>
+        <span class="micro-badge text-lime-400 font-bold tracking-[0.25em]">
+          [ 06 // TRANSMISSION TERMINAL & GET IN TOUCH ]
+        </span>
+      </div>
 
-        <div
-          class="glass-card p-10 md:p-16 rounded-[2.5rem] relative overflow-hidden text-center shadow-2xl transform hover:-translate-y-2 transition-transform duration-500 border border-white/10 group-hover:border-white/20"
-        >
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-20">
+        <div>
+          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-white">
+            Initiate Contact.
+            <span class="block text-slate-400 font-light text-2xl md:text-3xl lowercase italic font-serif">
+              direct dispatch & networks.
+            </span>
+          </h2>
+        </div>
+        <div class="mt-4 md:mt-0 font-mono text-xs text-slate-400 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-lime-400 animate-ping"></span>
+          <span>STATUS: ACCEPTING INQUIRIES & OPPORTUNITIES</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Main Transmission Console (Left Column) -->
+        <div class="lg:col-span-7 space-y-6">
+          <!-- Primary Email Terminal Card -->
           <div
-            class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[var(--color-brand-highlight)] to-[var(--color-brand-secondary)] opacity-80"
-          ></div>
+            (mouseenter)="onHover()"
+            class="group p-8 md:p-10 rounded-2xl bg-black/75 border border-white/10 hover:border-lime-400/50 backdrop-blur-2xl transition-all duration-300 shadow-2xl relative overflow-hidden"
+          >
+            <!-- Corner Accent -->
+            <div class="absolute top-0 right-0 w-24 h-[2px] bg-lime-400"></div>
 
-          <div class="mb-14">
-            <p
-              class="text-sm font-bold tracking-[0.2em] text-slate-400 uppercase mb-5"
-            >
-              Primary Contact
-            </p>
+            <div class="flex items-center justify-between mb-4">
+              <span class="micro-badge text-[10px] text-lime-400 font-bold tracking-widest">
+                // DIRECT EMAIL CHANNEL
+              </span>
+              <button
+                type="button"
+                (click)="copyEmail()"
+                class="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:border-lime-400/50 transition-all font-mono text-[10px] flex items-center gap-1.5 cursor-pointer"
+              >
+                <i class="fas" [class.fa-check]="copied()" [class.fa-copy]="!copied()"></i>
+                <span>{{ copied() ? 'COPIED TO CLIPBOARD' : 'COPY ADDRESS' }}</span>
+              </button>
+            </div>
+
             <a
               [href]="'mailto:' + data.email"
-              class="inline-block text-2xl sm:text-3xl md:text-5xl font-[var(--font-display)] font-bold text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[var(--color-brand-highlight)] hover:to-[var(--color-brand-secondary)] transition-all duration-300 break-all drop-shadow-md"
+              class="block text-2xl sm:text-3xl md:text-4xl font-mono font-bold text-white hover:text-lime-400 transition-colors break-all mb-4 select-all"
             >
               {{ data.email }}
             </a>
-          </div>
 
-          <div>
-            <p
-              class="text-sm font-bold tracking-[0.2em] text-slate-400 uppercase mb-6"
-            >
-              Find Me On
+            <p class="font-mono text-xs text-slate-400 leading-relaxed max-w-xl">
+              Available for full-stack engineering roles, high-concurrency backend development, and creative interactive real-time 3D projects. Based in Dhaka, open to global and remote opportunities.
             </p>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
-              @if (data.gitHubUrl) {
-                <a
-                  [href]="data.gitHubUrl"
-                  target="_blank"
-                  aria-label="GitHub"
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-2xl glass-card flex items-center justify-center text-slate-300 hover:text-white hover:border-white/30 hover:bg-white/10 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all duration-300"
-                >
-                  <i class="fab fa-github text-2xl md:text-3xl"></i>
-                </a>
-              }
 
-              @if (data.linkedInUrl) {
-                <a
-                  [href]="data.linkedInUrl"
-                  target="_blank"
-                  aria-label="LinkedIn"
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-2xl glass-card flex items-center justify-center text-slate-300 hover:text-[#0A66C2] hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10 hover:scale-110 hover:shadow-[0_0_20px_rgba(10,102,194,0.3)] transition-all duration-300"
-                >
-                  <i class="fab fa-linkedin-in text-2xl md:text-3xl"></i>
+            <div class="mt-8 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+              <div class="flex items-center gap-2 text-slate-300">
+                <i class="fas fa-phone text-lime-400 text-xs"></i>
+                <a [href]="'tel:' + data.phone" class="hover:text-lime-400 transition-colors">
+                  {{ data.phone }}
                 </a>
-              }
-
-              @if (data.leetCodeUrl) {
-                <a
-                  [href]="data.leetCodeUrl"
-                  target="_blank"
-                  aria-label="LeetCode"
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-2xl glass-card flex items-center justify-center text-slate-300 hover:text-[#FFA116] hover:border-[#FFA116]/50 hover:bg-[#FFA116]/10 hover:scale-110 hover:shadow-[0_0_20px_rgba(255,161,22,0.3)] transition-all duration-300"
-                >
-                  <i class="fas fa-code text-2xl md:text-3xl"></i>
-                </a>
-              }
-
-              @if (data.websiteUrl) {
-                <a
-                  [href]="data.websiteUrl"
-                  target="_blank"
-                  aria-label="Website"
-                  class="w-14 h-14 md:w-16 md:h-16 rounded-2xl glass-card flex items-center justify-center text-slate-300 hover:text-[var(--color-brand-primary)] hover:border-[var(--color-brand-primary)]/50 hover:bg-[var(--color-brand-primary)]/10 hover:scale-110 hover:shadow-[0_0_20px_rgba(132,204,22,0.3)] transition-all duration-300"
-                >
-                  <i class="fas fa-globe text-2xl md:text-3xl"></i>
-                </a>
-              }
+              </div>
+              <div class="text-[10px] text-slate-500">ENCRYPTION: TLS 1.3 // SECURE</div>
             </div>
           </div>
+
+          <!-- Network Matrix Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <a
+              [href]="data.gitHubUrl"
+              target="_blank"
+              (mouseenter)="onHover()"
+              class="p-4 rounded-xl bg-black/60 border border-white/10 hover:border-lime-400/50 hover:bg-white/[0.04] backdrop-blur-md transition-all text-center group flex flex-col items-center justify-center gap-2"
+            >
+              <i class="fab fa-github text-xl text-slate-300 group-hover:text-lime-400 transition-colors"></i>
+              <span class="font-mono text-[11px] font-bold text-white">GITHUB</span>
+            </a>
+
+            <a
+              [href]="data.linkedInUrl"
+              target="_blank"
+              (mouseenter)="onHover()"
+              class="p-4 rounded-xl bg-black/60 border border-white/10 hover:border-cyan-400/50 hover:bg-white/[0.04] backdrop-blur-md transition-all text-center group flex flex-col items-center justify-center gap-2"
+            >
+              <i class="fab fa-linkedin text-xl text-slate-300 group-hover:text-cyan-400 transition-colors"></i>
+              <span class="font-mono text-[11px] font-bold text-white">LINKEDIN</span>
+            </a>
+
+            <a
+              [href]="data.leetCodeUrl"
+              target="_blank"
+              (mouseenter)="onHover()"
+              class="p-4 rounded-xl bg-black/60 border border-white/10 hover:border-amber-400/50 hover:bg-white/[0.04] backdrop-blur-md transition-all text-center group flex flex-col items-center justify-center gap-2"
+            >
+              <i class="fas fa-code text-xl text-slate-300 group-hover:text-amber-400 transition-colors"></i>
+              <span class="font-mono text-[11px] font-bold text-white">LEETCODE</span>
+            </a>
+
+            <a
+              [href]="data.websiteUrl"
+              target="_blank"
+              (mouseenter)="onHover()"
+              class="p-4 rounded-xl bg-black/60 border border-white/10 hover:border-pink-400/50 hover:bg-white/[0.04] backdrop-blur-md transition-all text-center group flex flex-col items-center justify-center gap-2"
+            >
+              <i class="fas fa-globe text-xl text-slate-300 group-hover:text-pink-400 transition-colors"></i>
+              <span class="font-mono text-[11px] font-bold text-white">LIVE WEB</span>
+            </a>
+          </div>
         </div>
-      </div>
-    } @else {
-      <div class="flex justify-center py-20 opacity-0 apply-fade-in-up">
-        <div
-          class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[var(--color-brand-highlight)] shadow-[0_0_20px_rgba(236,72,153,0.5)]"
-        ></div>
+
+        <!-- Geographic Location Telemetry (Right Column) -->
+        <div class="lg:col-span-5 p-8 rounded-2xl bg-black/75 border border-white/10 backdrop-blur-2xl shadow-2xl space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="micro-badge text-[10px] text-cyan-400 font-bold tracking-widest">
+              // DISPATCH COORDINATES
+            </span>
+            <span class="font-mono text-[10px] text-slate-400 bg-white/5 px-2 py-0.5 rounded">
+              GPS LOCK
+            </span>
+          </div>
+
+          <div class="font-mono">
+            <div class="text-white text-base font-bold mb-1">
+              {{ data.address }}
+            </div>
+            <div class="text-xs text-lime-400">
+              23.8041° N, 90.3654° E • DHAKA, BANGLADESH
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/5 font-mono text-xs space-y-3 text-slate-400">
+            <div class="flex justify-between">
+              <span class="text-slate-500">TIME ZONE:</span>
+              <span class="text-white">ASIA/DHAKA (GMT+6)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">AVAILABILITY:</span>
+              <span class="text-lime-400 font-bold">IMMEDIATE / DISPATCH READY</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500">WORK MODES:</span>
+              <span class="text-white">ON-SITE • HYBRID • REMOTE</span>
+            </div>
+          </div>
+
+          <!-- Globe Drag Hint -->
+          <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 font-mono text-[11px] text-slate-400 flex items-center gap-2">
+            <i class="fas fa-globe text-cyan-400 text-sm"></i>
+            <span>Interactive 3D Signal Globe: Click & drag the right viewport to rotate planetary coordinates.</span>
+          </div>
+        </div>
       </div>
     }
   </div>

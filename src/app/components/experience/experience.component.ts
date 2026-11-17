@@ -5,16 +5,19 @@ import {
   Experience,
   Education,
 } from '../../services/portfolio';
+import { SoundService } from '../../services/sound.service';
+import { ExperienceCanvasComponent } from './experience-canvas.component';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExperienceCanvasComponent],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.css',
 })
 export class ExperienceComponent implements OnInit {
   private portfolioService = inject(PortfolioService);
+  public soundService = inject(SoundService);
 
   experiences = signal<Experience[]>([]);
   educations = signal<Education[]>([]);
@@ -36,5 +39,9 @@ export class ExperienceComponent implements OnInit {
       next: (data) => this.educations.set(data),
       error: (err) => console.error('Error fetching educations:', err),
     });
+  }
+
+  onHover(): void {
+    this.soundService.playHoverBlip();
   }
 }
