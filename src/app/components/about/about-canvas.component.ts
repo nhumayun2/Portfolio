@@ -54,28 +54,22 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
   private intersectionObserver: IntersectionObserver | null = null;
   private isVisible = true;
 
-  // Root Black Hole & Wormhole System
-  private cosmicGroup = new THREE.Group();
+  // Root 3D Container
+  private vortexGroup = new THREE.Group();
 
-  // 1. Black Hole Singularity & Lensing Elements (Interstellar Gargantua Style)
-  private blackHoleShadow!: THREE.Mesh;
-  private innerPhotonRing!: THREE.Mesh;
-  private topLensingHalo!: THREE.Mesh;
-  private bottomLensingHalo!: THREE.Mesh;
-  private horizontalDiskMesh!: THREE.Mesh;
+  // Astrophysical Kerr Wormhole & Gravitational Well Meshes
+  private funnelMesh!: THREE.Mesh;
+  private funnelWireframe!: THREE.Mesh;
+  private throatGlowMesh!: THREE.Mesh;
+  private outerErgosphereRing!: THREE.Mesh;
+  private photonOrbitRing!: THREE.Mesh;
+  private vortexTexture!: THREE.CanvasTexture;
 
-  // 2. 3D Spacetime Funnel / Wormhole Grid (Einstein-Rosen Bridge)
-  private wormholeFunnelGrid!: THREE.LineSegments;
+  // Frame-Dragging Geodesic Streamlines
+  private streamlinesGroup = new THREE.Group();
+  private pulseBeads: { mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; offset: number; speed: number }[] = [];
 
-  // 3. Relativistic Accretion Particle Streams
-  private accretionParticles!: THREE.Points;
-  private particleCount = 1100;
-  private particleRadii!: Float32Array;
-  private particleAngles!: Float32Array;
-  private particleSpeeds!: Float32Array;
-  private particleYOffsets!: Float32Array;
-
-  // Mouse Parallax & Animation Timing
+  // Mouse Parallax & Timing
   private mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
   private startTime = 0;
   private lastTime = 0;
@@ -85,7 +79,7 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
 
     this.ngZone.runOutsideAngular(() => {
       this.initThree();
-      this.buildBlackHoleAndWormhole();
+      this.buildAstrophysicalVortex();
       this.setupObservers();
       this.animate();
     });
@@ -98,7 +92,7 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
 
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    this.camera.position.set(0, 0, 8.5);
+    this.camera.position.set(0, 0, 9.2);
 
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -108,21 +102,22 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
     this.renderer.setSize(width, height);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.4;
+    this.renderer.toneMappingExposure = 1.45;
 
     container.appendChild(this.renderer.domElement);
-    this.scene.add(this.cosmicGroup);
+    this.scene.add(this.vortexGroup);
 
-    // Position flanking the editorial bio on desktop
+    // Position flanking the right editorial text on desktop
     const isDesktop = width >= 1024;
-    this.cosmicGroup.position.set(isDesktop ? 2.6 : 0, isDesktop ? 0.1 : -0.7, -0.4);
-    this.cosmicGroup.scale.set(0.95, 0.95, 0.95);
+    this.vortexGroup.position.set(isDesktop ? 2.5 : 0, isDesktop ? 0.05 : -0.7, -0.2);
+    this.vortexGroup.scale.set(0.92, 0.92, 0.92);
   }
 
   /**
-   * Generates a procedural radial accretion texture for the disk
+   * Generates a high-resolution, procedural relativistic spiral vortex texture.
+   * Features glowing logarithmic spiral plasma arms that swirl into the throat.
    */
-  private createAccretionTexture(): THREE.CanvasTexture {
+  private createRelativisticVortexTexture(): THREE.CanvasTexture {
     const size = 1024;
     const canvas = document.createElement('canvas');
     canvas.width = size;
@@ -132,245 +127,249 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
     const cx = size / 2;
     const cy = size / 2;
 
-    const grad = ctx.createRadialGradient(cx, cy, size * 0.15, cx, cy, size * 0.5);
-    grad.addColorStop(0.0, 'rgba(0,0,0,0)');
-    grad.addColorStop(0.12, 'rgba(255,255,255,1.0)');     // White-hot photon edge
-    grad.addColorStop(0.22, 'rgba(132,204,22,0.95)');     // Intense Laser Lime
-    grad.addColorStop(0.42, 'rgba(56,189,248,0.75)');     // Relativistic Electric Cyan
-    grad.addColorStop(0.70, 'rgba(14,165,233,0.35)');     // Deep Cyan halo
-    grad.addColorStop(1.0, 'rgba(0,0,0,0)');
+    // Dark transparent base
+    ctx.clearRect(0, 0, size, size);
 
-    ctx.fillStyle = grad;
+    // 1. Radial Energy Gradient (Core throat intense white, mid-lime, outer cyan)
+    const baseGrad = ctx.createRadialGradient(cx, cy, size * 0.08, cx, cy, size * 0.48);
+    baseGrad.addColorStop(0.0, 'rgba(255, 255, 255, 1.0)');     // White-hot throat
+    baseGrad.addColorStop(0.15, 'rgba(132, 204, 22, 0.95)');    // Laser Lime
+    baseGrad.addColorStop(0.35, 'rgba(56, 189, 248, 0.75)');    // Electric Cyan
+    baseGrad.addColorStop(0.65, 'rgba(2, 132, 199, 0.35)');     // Relativistic Blue
+    baseGrad.addColorStop(1.0, 'rgba(0, 0, 0, 0)');             // Edge fade
+
+    ctx.fillStyle = baseGrad;
     ctx.fillRect(0, 0, size, size);
 
-    // Add high-speed relativistic streak noise
-    for (let r = 0; r < 240; r++) {
-      const angle = Math.random() * Math.PI * 2;
-      const radius = size * (0.16 + Math.random() * 0.32);
-      const x = cx + Math.cos(angle) * radius;
-      const y = cy + Math.sin(angle) * radius;
-      ctx.fillStyle = Math.random() > 0.4 ? 'rgba(255,255,255,0.45)' : 'rgba(132,204,22,0.55)';
+    // 2. High-speed Logarithmic Spiral Accretion Arms
+    const armCount = 6;
+    for (let arm = 0; arm < armCount; arm++) {
+      const baseAngle = (arm / armCount) * Math.PI * 2;
       ctx.beginPath();
-      ctx.arc(x, y, 1.5 + Math.random() * 2.5, 0, Math.PI * 2);
-      ctx.fill();
+
+      for (let r = size * 0.08; r < size * 0.48; r += 2) {
+        // Logarithmic spiral formula: theta = theta0 + b * ln(r)
+        const angle = baseAngle + Math.log(r / (size * 0.08)) * 3.2;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+
+        if (r === size * 0.08) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.strokeStyle = arm % 2 === 0 ? 'rgba(132, 204, 22, 0.85)' : 'rgba(56, 189, 248, 0.85)';
+      ctx.lineWidth = 14;
+      ctx.lineCap = 'round';
+      ctx.stroke();
     }
 
-    const tex = new THREE.CanvasTexture(canvas);
-    tex.wrapS = THREE.ClampToEdgeWrapping;
-    tex.wrapT = THREE.ClampToEdgeWrapping;
-    return tex;
+    // Secondary finer energetic filaments
+    for (let f = 0; f < 36; f++) {
+      const startAngle = Math.random() * Math.PI * 2;
+      ctx.beginPath();
+      for (let r = size * 0.12; r < size * 0.45; r += 4) {
+        const angle = startAngle + Math.log(r / (size * 0.12)) * 3.8;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+        if (r === size * 0.12) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(132, 204, 22, 0.6)';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+
+    this.vortexTexture = new THREE.CanvasTexture(canvas);
+    this.vortexTexture.wrapS = THREE.RepeatWrapping;
+    this.vortexTexture.wrapT = THREE.RepeatWrapping;
+    return this.vortexTexture;
   }
 
   /**
-   * Builds the Authentic Interstellar Black Hole + Curved Spacetime Wormhole Grid
+   * Constructs the authentic Astrophysical Wormhole / Kerr Gravitational Funnel
+   * Uses real relativistic physics:
+   * 1. Flamm's Paraboloid geometry (true embedding of curved spacetime)
+   * 2. Glowing accretion vortex surface with spinning plasma arms
+   * 3. Lense-Thirring Frame-Dragging geodesic streamlines
+   * 4. Throat Cherenkov radiation core
    */
-  private buildBlackHoleAndWormhole(): void {
-    // 1. Scene Lighting
+  private buildAstrophysicalVortex(): void {
+    // 1. Lighting
     const ambient = new THREE.AmbientLight(0x060810, 2.0);
     this.scene.add(ambient);
 
-    const dirLightLime = new THREE.DirectionalLight(0x84cc16, 3.5);
-    dirLightLime.position.set(5, 5, 4);
-    this.scene.add(dirLightLime);
+    const lightLime = new THREE.DirectionalLight(0x84cc16, 3.5);
+    lightLime.position.set(5, 5, 4);
+    this.scene.add(lightLime);
 
-    const dirLightCyan = new THREE.DirectionalLight(0x38bdf8, 3.0);
-    dirLightCyan.position.set(-5, -4, 3);
-    this.scene.add(dirLightCyan);
+    const lightCyan = new THREE.DirectionalLight(0x38bdf8, 3.0);
+    lightCyan.position.set(-5, -4, 3);
+    this.scene.add(lightCyan);
 
-    // 2. 3D Curved Spacetime Funnel / Wormhole Grid (Image 5 style)
-    // A radial wireframe mesh bending downward into the black hole singularity
-    const radialRings = 22;
-    const angularSegs = 48;
-    const maxRadius = 4.2;
-    const minRadius = 1.15;
+    // 2. Continuous 3D Gravitational Funnel Geometry (Flamm's Paraboloid Well)
+    const radialRings = 36;
+    const angularSegs = 64;
+    const rThroat = 0.55;
+    const rOuter = 3.6;
 
-    const gridLines: number[] = [];
+    const vertices: number[] = [];
+    const uvs: number[] = [];
+    const indices: number[] = [];
 
-    // Generate concentric grid rings bending into Z
     for (let i = 0; i <= radialRings; i++) {
       const p = i / radialRings;
-      const r = minRadius + p * (maxRadius - minRadius);
-      // Spacetime curvature function: steep gravitational dip near minRadius
-      const z = -2.8 * Math.pow(1 - p, 1.6);
+      // Exponential radial spread for dense detail near the throat
+      const r = rThroat + Math.pow(p, 1.4) * (rOuter - rThroat);
+      // Relativistic well: sharp gravitational descent into deep Z
+      const z = -3.2 * (1.0 / (Math.pow(r / rThroat, 0.95)) - 1.0 / Math.pow(rOuter / rThroat, 0.95));
 
-      for (let j = 0; j < angularSegs; j++) {
-        const a1 = (j / angularSegs) * Math.PI * 2;
-        const a2 = ((j + 1) / angularSegs) * Math.PI * 2;
+      for (let j = 0; j <= angularSegs; j++) {
+        const u = j / angularSegs;
+        const theta = u * Math.PI * 2;
 
-        gridLines.push(
-          Math.cos(a1) * r, Math.sin(a1) * r, z,
-          Math.cos(a2) * r, Math.sin(a2) * r, z
-        );
+        const x = Math.cos(theta) * r;
+        const y = Math.sin(theta) * r;
+
+        vertices.push(x, y, z);
+        uvs.push(u, p);
       }
     }
 
-    // Generate radial longitudinal spokes extending inward to the throat
-    for (let j = 0; j < angularSegs; j += 2) {
-      const a = (j / angularSegs) * Math.PI * 2;
-      for (let i = 0; i < radialRings; i++) {
-        const p1 = i / radialRings;
-        const p2 = (i + 1) / radialRings;
-        const r1 = minRadius + p1 * (maxRadius - minRadius);
-        const r2 = minRadius + p2 * (maxRadius - minRadius);
-        const z1 = -2.8 * Math.pow(1 - p1, 1.6);
-        const z2 = -2.8 * Math.pow(1 - p2, 1.6);
+    // Build triangle faces
+    for (let i = 0; i < radialRings; i++) {
+      for (let j = 0; j < angularSegs; j++) {
+        const a = i * (angularSegs + 1) + j;
+        const b = a + (angularSegs + 1);
+        const c = a + 1;
+        const d = b + 1;
 
-        gridLines.push(
-          Math.cos(a) * r1, Math.sin(a) * r1, z1,
-          Math.cos(a) * r2, Math.sin(a) * r2, z2
-        );
+        indices.push(a, b, c);
+        indices.push(c, b, d);
       }
     }
 
     const funnelGeo = new THREE.BufferGeometry();
-    funnelGeo.setAttribute('position', new THREE.Float32BufferAttribute(gridLines, 3));
-    const funnelMat = new THREE.LineBasicMaterial({
-      color: 0x38bdf8,
-      transparent: true,
-      opacity: 0.35,
-      blending: THREE.AdditiveBlending,
-    });
-    this.wormholeFunnelGrid = new THREE.LineSegments(funnelGeo, funnelMat);
-    this.wormholeFunnelGrid.rotation.x = Math.PI / 2.7;
-    this.cosmicGroup.add(this.wormholeFunnelGrid);
+    funnelGeo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    funnelGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    funnelGeo.setIndex(indices);
+    funnelGeo.computeVertexNormals();
 
-    // 3. The Gargantua Accretion Disk (Horizontal Plane)
-    const diskTexture = this.createAccretionTexture();
-    const diskGeo = new THREE.PlaneGeometry(7.2, 7.2);
-    const diskMat = new THREE.MeshBasicMaterial({
-      map: diskTexture,
+    const vortexTex = this.createRelativisticVortexTexture();
+
+    // Luminous Accretion Plasma Surface
+    const funnelMat = new THREE.MeshBasicMaterial({
+      map: vortexTex,
       transparent: true,
-      opacity: 0.92,
+      opacity: 0.95,
       side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending,
       depthWrite: false,
     });
-    this.horizontalDiskMesh = new THREE.Mesh(diskGeo, diskMat);
-    this.horizontalDiskMesh.rotation.x = Math.PI / 2.7;
-    this.cosmicGroup.add(this.horizontalDiskMesh);
+    this.funnelMesh = new THREE.Mesh(funnelGeo, funnelMat);
+    this.funnelMesh.rotation.x = Math.PI / 2.8;
+    this.vortexGroup.add(this.funnelMesh);
 
-    // 4. Gravitational Lensing Arcs (The Iconic Interstellar Gargantua Light Bending)
-    // Light from behind the black hole is gravitationally bent into an upright vertical halo
-    const lensRadius = 1.35;
-    const lensTube = 0.045;
-    const haloGeo = new THREE.TorusGeometry(lensRadius, lensTube, 20, 180);
-
-    const haloMatTop = new THREE.MeshBasicMaterial({
-      color: 0x84cc16,
-      transparent: true,
-      opacity: 0.88,
-      blending: THREE.AdditiveBlending,
-    });
-    this.topLensingHalo = new THREE.Mesh(haloGeo, haloMatTop);
-    // Tilted slightly backward behind the black hole to mirror general relativity lensing
-    this.topLensingHalo.position.set(0, 0, -0.15);
-    this.cosmicGroup.add(this.topLensingHalo);
-
-    const haloMatBottom = new THREE.MeshBasicMaterial({
+    // Subtle Spacetime Coordinate Wireframe Overlay
+    const wireMat = new THREE.MeshBasicMaterial({
       color: 0x38bdf8,
+      wireframe: true,
       transparent: true,
-      opacity: 0.65,
+      opacity: 0.16,
       blending: THREE.AdditiveBlending,
     });
-    this.bottomLensingHalo = new THREE.Mesh(haloGeo, haloMatBottom);
-    this.bottomLensingHalo.scale.set(1.12, 1.12, 1.12);
-    this.bottomLensingHalo.position.set(0, 0, -0.22);
-    this.cosmicGroup.add(this.bottomLensingHalo);
+    this.funnelWireframe = new THREE.Mesh(funnelGeo, wireMat);
+    this.funnelWireframe.rotation.x = Math.PI / 2.8;
+    this.funnelWireframe.scale.set(1.002, 1.002, 1.002);
+    this.vortexGroup.add(this.funnelWireframe);
 
-    // 5. The Event Horizon Shadow (Pure Opaque Pitch-Black Void)
-    // Must be 100% black silhouette with ZERO lighting or wireframe (blocks light behind it!)
-    const shadowGeo = new THREE.SphereGeometry(1.18, 64, 64);
-    const shadowMat = new THREE.MeshBasicMaterial({
-      color: 0x000000,
-    });
-    this.blackHoleShadow = new THREE.Mesh(shadowGeo, shadowMat);
-    // Positioned slightly in front of the lensing halo to occlude it properly
-    this.blackHoleShadow.position.set(0, 0, 0.02);
-    this.cosmicGroup.add(this.blackHoleShadow);
-
-    // 6. White-Hot Photon Ring (Razor Edge at Event Horizon Boundary)
-    const photonGeo = new THREE.TorusGeometry(1.2, 0.016, 16, 180);
-    const photonMat = new THREE.MeshBasicMaterial({
+    // 3. Wormhole Throat Exit / Singularity Ring
+    // A radiant white-hot ring located at the deepest constriction of the throat
+    const throatGeo = new THREE.TorusGeometry(0.58, 0.045, 16, 80);
+    const throatMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
       opacity: 0.95,
       blending: THREE.AdditiveBlending,
     });
-    this.innerPhotonRing = new THREE.Mesh(photonGeo, photonMat);
-    this.innerPhotonRing.position.set(0, 0, 0.05);
-    this.cosmicGroup.add(this.innerPhotonRing);
+    this.throatGlowMesh = new THREE.Mesh(throatGeo, throatMat);
+    this.throatGlowMesh.rotation.x = Math.PI / 2.8;
+    // Positioned deep at the throat vertex
+    this.throatGlowMesh.position.set(0, 0, -2.6);
+    this.vortexGroup.add(this.throatGlowMesh);
 
-    // 7. Swirling Relativistic Accretion Matter Particles (Keplerian Swirl)
-    this.particleRadii = new Float32Array(this.particleCount);
-    this.particleAngles = new Float32Array(this.particleCount);
-    this.particleSpeeds = new Float32Array(this.particleCount);
-    this.particleYOffsets = new Float32Array(this.particleCount);
+    // 4. Outer Relativistic Ergosphere Ring
+    const outerRingGeo = new THREE.TorusGeometry(3.62, 0.018, 16, 160);
+    const outerRingMat = new THREE.MeshStandardMaterial({
+      color: 0x84cc16,
+      emissive: 0x84cc16,
+      emissiveIntensity: 0.7,
+      metalness: 0.95,
+      roughness: 0.1,
+    });
+    this.outerErgosphereRing = new THREE.Mesh(outerRingGeo, outerRingMat);
+    this.outerErgosphereRing.rotation.x = Math.PI / 2.8;
+    this.vortexGroup.add(this.outerErgosphereRing);
 
-    const pPositions = new Float32Array(this.particleCount * 3);
-    const pColors = new Float32Array(this.particleCount * 3);
-
-    const clrWhite = new THREE.Color(0xffffff);
-    const clrLime = new THREE.Color(0x84cc16);
-    const clrCyan = new THREE.Color(0x38bdf8);
-
-    for (let i = 0; i < this.particleCount; i++) {
-      const u = Math.random();
-      const r = 1.25 + Math.pow(u, 1.7) * 2.6;
-      const angle = Math.random() * Math.PI * 2;
-      const yOffset = (Math.random() - 0.5) * 0.12 * (r * 0.6);
-
-      this.particleRadii[i] = r;
-      this.particleAngles[i] = angle;
-      // Keplerian velocity v ~ 1 / sqrt(r)
-      this.particleSpeeds[i] = (2.2 / Math.sqrt(r)) * (0.8 + Math.random() * 0.4);
-      this.particleYOffsets[i] = yOffset;
-
-      const pPos = this.calcDiskPosition(r, angle, yOffset);
-      pPositions[i * 3] = pPos.x;
-      pPositions[i * 3 + 1] = pPos.y;
-      pPositions[i * 3 + 2] = pPos.z;
-
-      // Color based on temperature / radius
-      let clr = clrLime;
-      if (r < 1.55) {
-        clr = clrWhite;
-      } else if (r > 2.4) {
-        clr = clrCyan;
-      }
-      pColors[i * 3] = clr.r;
-      pColors[i * 3 + 1] = clr.g;
-      pColors[i * 3 + 2] = clr.b;
-    }
-
-    const pGeo = new THREE.BufferGeometry();
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
-    pGeo.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
-
-    const pMat = new THREE.PointsMaterial({
-      size: 0.034,
-      vertexColors: true,
+    // 5. High-Energy Photon Orbit Ring
+    const photonRingGeo = new THREE.TorusGeometry(1.4, 0.024, 16, 120);
+    const photonRingMat = new THREE.MeshBasicMaterial({
+      color: 0x38bdf8,
       transparent: true,
       opacity: 0.85,
       blending: THREE.AdditiveBlending,
-      depthWrite: false,
     });
-    this.accretionParticles = new THREE.Points(pGeo, pMat);
-    this.cosmicGroup.add(this.accretionParticles);
-  }
+    this.photonOrbitRing = new THREE.Mesh(photonRingGeo, photonRingMat);
+    this.photonOrbitRing.rotation.x = Math.PI / 2.8;
+    this.photonOrbitRing.position.set(0, 0, -0.6);
+    this.vortexGroup.add(this.photonOrbitRing);
 
-  /**
-   * Helper to calculate 3D coordinates on the tilted accretion disk plane
-   */
-  private calcDiskPosition(radius: number, angle: number, yOffset: number): THREE.Vector3 {
-    const lx = Math.cos(angle) * radius;
-    const lz = Math.sin(angle) * radius;
-    const ly = yOffset;
+    // 6. Frame-Dragging Geodesic Streamlines with Infalling Energy Pulses
+    this.vortexGroup.add(this.streamlinesGroup);
+    this.streamlinesGroup.rotation.x = Math.PI / 2.8;
 
-    const tilt = Math.PI / 2.7;
-    const ty = ly * Math.cos(tilt) - lz * Math.sin(tilt);
-    const tz = ly * Math.sin(tilt) + lz * Math.cos(tilt);
+    const streamCount = 8;
+    const beadGeo = new THREE.SphereGeometry(0.04, 12, 12);
+    const beadMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-    return new THREE.Vector3(lx, ty, tz);
+    for (let s = 0; s < streamCount; s++) {
+      const baseTheta = (s / streamCount) * Math.PI * 2;
+      const curvePoints: THREE.Vector3[] = [];
+
+      // Create a smooth spiral trajectory curving from rOuter down into rThroat
+      const steps = 36;
+      for (let k = 0; k <= steps; k++) {
+        const f = k / steps;
+        const r = rOuter - f * (rOuter - rThroat);
+        const theta = baseTheta + Math.log((rOuter - rThroat * 0.8) / (r - rThroat * 0.5 + 0.1)) * 2.8;
+        const z = -3.2 * (1.0 / Math.pow(r / rThroat, 0.95) - 1.0 / Math.pow(rOuter / rThroat, 0.95));
+
+        curvePoints.push(new THREE.Vector3(Math.cos(theta) * r, Math.sin(theta) * r, z));
+      }
+
+      const curve = new THREE.CatmullRomCurve3(curvePoints);
+      const tubeGeo = new THREE.TubeGeometry(curve, 48, 0.012, 8, false);
+      const tubeMat = new THREE.MeshBasicMaterial({
+        color: s % 2 === 0 ? 0x84cc16 : 0x38bdf8,
+        transparent: true,
+        opacity: 0.55,
+        blending: THREE.AdditiveBlending,
+      });
+      const tubeMesh = new THREE.Mesh(tubeGeo, tubeMat);
+      this.streamlinesGroup.add(tubeMesh);
+
+      // Infalling energy pulse bead
+      const bead = new THREE.Mesh(beadGeo, beadMat);
+      this.streamlinesGroup.add(bead);
+      this.pulseBeads.push({
+        mesh: bead,
+        curve: curve,
+        offset: Math.random(),
+        speed: 0.25 + Math.random() * 0.2,
+      });
+    }
   }
 
   private setupObservers(): void {
@@ -387,7 +386,7 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
       const isDesktop = w >= 1024;
-      this.cosmicGroup.position.set(isDesktop ? 2.6 : 0, isDesktop ? 0.1 : -0.7, -0.4);
+      this.vortexGroup.position.set(isDesktop ? 2.5 : 0, isDesktop ? 0.05 : -0.7, -0.2);
     });
     this.resizeObserver.observe(el);
 
@@ -401,6 +400,7 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
     );
     this.intersectionObserver.observe(el);
 
+    // Mouse movement parallax
     window.addEventListener('mousemove', (e: MouseEvent) => {
       this.mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
       this.mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -420,58 +420,59 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
     this.lastTime = currentTime;
     const t = (currentTime - this.startTime) * 0.001;
 
-    // Smooth Parallax
-    this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.04;
-    this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.04;
+    // Smooth Mouse Parallax
+    this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.05;
+    this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.05;
 
-    // Rotate Horizontal Accretion Disk
-    if (this.horizontalDiskMesh) {
-      this.horizontalDiskMesh.rotation.z += delta * 0.45;
+    // Continuous Relativistic Plasma Rotation (Rotating Hole with Bright Color)
+    if (this.vortexTexture) {
+      // Texture offset rotation creates high-speed swirling motion into the hole
+      this.vortexTexture.offset.x = (t * 0.12) % 1;
     }
 
-    // Rotate Spacetime Wormhole Grid Funnel
-    if (this.wormholeFunnelGrid) {
-      this.wormholeFunnelGrid.rotation.z += delta * 0.15;
+    if (this.funnelMesh) {
+      this.funnelMesh.rotation.z += delta * 0.45;
+    }
+    if (this.funnelWireframe) {
+      this.funnelWireframe.rotation.z += delta * 0.45;
     }
 
-    // Dynamic Pulsing of Gravitational Lensing Halo
-    if (this.topLensingHalo) {
-      const haloScale = 1.0 + Math.sin(t * 2.2) * 0.025;
-      this.topLensingHalo.scale.set(haloScale, haloScale, haloScale);
-    }
-    if (this.bottomLensingHalo) {
-      const bScale = 1.12 + Math.cos(t * 1.8) * 0.03;
-      this.bottomLensingHalo.scale.set(bScale, bScale, bScale);
+    // Throat Cherenkov Pulse
+    if (this.throatGlowMesh) {
+      const pulse = 1.0 + Math.sin(t * 3.5) * 0.08;
+      this.throatGlowMesh.scale.set(pulse, pulse, pulse);
     }
 
-    // Swirling Accretion Particles with Keplerian Velocity
-    if (this.accretionParticles) {
-      const posAttr = this.accretionParticles.geometry.attributes['position'] as THREE.BufferAttribute;
-      const posArray = posAttr.array as Float32Array;
-
-      for (let i = 0; i < this.particleCount; i++) {
-        this.particleAngles[i] += this.particleSpeeds[i] * delta * 0.9;
-
-        // Inward gravitational pull towards the event horizon
-        this.particleRadii[i] -= delta * 0.055;
-        if (this.particleRadii[i] < 1.25) {
-          this.particleRadii[i] = 3.8;
-          this.particleSpeeds[i] = (2.2 / Math.sqrt(3.8)) * (0.8 + Math.random() * 0.4);
-        }
-
-        const p = this.calcDiskPosition(this.particleRadii[i], this.particleAngles[i], this.particleYOffsets[i]);
-        posArray[i * 3] = p.x;
-        posArray[i * 3 + 1] = p.y;
-        posArray[i * 3 + 2] = p.z;
-      }
-      posAttr.needsUpdate = true;
+    // High-Energy Photon Orbit Rotation
+    if (this.photonOrbitRing) {
+      this.photonOrbitRing.rotation.z -= delta * 0.65;
     }
 
-    // Overall Cosmic Group 3D Parallax Tilt (Responsive to mouse)
-    if (this.cosmicGroup) {
-      this.cosmicGroup.rotation.y = this.mouse.x * 0.28;
-      this.cosmicGroup.rotation.x = this.mouse.y * 0.22;
-      this.cosmicGroup.position.y = (window.innerWidth >= 1024 ? 0.1 : -0.7) + Math.sin(t * 1.4) * 0.04;
+    // Outer Ergosphere Rotation
+    if (this.outerErgosphereRing) {
+      this.outerErgosphereRing.rotation.z += delta * 0.2;
+    }
+
+    // Rotate Streamlines & Animate Infalling Energy Pulses
+    if (this.streamlinesGroup) {
+      this.streamlinesGroup.rotation.z += delta * 0.35;
+    }
+
+    for (const item of this.pulseBeads) {
+      item.offset = (item.offset + delta * item.speed) % 1;
+      const pt = item.curve.getPointAt(item.offset);
+      item.mesh.position.copy(pt);
+      // Particle accelerates and shrinks as it nears the throat
+      const s = 1.2 * (1 - item.offset * 0.5);
+      item.mesh.scale.set(s, s, s);
+    }
+
+    // Dynamic 3D Parallax Tilt (Natural Gravitational Depth)
+    if (this.vortexGroup) {
+      this.vortexGroup.rotation.y = this.mouse.x * 0.32;
+      this.vortexGroup.rotation.x = this.mouse.y * 0.24;
+      // Gentle floating hover
+      this.vortexGroup.position.y = (window.innerWidth >= 1024 ? 0.05 : -0.7) + Math.sin(t * 1.5) * 0.05;
     }
 
     this.renderer.render(this.scene, this.camera);
@@ -486,6 +487,9 @@ export class AboutCanvasComponent implements AfterViewInit, OnDestroy {
     }
     if (this.intersectionObserver) {
       this.intersectionObserver.disconnect();
+    }
+    if (this.vortexTexture) {
+      this.vortexTexture.dispose();
     }
     if (this.renderer) {
       this.renderer.dispose();
